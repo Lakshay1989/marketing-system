@@ -1,0 +1,11 @@
+@import "tailwindcss";
+:root { --cream:#fbf5ea; --forest:#14463f; --deep:#0c2f2a; --orange:#e8551f; --gold:#e9a23b; --line:#e1d5bd; --ink:#1f2a2e; }
+body { background: var(--cream); color: var(--ink); font-family: ui-sans-serif, -apple-system, "Inter", Helvetica, Arial, sans-serif; }
+.card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:1rem; }
+.btn { display:inline-flex; align-items:center; gap:.4rem; border-radius:10px; padding:.45rem .8rem; font-weight:700; font-size:.85rem; border:1px solid var(--forest); background:var(--forest); color:var(--cream); cursor:pointer; }
+.btn.ghost { background:#fff; color:var(--forest); }
+.btn.danger { background:#b42318; border-color:#b42318; }
+.btn.warn { background:var(--orange); border-color:var(--orange); }
+.pill { display:inline-block; border-radius:999px; padding:.1rem .6rem; font-size:.72rem; font-weight:700; background:#eee; }
+.pill.ok { background:#d8f0e0; color:#14532d; } .pill.bad { background:#fde0dc; color:#8a1c12; } .pill.wait { background:#fdf0cf; color:#7a5200; }
+table { width:100%; border-collapse:collapse; font-size:.85rem; } th { text-align:left; background:var(--forest); color:var(--cream); padding:.45rem .6rem; } td { border-bottom:1px solid var(--line); padding:.45rem .6rem; vertical-align:top; }
