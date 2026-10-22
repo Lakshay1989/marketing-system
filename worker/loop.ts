@@ -12,6 +12,7 @@ import { planConcepts } from "../src/lib/agents/strategy";
 import type { Runner } from "../src/lib/llm";
 import { produceConcept, type Renderer } from "../src/lib/production/produce";
 import { qaContentItem, type QaDeps } from "../src/lib/qa/run";
+import { runAnalytics } from "../src/lib/analytics/run";
 
 /** Queues publish jobs for approved items whose time has come. In Review mode nothing is auto-queued: the owner presses Publish. */
 export async function scheduleDue(db: Db, now = new Date()) {
@@ -23,7 +24,7 @@ export async function scheduleDue(db: Db, now = new Date()) {
 }
 
 /** Processes at most one job. Returns what happened so tests and the loop can assert on it. */
-export interface Deps { runner?: Runner; urlCheck?: (u: string) => Promise<number>; renderer?: Renderer; qa?: QaDeps }
+export interface Deps { runner?: Runner; urlCheck?: (u: string) => Promise<number>; renderer?: Renderer; qa?: QaDeps; env?: NodeJS.ProcessEnv }
 export async function runOnce(db: Db, publisher: Publisher, now = new Date(), deps: Deps = {}): Promise<string> {
   await recoverStale(db, 15, now);
   const job = await claimNext(db, now);
@@ -42,6 +43,11 @@ export async function runOnce(db: Db, publisher: Publisher, now = new Date(), de
     if (job.type === "daily_report") {
       await withRun(db, "ceo", "daily report", async () => { const rep = await buildReport(db, "daily", now); return { summary: rep.summaryText }; });
       await complete(db, job.id); return "daily_report done";
+    }
+    if (job.type === "analytics") {
+      const r = await withRun(db, "analytics", "collecting metrics", async () => { const out = await runAnalytics(db, deps.env); return { summary: `${out.snapshots} snapshot(s) from ${out.publications} post(s), ${out.insights} finding(s)`, output: out }; });
+      if (!r.ok) { const res = await fail(db, job, r.error ?? "analytics failed", now); return `analytics ${res}`; }
+      await complete(db, job.id); return "analytics done";
     }
     if (job.type === "qa") {
       const id = String(job.payload.contentItemId);
@@ -87,4 +93,11 @@ export async function ensureDailyPipeline(db: Db, now = new Date()) {
   const tz = await getSetting(db, "timezone");
   const day = new Intl.DateTimeFormat("en-CA", { timeZone: tz }).format(now);
   return enqueue(db, "daily_pipeline", {}, { idempotencyKey: `daily_pipeline:${day}`, maxAttempts: 3 });
+}
+
+/** Analytics once a day (idempotent per local day). Skipped quietly until the Meta connection exists. */
+export async function ensureDailyAnalytics(db: Db, now = new Date(), env: NodeJS.ProcessEnv = process.env) {
+  if (!env.META_PAGE_ACCESS_TOKEN) return null;
+  const tz = await getSetting(db, "timezone"); const day = new Intl.DateTimeFormat("en-CA", { timeZone: tz }).format(now);
+  return enqueue(db, "analytics", {}, { idempotencyKey: `analytics:${day}`, maxAttempts: 3 });
 }

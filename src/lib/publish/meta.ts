@@ -74,5 +74,5 @@ export function metaClient(cfg: MetaConfig) {
     return { externalId: start.video_id as string, url, verified: true, raw: look };
   }
 
-  return { checkAccounts, publishInstagramReel, publishInstagramStory, publishFacebookReel };
+  return { checkAccounts, publishInstagramReel, publishInstagramStory, publishFacebookReel, get: (path: string, params: Record<string, string> = {}) => call("GET", path, params) };
 }
