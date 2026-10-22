@@ -11,6 +11,7 @@ import { researchTrends } from "../src/lib/agents/trends";
 import { planConcepts } from "../src/lib/agents/strategy";
 import type { Runner } from "../src/lib/llm";
 import { produceConcept, type Renderer } from "../src/lib/production/produce";
+import { qaContentItem, type QaDeps } from "../src/lib/qa/run";
 
 /** Queues publish jobs for approved items whose time has come. In Review mode nothing is auto-queued: the owner presses Publish. */
 export async function scheduleDue(db: Db, now = new Date()) {
@@ -22,7 +23,7 @@ export async function scheduleDue(db: Db, now = new Date()) {
 }
 
 /** Processes at most one job. Returns what happened so tests and the loop can assert on it. */
-export interface Deps { runner?: Runner; urlCheck?: (u: string) => Promise<number>; renderer?: Renderer }
+export interface Deps { runner?: Runner; urlCheck?: (u: string) => Promise<number>; renderer?: Renderer; qa?: QaDeps }
 export async function runOnce(db: Db, publisher: Publisher, now = new Date(), deps: Deps = {}): Promise<string> {
   await recoverStale(db, 15, now);
   const job = await claimNext(db, now);
@@ -42,10 +43,22 @@ export async function runOnce(db: Db, publisher: Publisher, now = new Date(), de
       await withRun(db, "ceo", "daily report", async () => { const rep = await buildReport(db, "daily", now); return { summary: rep.summaryText }; });
       await complete(db, job.id); return "daily_report done";
     }
+    if (job.type === "qa") {
+      const id = String(job.payload.contentItemId);
+      const r = await withRun(db, "qa", `reviewing ${id.slice(0, 8)}`, async () => { const out = await qaContentItem(db, id, deps.qa); return { summary: out.skipped ? "already passed" : out.passed ? `passed (${out.warnings.length} warning(s))` : `FAILED: ${out.failed.map((f) => f.name).join(", ")}`, output: { passed: out.passed } }; });
+      if (!r.ok) { const res = await fail(db, job, r.error ?? "qa failed", now); return `qa ${res}`; }
+      await complete(db, job.id);
+      // a failed review reopens the concept for a revision: queue its production again
+      const [it] = await db.select().from(schema.contentItems).where(eq(schema.contentItems.id, id));
+      if (it?.status === "qa_failed" && it.conceptId) { const [c] = await db.select().from(schema.concepts).where(eq(schema.concepts.id, it.conceptId)); if (c?.status === "approved_for_production") await enqueue(db, "produce", { conceptId: c.id }, { idempotencyKey: `produce:${c.id}:rev:${it.id}`, maxAttempts: 2 }); }
+      return "qa done";
+    }
     if (job.type === "produce") {
       const id = String(job.payload.conceptId);
-      const r = await withRun(db, "production", `producing ${id.slice(0, 8)}`, async () => { const out = await produceConcept(db, id, deps.renderer); return { summary: out.skipped ? "already produced" : `produced ${out.assets} asset(s)${out.interactive ? " (needs manual sticker)" : ""}`, output: out as Record<string, unknown> }; });
+      const r = await withRun(db, "production", `producing ${id.slice(0, 8)}`, async () => { const out = await produceConcept(db, id, deps.renderer); return { summary: out.skipped ? "already produced" : `produced ${out.assets} asset(s)${out.interactive ? " (needs manual sticker)" : ""}`, output: out as Record<string, unknown>, result: out }; });
       if (!r.ok) { const res = await fail(db, job, r.error ?? "production failed", now); return `produce ${res}`; }
+      const made = (r.result as { contentItemId?: string } | undefined)?.contentItemId;
+      if (made) await enqueue(db, "qa", { contentItemId: made }, { idempotencyKey: `qa:${made}`, maxAttempts: 2 });
       await complete(db, job.id); return "produce done";
     }
     if (job.type === "daily_pipeline") {

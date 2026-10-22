@@ -2,7 +2,7 @@ import { createHash } from "node:crypto";
 import { spawn } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
-import { eq } from "drizzle-orm";
+import { and, eq, ne, sql } from "drizzle-orm";
 import { schema, type Db } from "@/db";
 import { loadCatalog } from "../agents/strategy";
 import { putMedia } from "../storage";
@@ -42,12 +42,14 @@ export async function produceConcept(db: Db, conceptId: string, renderer: Render
   if (c.format === "reel") { const r = buildReelSpec({ id: c.id, hook: c.hook, title: c.title, productSlugs: c.productSlugs }, catalog); spec = r.spec; if (r.padded.length) note.push(`padded with ${r.padded.join(", ")} to reach a full-length reel`); }
   else { const r = buildStorySpec({ id: c.id, hook: c.hook, title: c.title, productSlugs: c.productSlugs }, catalog); spec = r.spec; interactive = r.interactive; if (interactive) note.push("needs the poll sticker added manually in Instagram"); }
   const workDir = path.resolve(".data/production", c.id);
+  const [{ prior }] = await db.select({ prior: sql<number>`count(*)::int` }).from(schema.assets).where(and(eq(schema.assets.conceptId, c.id), ne(schema.assets.kind, "cover")));
+  const version = prior + 1;
   const out = await renderer(c.format === "reel" ? "reel" : "story", spec, workDir);
   const stored: { id: string; kind: string }[] = [];
   for (const f of out.files) {
-    const buf = fs.readFileSync(f.path); const key = `${c.format}s/${c.id}/${path.basename(f.path)}`;
+    const buf = fs.readFileSync(f.path); const key = `${c.format}s/${c.id}/v${version}/${path.basename(f.path)}`;
     await putMedia(key, buf, f.mime);
-    const [a] = await db.insert(schema.assets).values({ conceptId: c.id, kind: f.kind, storageKey: key, mimeType: f.mime, width: f.width, height: f.height, durationSec: f.durationSec, bytes: buf.length, qaStatus: "pending", qaReport: { notes: note, sha256: createHash("sha256").update(buf).digest("hex") } }).onConflictDoNothing().returning();
+    const [a] = await db.insert(schema.assets).values({ conceptId: c.id, kind: f.kind, storageKey: key, mimeType: f.mime, width: f.width, height: f.height, durationSec: f.durationSec, bytes: buf.length, qaStatus: "pending", version, qaReport: { notes: note, spec, audio: f.kind === "reel" ? "original-generated" : undefined, sha256: createHash("sha256").update(buf).digest("hex") } }).onConflictDoNothing().returning();
     if (a) stored.push({ id: a.id, kind: f.kind });
   }
   const main = stored.find((s) => s.kind !== "cover"); if (!main) throw new Error("Render produced no main asset");

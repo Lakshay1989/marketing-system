@@ -14,7 +14,7 @@
       lines.forEach((line, i) => { const sz = fitSize(line, base, 'arch'); html += T('arch', line, `left:60px;top:${top}px;font-size:${sz}px;color:${cols[i]}`); top += Math.round(sz * 1.04); });
       html += pcard(S.products[0].slug, 600, 1230, 400, 'transform:rotate(8deg)');
       const el = mk(html), ws = [...el.querySelectorAll('.arch')].map((w) => splitChars(w)), c = el.querySelector('.pc');
-      add(0, t1, el, (lt) => { ws.forEach((chs, i) => kin(chs, lt, i * 0.22, 0.28, 0.02, 'drop')); c.style.transform = `rotate(8deg) scale(${E.elastic(clamp((lt - 0.6) / 0.8))})`; });
+      add(0, t1, el, (lt) => { ws.forEach((chs, i) => kin(chs, lt + 0.2, i * 0.1, 0.28, 0.02, 'drop')); c.style.transform = `rotate(8deg) scale(${E.elastic(clamp((lt - 0.6) / 0.8))})`; });
     })();
     // 2) products: one 2-beat card each, real name and price
     S.products.forEach((p, i) => {
