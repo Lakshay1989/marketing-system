@@ -30,7 +30,7 @@ export function metaClient(cfg: MetaConfig) {
 
   /** Checks the connected accounts and what they can do. Used by the dashboard's account status. */
   async function checkAccounts() {
-    const ig = await call("GET", `/${cfg.igUserId}`, { fields: "username,account_type" }).then((r) => ({ ok: true as const, username: r.username as string, accountType: r.account_type as string })).catch((e: MetaError) => ({ ok: false as const, error: e.message }));
+    const ig = await call("GET", `/${cfg.igUserId}`, { fields: "username,followers_count,media_count" }).then((r) => ({ ok: true as const, username: r.username as string, accountType: "business (linked to Page)", followers: r.followers_count as number, media: r.media_count as number })).catch((e: MetaError) => ({ ok: false as const, error: e.message }));
     const page = await call("GET", `/${cfg.pageId}`, { fields: "name" }).then((r) => ({ ok: true as const, name: r.name as string })).catch((e: MetaError) => ({ ok: false as const, error: e.message }));
     return { instagram: ig, facebook: page };
   }

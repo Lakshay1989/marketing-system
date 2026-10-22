@@ -19,6 +19,7 @@ const appId = env.META_APP_ID || process.env.META_APP_ID; if (!appId) throw new 
 const appSecret = (await hidden("App secret (hidden). Just press Enter to skip if you used the Access Token Debugger: ")) || undefined;
 const shortToken = await hidden("Paste the ACCESS TOKEN (the extended one from the Debugger, or the Explorer token if you gave the secret) (hidden, then Enter): ");
 const r = await connectMeta({ appId, appSecret, shortToken, pageId: env.META_PAGE_ID || undefined });
+console.log(r.neverExpires ? "" : "WARNING: this Page token EXPIRES (see below). It was made from a short-lived login. Extend the user token in the Access Token Debugger and run this again for a permanent one.");
 console.log(`Page: ${r.pageName} (${r.pageId}) | Instagram: ${r.igUsername ? "@" + r.igUsername : "NOT LINKED"} | token never expires: ${r.neverExpires}`);
 if (r.missingScopes.length) console.log("MISSING PERMISSIONS (re-generate the token with these ticked):", r.missingScopes.join(", "));
 if (!r.igUserId) throw new Error("No Instagram business account is linked to this Page, or instagram_basic was not granted.");
