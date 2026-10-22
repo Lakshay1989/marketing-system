@@ -1,6 +1,6 @@
 # Status (22 Oct 2026): implemented vs blocked
 
-## Implemented and tested (28 automated tests pass; browser-tested locally)
+## Implemented and tested (52 automated tests pass; browser-tested locally)
 | Area | What exists |
 |---|---|
 | Foundation | New repo, own DB schema (16 tables) and migration, embedded Postgres for local/tests, Neon for production, auth (single owner password, signed session), health endpoint, JSON export of all data |
@@ -19,9 +19,12 @@
 - **Creative Director agent:** proposes concepts from real trends and the real catalogue, then rejects ones with unknown products, banned claims (health, safe, vet approved, discounts), generic or duplicate hooks, or weak scores. Rejections keep their reason.
 - **Worker runs a daily pipeline** (trends, then concepts) once a day after 06:00 local, and the Agents page has a "Run research + planning now" button.
 
+- **Creative Production agent (22 Oct):** turns each approved concept into finished media. Reels: kinetic hook, bouncing product cards with real names and prices from the catalogue, pet close-up burst, logo end card, an original soundtrack (no licensed audio), loudness-normalised with an automatic true-peak fix, 1080x1920 H.264, plus a cover. Stories: product-grid and poll backgrounds as 1080x1920 PNG. Files go to the private S3 bucket; a draft content item (QA pending) is created. Idempotent per concept. Content Studio previews play from signed links.
+- **Hard limits of production today:** it can only make the templates above (no filming, people, unboxing, step-by-step or voice-over). The Creative Director is told this, and rejects invented mascots, reels with fewer than 3 products, banned claims and weak scores.
+
 ## NOT implemented yet (needs building, in this order)
 1. **Caption/hashtag finishing per platform** (concepts already carry a draft caption).
-2. **Creative Production integration**: port the proven Kukur reel/story render pipeline (HTML motion engine, Chrome frame capture, ffmpeg, original audio) into this repo as a production job.
+2. (done) Creative Production. Still to add: animated Story videos, a bigger hook size on long hooks, more reel templates.
 3. **Automated QA checks**: ffprobe (size, duration, codec, audio loudness), spell check, price check against the website catalogue, duplicate detection.
 4. **Media storage upload** to R2/S3 (Meta needs a public URL for video files) and storing `storageKey` / `publicUrl`.
 5. **Analytics collection** from the Instagram and Facebook Insights APIs into `metrics_snapshots`, plus charts.

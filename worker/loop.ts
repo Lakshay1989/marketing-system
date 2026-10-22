@@ -10,6 +10,7 @@ import { audit } from "../src/lib/audit";
 import { researchTrends } from "../src/lib/agents/trends";
 import { planConcepts } from "../src/lib/agents/strategy";
 import type { Runner } from "../src/lib/llm";
+import { produceConcept, type Renderer } from "../src/lib/production/produce";
 
 /** Queues publish jobs for approved items whose time has come. In Review mode nothing is auto-queued: the owner presses Publish. */
 export async function scheduleDue(db: Db, now = new Date()) {
@@ -21,7 +22,7 @@ export async function scheduleDue(db: Db, now = new Date()) {
 }
 
 /** Processes at most one job. Returns what happened so tests and the loop can assert on it. */
-export interface Deps { runner?: Runner; urlCheck?: (u: string) => Promise<number> }
+export interface Deps { runner?: Runner; urlCheck?: (u: string) => Promise<number>; renderer?: Renderer }
 export async function runOnce(db: Db, publisher: Publisher, now = new Date(), deps: Deps = {}): Promise<string> {
   await recoverStale(db, 15, now);
   const job = await claimNext(db, now);
@@ -41,9 +42,18 @@ export async function runOnce(db: Db, publisher: Publisher, now = new Date(), de
       await withRun(db, "ceo", "daily report", async () => { const rep = await buildReport(db, "daily", now); return { summary: rep.summaryText }; });
       await complete(db, job.id); return "daily_report done";
     }
+    if (job.type === "produce") {
+      const id = String(job.payload.conceptId);
+      const r = await withRun(db, "production", `producing ${id.slice(0, 8)}`, async () => { const out = await produceConcept(db, id, deps.renderer); return { summary: out.skipped ? "already produced" : `produced ${out.assets} asset(s)${out.interactive ? " (needs manual sticker)" : ""}`, output: out as Record<string, unknown> }; });
+      if (!r.ok) { const res = await fail(db, job, r.error ?? "production failed", now); return `produce ${res}`; }
+      await complete(db, job.id); return "produce done";
+    }
     if (job.type === "daily_pipeline") {
       const t = await withRun(db, "trends", "researching trends", async () => { const r = await researchTrends(db, { runner: deps.runner, urlCheck: deps.urlCheck, now }); return { summary: `${r.verified} verified of ${r.found} found, ${r.inserted} new`, output: r }; });
       const c = await withRun(db, "strategy", "planning concepts", async () => { const r = await planConcepts(db, { runner: deps.runner, now }); return { summary: `${r.approved} approved of ${r.proposed} proposed`, output: r }; });
+      // hand every approved concept to the production agent (one queued job each; idempotent)
+      const ready = await db.select().from(schema.concepts).where(eq(schema.concepts.status, "approved_for_production"));
+      for (const k of ready) await enqueue(db, "produce", { conceptId: k.id }, { idempotencyKey: `produce:${k.id}`, maxAttempts: 2 });
       if (!t.ok && !c.ok) { const res = await fail(db, job, `pipeline failed: ${t.error} | ${c.error}`, now); return `pipeline ${res}`; }
       await complete(db, job.id); return `pipeline done (trends ${t.ok ? "ok" : "failed"}, strategy ${c.ok ? "ok" : "failed"})`;
     }

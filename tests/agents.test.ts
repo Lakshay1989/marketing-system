@@ -36,7 +36,13 @@ describe("trend research agent", () => {
 
 describe("creative director", () => {
   const cat = loadCatalog(); const slug = cat.products[0].slug;
-  const concept = (o: Partial<ConceptDraft> = {}): ConceptDraft => ({ title: "Dusk bed reveal", hook: "Sleep looks like this", format: "reel", platform: "instagram", productSlugs: [slug], storyboard: ["slow dusk gradient", "bed rises into frame", "logo end card"], cta: "Shop at kukur.shop", caption: "Soft places to land for dogs and cats. Find yours at kukur.shop", scores: { originality: 80, brandFit: 85, quality: 78, commercial: 75 }, ...o });
+  const concept = (o: Partial<ConceptDraft> = {}): ConceptDraft => ({ title: "Dusk bed reveal", hook: "Sleep looks like this", format: "reel", platform: "instagram", productSlugs: cat.products.slice(0, 3).map((p) => p.slug), storyboard: ["slow dusk gradient", "bed rises into frame", "logo end card"], cta: "Shop at kukur.shop", caption: "Soft places to land for dogs and cats. Find yours at kukur.shop", scores: { originality: 80, brandFit: 85, quality: 78, commercial: 75 }, ...o });
+  it("rejects invented mascots and reels with fewer than 3 products", () => {
+    const sl = new Set(cat.products.map((p) => p.slug)); const three = cat.products.slice(0, 3).map((p) => p.slug);
+    expect(judge(concept({ productSlugs: three, caption: "Meet Nugget, our resident chew-toy expert, with tips for every dog." }), sl, []).reason).toMatch(/named pet/);
+    expect(judge(concept({ productSlugs: [slug, cat.products[1].slug] }), sl, []).reason).toMatch(/at least 3/);
+    expect(judge(concept({ productSlugs: three }), sl, []).ok).toBe(true);
+  });
   it("flags banned claims", () => { expect(bannedClaim("Vet approved comfort")).toBeTruthy(); expect(bannedClaim("20% off today")).toBeTruthy(); expect(bannedClaim("A soft bed for the cat")).toBeNull(); });
   it("rejects weak, generic, duplicate, unknown-product and claim-making concepts", () => {
     const s = new Set(cat.products.map((p) => p.slug));

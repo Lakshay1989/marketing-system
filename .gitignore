@@ -8,3 +8,4 @@ next-env.d.ts
 media/
 .DS_Store
 logs/
+production/out/
