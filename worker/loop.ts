@@ -7,6 +7,9 @@ import { buildReport } from "../src/lib/reports";
 import { getSetting } from "../src/lib/settings";
 import { withRun } from "../src/lib/agents";
 import { audit } from "../src/lib/audit";
+import { researchTrends } from "../src/lib/agents/trends";
+import { planConcepts } from "../src/lib/agents/strategy";
+import type { Runner } from "../src/lib/llm";
 
 /** Queues publish jobs for approved items whose time has come. In Review mode nothing is auto-queued: the owner presses Publish. */
 export async function scheduleDue(db: Db, now = new Date()) {
@@ -18,7 +21,8 @@ export async function scheduleDue(db: Db, now = new Date()) {
 }
 
 /** Processes at most one job. Returns what happened so tests and the loop can assert on it. */
-export async function runOnce(db: Db, publisher: Publisher, now = new Date()): Promise<string> {
+export interface Deps { runner?: Runner; urlCheck?: (u: string) => Promise<number> }
+export async function runOnce(db: Db, publisher: Publisher, now = new Date(), deps: Deps = {}): Promise<string> {
   await recoverStale(db, 15, now);
   const job = await claimNext(db, now);
   if (!job) return "idle";
@@ -37,6 +41,12 @@ export async function runOnce(db: Db, publisher: Publisher, now = new Date()): P
       await withRun(db, "ceo", "daily report", async () => { const rep = await buildReport(db, "daily", now); return { summary: rep.summaryText }; });
       await complete(db, job.id); return "daily_report done";
     }
+    if (job.type === "daily_pipeline") {
+      const t = await withRun(db, "trends", "researching trends", async () => { const r = await researchTrends(db, { runner: deps.runner, urlCheck: deps.urlCheck, now }); return { summary: `${r.verified} verified of ${r.found} found, ${r.inserted} new`, output: r }; });
+      const c = await withRun(db, "strategy", "planning concepts", async () => { const r = await planConcepts(db, { runner: deps.runner, now }); return { summary: `${r.approved} approved of ${r.proposed} proposed`, output: r }; });
+      if (!t.ok && !c.ok) { const res = await fail(db, job, `pipeline failed: ${t.error} | ${c.error}`, now); return `pipeline ${res}`; }
+      await complete(db, job.id); return `pipeline done (trends ${t.ok ? "ok" : "failed"}, strategy ${c.ok ? "ok" : "failed"})`;
+    }
     await audit(db, "worker", "job.unknown_type", job.id, { type: job.type });
     await fail(db, { ...job, attempts: job.maxAttempts }, `Unknown job type ${job.type}`, now); return "unknown job type";
   } catch (e) { const res = await fail(db, job, String((e as Error).message), now); return `error ${res}`; }
@@ -47,4 +57,11 @@ export async function ensureDailyReport(db: Db, now = new Date()) {
   const tz = await getSetting(db, "timezone");
   const day = new Intl.DateTimeFormat("en-CA", { timeZone: tz }).format(now);
   return enqueue(db, "daily_report", {}, { idempotencyKey: `daily_report:${day}` });
+}
+
+/** One pipeline job per local day, due at 06:30 in the configured timezone (or immediately if the worker starts later in the day). */
+export async function ensureDailyPipeline(db: Db, now = new Date()) {
+  const tz = await getSetting(db, "timezone");
+  const day = new Intl.DateTimeFormat("en-CA", { timeZone: tz }).format(now);
+  return enqueue(db, "daily_pipeline", {}, { idempotencyKey: `daily_pipeline:${day}`, maxAttempts: 3 });
 }

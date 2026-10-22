@@ -10,14 +10,14 @@ Only you can do these (identity, 2FA, payments, consent). Values go in `.env` lo
 5. Generate a long-lived **Page access token**, find `META_PAGE_ID` and `META_IG_USER_ID`, and put them in `.env`. The dashboard Settings page shows only whether each is configured.
 6. Test with one harmless Reel first (Review mode). Verified publish = platform returns a permalink.
 
-## 2. Anthropic (agent reasoning)
-Create an API key in console.anthropic.com, set a monthly spend limit there, and put the key in `ANTHROPIC_API_KEY`. The app also stops calls at `AI_MONTHLY_BUDGET_USD`.
+## 2. Language model
+On this Mac the agents call the `claude` command (your Claude login), exactly like the job-search project, so no API key is needed for the pilot. For a server later, set `ANTHROPIC_API_KEY`. Spend is capped by `max_llm_calls_per_day` and `monthly_ai_budget_usd`.
 
-## 3. Storage and database
-Neon: new project for this app (`DATABASE_URL`). Cloudflare R2: a bucket with a public domain (`MEDIA_*`).
+## 3. Storage and database (DONE 22 Oct)
+Neon project `kukur-marketing-ai` (`DATABASE_URL`). S3 bucket `kukur-marketing-media-502657994824` in ap-southeast-2 with a bucket-only IAM user `kukur-marketing-worker` (`MEDIA_S3_*`). Note: your AWS organization policy only allowed bucket creation in some regions (Mumbai was denied).
 
 ## 4. Repository
-Proposed name: **kukur-marketing-ai** (private GitHub repo).
+Repo: https://github.com/Lakshay1989/marketing-system (currently public; make it private).
 
 ## Needs manual action or paid plans
 Stories stickers (poll, quiz, question, link) and in-app music; trending-audio discovery; paid ads; App Review if you ever connect accounts you do not own.

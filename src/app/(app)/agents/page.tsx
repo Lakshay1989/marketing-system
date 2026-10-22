@@ -1,7 +1,7 @@
 import { desc } from "drizzle-orm";
 import { getDb, schema } from "@/db";
 import { seedAgents } from "@/lib/agents";
-import { toggleAgent } from "../../actions";
+import { runPipelineNow, toggleAgent } from "../../actions";
 
 export default async function Agents() {
   const db = await getDb(); await seedAgents(db);
@@ -10,7 +10,7 @@ export default async function Agents() {
   const lastErr = (k: string) => runs.find((r) => r.agentKey === k && r.status === "failed");
   const lastRun = (k: string) => runs.find((r) => r.agentKey === k);
   return (
-    <div className="space-y-4"><h1 className="text-2xl font-black text-[var(--forest)]">Agent control centre</h1>
+    <div className="space-y-4"><div className="flex items-center justify-between"><h1 className="text-2xl font-black text-[var(--forest)]">Agent control centre</h1><form action={runPipelineNow}><button className="btn warn">Run research + planning now</button></form></div>
       <div className="grid gap-3 md:grid-cols-2">
         {agents.map((a) => (
           <section key={a.key} className="card">

@@ -1,0 +1,58 @@
+import fs from "node:fs";
+import path from "node:path";
+import { desc, eq, gte, and } from "drizzle-orm";
+import { z } from "zod";
+import { schema, type Db } from "@/db";
+import { complete, extractJson, type Runner } from "../llm";
+
+export interface CatalogProduct { slug: string; name: string; price: string; species: string[]; category: string }
+export const loadCatalog = (): { products: CatalogProduct[]; boxes: { slug: string; name: string; price: string | null }[] } => JSON.parse(fs.readFileSync(path.resolve("data/kukur-catalog.json"), "utf8"));
+
+const BANNED = [/vet[- ]approved/i, /\bsafe\b/i, /\bhealth(y|ier)?\b/i, /hypoallergenic/i, /\bbest price\b/i, /\b\d+\s*%\s*off\b/i, /\bdiscount\b/i, /guarantee/i, /\bcure/i, /non-?toxic/i];
+export const bannedClaim = (s: string) => BANNED.find((r) => r.test(s))?.source ?? null;
+const GENERIC = [/^(check out|meet) (our|the) (new|latest)/i, /^new arrivals?/i, /^shop now/i, /^you won'?t believe/i];
+
+const Concept = z.object({
+  title: z.string().min(4).max(100), hook: z.string().min(4).max(80), format: z.enum(["reel", "story"]), platform: z.enum(["instagram", "facebook"]),
+  trendTitle: z.string().optional(), productSlugs: z.array(z.string()).min(1).max(8), storyboard: z.array(z.string().min(3)).min(3).max(10),
+  cta: z.string().min(3).max(80), caption: z.string().min(20).max(700),
+  scores: z.object({ originality: z.number(), brandFit: z.number(), quality: z.number(), commercial: z.number() }),
+});
+export type ConceptDraft = z.infer<typeof Concept>;
+
+export function strategyPrompt(trends: { title: string; adaptation: string; platform: string }[], products: CatalogProduct[], recent: string[], n: number) {
+  return `You are the Creative Director for Kukur, an Indian pet store (dogs and cats). Brand: premium, warm, practical; colours forest green, cream, orange, gold; tagline "Every Tail Tells a Story."
+Produce ${n} ORIGINAL content concepts for tomorrow (mix of Instagram Reels, Instagram Stories and Facebook Reels). Avoid repeating these recent concepts: ${JSON.stringify(recent)}.
+Trend ideas available (adapt the idea, never copy): ${JSON.stringify(trends)}.
+Only use these real products (slug): ${products.map((p) => `${p.slug} (${p.name})`).join("; ")}.
+Rules: no health/safety/vet claims, no discounts or prices in the concept (prices are added from the catalogue later), no food or treats, no fake urgency. Hooks must be specific and punchy (max 8 words), not generic ("Check out our new..." is rejected). Each storyboard has 3-10 short scene descriptions.
+Score each concept honestly 0-100 on originality, brandFit, quality (production feasibility with motion graphics from product photos), commercial (reason to visit the store).
+Reply with ONLY a JSON array of: {"title","hook","format":"reel|story","platform":"instagram|facebook","trendTitle","productSlugs":[],"storyboard":[],"cta","caption","scores":{"originality","brandFit","quality","commercial"}}`;
+}
+
+export interface Verdict { ok: boolean; reason?: string }
+export function judge(c: ConceptDraft, slugs: Set<string>, existingHooks: string[]): Verdict {
+  const bad = c.productSlugs.find((s) => !slugs.has(s)); if (bad) return { ok: false, reason: `unknown product ${bad}` };
+  const claim = bannedClaim([c.title, c.hook, c.caption, c.cta, ...c.storyboard].join(" | ")); if (claim) return { ok: false, reason: `banned claim pattern ${claim}` };
+  if (GENERIC.some((r) => r.test(c.hook))) return { ok: false, reason: "generic hook" };
+  if (existingHooks.some((h) => h.toLowerCase() === c.hook.toLowerCase())) return { ok: false, reason: "duplicate hook" };
+  const s = c.scores; const min = Math.min(s.originality, s.brandFit, s.quality, s.commercial), avg = (s.originality + s.brandFit + s.quality + s.commercial) / 4;
+  if (min < 60 || avg < 70) return { ok: false, reason: `scores too low (min ${min}, avg ${avg.toFixed(0)})` };
+  return { ok: true };
+}
+
+export async function planConcepts(db: Db, deps: { runner?: Runner; n?: number; now?: Date } = {}) {
+  const now = deps.now ?? new Date(); const cat = loadCatalog();
+  const trends = await db.select().from(schema.trends).where(and(eq(schema.trends.status, "new"), gte(schema.trends.relevanceScore, 60))).orderBy(desc(schema.trends.relevanceScore)).limit(8);
+  const recent = (await db.select().from(schema.concepts).orderBy(desc(schema.concepts.createdAt)).limit(30));
+  const text = await complete(db, { purpose: "concept-planning", prompt: strategyPrompt(trends, cat.products, recent.map((r) => r.hook), deps.n ?? 6), timeoutMs: 600_000 }, deps.runner);
+  const raw = extractJson<unknown[]>(text); const slugs = new Set(cat.products.map((p) => p.slug)); const hooks = recent.map((r) => r.hook);
+  const out = { proposed: raw.length, approved: 0, rejected: [] as { hook: string; reason: string }[] };
+  for (const item of Array.isArray(raw) ? raw : []) {
+    const p = Concept.safeParse(item); if (!p.success) { out.rejected.push({ hook: String((item as any)?.hook ?? "?"), reason: "invalid shape" }); continue; }
+    const c = p.data; const v = judge(c, slugs, hooks); const trend = trends.find((t) => t.title === c.trendTitle);
+    await db.insert(schema.concepts).values({ trendId: trend?.id, title: c.title, hook: c.hook, storyboard: c.storyboard, format: c.format, platform: c.platform, scoreOriginality: c.scores.originality, scoreBrandFit: c.scores.brandFit, scoreQuality: c.scores.quality, scoreCommercial: c.scores.commercial, status: v.ok ? "approved_for_production" : "rejected", notes: v.reason ?? null, cta: c.cta, caption: c.caption, productSlugs: c.productSlugs, createdAt: now });
+    if (v.ok) { out.approved++; hooks.push(c.hook); if (trend) await db.update(schema.trends).set({ status: "selected" }).where(eq(schema.trends.id, trend.id)); } else out.rejected.push({ hook: c.hook, reason: v.reason! });
+  }
+  return out;
+}

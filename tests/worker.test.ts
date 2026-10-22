@@ -44,3 +44,16 @@ describe("worker", () => {
     expect((await db.select().from(schema.reports)).length).toBe(1);
   });
 });
+
+describe("daily pipeline job", () => {
+  it("runs research then planning through the queue and records both agent runs", async () => {
+    const { ensureDailyPipeline } = await import("../worker/loop");
+    const db = await testDb();
+    const slug = (await import("@/lib/agents/strategy")).loadCatalog().products[0].slug;
+    const runner = async ({ prompt }: { prompt: string }) => ({ via: "cli" as const, result: JSON.stringify(prompt.includes("Social Trend Research") ? [{ platform: "instagram", title: "Dusk reveal pattern", sourceUrl: "https://example.com/p", evidence: "A brand reveals a bed at dusk with slow push-in.", relevance: 80, adaptation: "Kukur original dusk reveal of the cosy bed." }] : [{ title: "Dusk reveal", hook: "Sleep looks like this", format: "reel", platform: "instagram", trendTitle: "Dusk reveal pattern", productSlugs: [slug], storyboard: ["dusk sky", "bed rises", "logo end"], cta: "Shop at kukur.shop", caption: "Soft places to land for dogs and cats. Find yours at kukur.shop", scores: { originality: 80, brandFit: 85, quality: 78, commercial: 75 } }]) });
+    expect(await ensureDailyPipeline(db)).not.toBeNull(); expect(await ensureDailyPipeline(db)).toBeNull();
+    expect(await runOnce(db, async () => { throw new Error("x"); }, new Date(), { runner, urlCheck: async () => 200 })).toMatch(/pipeline done/);
+    expect((await db.select().from(schema.concepts)).filter((c) => c.status === "approved_for_production")).toHaveLength(1);
+    expect((await db.select().from(schema.agentRuns)).map((r) => r.agentKey).sort()).toEqual(["strategy", "trends"]);
+  });
+});

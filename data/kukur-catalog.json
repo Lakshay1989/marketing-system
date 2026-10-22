@@ -1,0 +1,741 @@
+{
+ "products": [
+  {
+   "slug": "dog-slicker-brush",
+   "name": "Dog Slicker-Style Brush",
+   "price": "589.00",
+   "desc": "A hand brush for regular grooming of medium to long coats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "brushes"
+  },
+  {
+   "slug": "dog-finishing-comb",
+   "name": "Dog Finishing Comb",
+   "price": "379.00",
+   "desc": "A comb for checking tangles and finishing after brushing.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "brushes"
+  },
+  {
+   "slug": "dog-grooming-wipes",
+   "name": "Dog Grooming Wipes",
+   "price": "319.00",
+   "desc": "Pre-moistened wipes for tidying the coat and paws between baths.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "wipes"
+  },
+  {
+   "slug": "paw-towel",
+   "name": "Paw & Dry Towel",
+   "price": "319.00",
+   "desc": "A reusable towel for wiping paws after walks and drying after baths.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "towels"
+  },
+  {
+   "slug": "dog-nail-clipper",
+   "name": "Dog Nail Clipper",
+   "price": "489.00",
+   "desc": "A hand clipper for trimming dog nails at home.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "nails"
+  },
+  {
+   "slug": "dog-waste-bags",
+   "name": "Dog Waste Bags",
+   "price": "229.00",
+   "desc": "Roll of bags for picking up after walks.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "cleanup"
+  },
+  {
+   "slug": "cat-grooming-brush",
+   "name": "Cat Grooming Brush",
+   "price": "599.00",
+   "desc": "A hand brush made for regular cat coat care.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "brushes"
+  },
+  {
+   "slug": "cat-grooming-wipes",
+   "name": "Cat Grooming Wipes",
+   "price": "319.00",
+   "desc": "Pre-moistened wipes sold for cats only, for coat tidy-ups.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "wipes"
+  },
+  {
+   "slug": "pet-shampoo",
+   "name": "Pet Shampoo (coming soon)",
+   "price": null,
+   "desc": "Not yet available. We will list a shampoo only after a compliant supplier and label are confirmed.",
+   "avail": null,
+   "species": [
+    "dog"
+   ],
+   "category": "bath"
+  },
+  {
+   "slug": "dog-everyday-collar",
+   "name": "Dog Everyday Collar",
+   "price": "219.00",
+   "desc": "An adjustable everyday collar for dogs, in five sizes.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "collars"
+  },
+  {
+   "slug": "dog-everyday-leash",
+   "name": "Dog Everyday Leash",
+   "price": "339.00",
+   "desc": "A simple hand leash for daily walks.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "leashes"
+  },
+  {
+   "slug": "dog-everyday-harness",
+   "name": "Dog Everyday Harness",
+   "price": "789.00",
+   "desc": "A step-in style harness for dogs who pull on a collar.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "harnesses"
+  },
+  {
+   "slug": "dog-harness-leash-set",
+   "name": "Dog Harness & Leash Set",
+   "price": "489.00",
+   "desc": "A matching harness and leash sold together for new dog parents.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "harnesses"
+  },
+  {
+   "slug": "cat-collar",
+   "name": "Cat Collar",
+   "price": "409.00",
+   "desc": "A lightweight adjustable collar made for cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "collars"
+  },
+  {
+   "slug": "cat-harness-leash-set",
+   "name": "Cat Harness & Leash Set",
+   "price": "459.00",
+   "desc": "A harness and leash set for supervised outdoor time with a cat.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "harnesses"
+  },
+  {
+   "slug": "dog-feeding-bowl",
+   "name": "Dog Feeding Bowl",
+   "price": "219.00",
+   "desc": "A plain everyday bowl for water or meals.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "bowls"
+  },
+  {
+   "slug": "dog-slow-feeder-bowl",
+   "name": "Dog Slow-Feeder Bowl",
+   "price": "739.00",
+   "desc": "A bowl with raised ridges that makes mealtime take longer.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "bowls"
+  },
+  {
+   "slug": "cat-feeding-bowl",
+   "name": "Cat Feeding Bowl",
+   "price": "329.00",
+   "desc": "A shallow bowl sized for cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "bowls"
+  },
+  {
+   "slug": "travel-bowl",
+   "name": "Foldable Travel Bowl",
+   "price": "419.00",
+   "desc": "A bowl that folds flat for walks, drives and trips.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "travel"
+  },
+  {
+   "slug": "dog-snuffle-mat",
+   "name": "Dog Snuffle Mat",
+   "price": "309.00",
+   "desc": "A fabric mat for scattering part of a meal so your dog can sniff it out.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "bowls"
+  },
+  {
+   "slug": "pet-water-bottle",
+   "name": "Portable Pet Water Bottle",
+   "price": "409.00",
+   "desc": "A walking-friendly bottle with an attached drinking tray.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "travel"
+  },
+  {
+   "slug": "dog-lounger-bed",
+   "name": "Dog Lounger Bed",
+   "price": "1789.00",
+   "desc": "A lounger-style bed with raised sides for dogs who like to curl up.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "beds"
+  },
+  {
+   "slug": "dog-flat-mat",
+   "name": "Dog Flat Mat",
+   "price": "859.00",
+   "desc": "A flat mat for crates, floors and car boots.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "beds"
+  },
+  {
+   "slug": "dog-blanket",
+   "name": "Dog Blanket",
+   "price": "1989.00",
+   "desc": "A blanket to line a bed, sofa or car seat.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "beds"
+  },
+  {
+   "slug": "cat-cosy-bed",
+   "name": "Cat Cosy Bed",
+   "price": "1559.00",
+   "desc": "A round bed with raised sides for cats who like to nest.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "beds"
+  },
+  {
+   "slug": "dog-rope-toy",
+   "name": "Dog Rope Toy",
+   "price": "179.00",
+   "desc": "A knotted rope for tug and fetch.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "toys"
+  },
+  {
+   "slug": "dog-plush-squeaky-toy",
+   "name": "Dog Plush Squeaky Toy",
+   "price": "329.00",
+   "desc": "A plush toy with a squeaker for carry-and-cuddle play.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "toys"
+  },
+  {
+   "slug": "dog-fetch-ball",
+   "name": "Dog Fetch Ball",
+   "price": "199.00",
+   "desc": "A ball for fetch in the park or garden.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "toys"
+  },
+  {
+   "slug": "dog-tug-toy",
+   "name": "Dog Tug Toy",
+   "price": "199.00",
+   "desc": "A two-handled tug toy for games with you.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "toys"
+  },
+  {
+   "slug": "cat-wand-toy",
+   "name": "Cat Wand Toy",
+   "price": "259.00",
+   "desc": "A wand with a dangling lure for interactive play.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "toys"
+  },
+  {
+   "slug": "cat-plush-toy",
+   "name": "Cat Plush Toy",
+   "price": "219.00",
+   "desc": "A small plush toy sized for batting and carrying.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "toys"
+  },
+  {
+   "slug": "dog-pin-brush",
+   "name": "Dog Pin Brush",
+   "price": "589.00",
+   "desc": "A pin-style brush for smoothing longer coats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "brushes"
+  },
+  {
+   "slug": "dog-bath-towel",
+   "name": "Dog Bath Towel",
+   "price": "319.00",
+   "desc": "A larger towel for drying after baths or monsoon walks.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "towels"
+  },
+  {
+   "slug": "dog-waste-bag-dispenser",
+   "name": "Waste Bag Dispenser",
+   "price": "269.00",
+   "desc": "A clip-on dispenser that holds a roll of waste bags on the leash.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "cleanup"
+  },
+  {
+   "slug": "dog-poop-scooper",
+   "name": "Dog Poop Scooper",
+   "price": "679.00",
+   "desc": "A hand scooper for gardens and lawns.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "cleanup"
+  },
+  {
+   "slug": "dog-training-pads",
+   "name": "Dog Training Pads",
+   "price": "519.00",
+   "desc": "Absorbent indoor pads for puppies and apartment dogs.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "cleanup"
+  },
+  {
+   "slug": "cat-litter-scoop",
+   "name": "Cat Litter Scoop",
+   "price": "99.00",
+   "desc": "A handled scoop for litter trays.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "litter"
+  },
+  {
+   "slug": "dog-raincoat",
+   "name": "Dog Raincoat",
+   "price": "519.00",
+   "desc": "A hooded coat for monsoon walks.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "clothing"
+  },
+  {
+   "slug": "dog-tshirt",
+   "name": "Dog T-Shirt",
+   "price": "319.00",
+   "desc": "A light t-shirt for photos and outings.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "clothing"
+  },
+  {
+   "slug": "dog-sweater",
+   "name": "Dog Winter Sweater",
+   "price": "899.00",
+   "desc": "A knit-style sweater for cooler mornings and evenings.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "clothing"
+  },
+  {
+   "slug": "dog-festive-bandana",
+   "name": "Festive Dog Bandana",
+   "price": "109.00",
+   "desc": "A bandana in festive colours for family photos and gatherings.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "clothing"
+  },
+  {
+   "slug": "dog-festive-bow-tie",
+   "name": "Festive Dog Bow Tie",
+   "price": "229.00",
+   "desc": "A bow tie that slips onto a collar for festive photos.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "clothing"
+  },
+  {
+   "slug": "pet-carrier-bag",
+   "name": "Pet Carrier Bag",
+   "price": "2719.00",
+   "desc": "A carrier for cats and small dogs on short trips and vet visits.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat",
+    "dog"
+   ],
+   "category": "travel"
+  },
+  {
+   "slug": "cat-scratcher",
+   "name": "Cat Scratcher",
+   "price": "549.00",
+   "desc": "A scratching surface to keep claws busy and save the sofa.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "scratchers"
+  },
+  {
+   "slug": "dog-chew-toy",
+   "name": "Dog Chew Toy",
+   "price": "199.00",
+   "desc": "A long braided rope chew toy for supervised chewing and tugging.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "toys"
+  },
+  {
+   "slug": "dog-puzzle-toy",
+   "name": "Dog Puzzle Feeder Toy",
+   "price": "719.00",
+   "desc": "A puzzle feeder with lift-and-slide covers: hide part of your dog's usual meal or treats so mealtime becomes a game.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "toys"
+  },
+  {
+   "slug": "puppy-teether-toy",
+   "name": "Puppy Teether Toy",
+   "price": "429.00",
+   "desc": "A ring-shaped teether with textured nubs, sized for puppies' small mouths.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "toys"
+  },
+  {
+   "slug": "cat-crinkle-balls",
+   "name": "Cat Crinkle Ball Set",
+   "price": "219.00",
+   "desc": "A set of light fabric balls for batting and chasing.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "toys"
+  },
+  {
+   "slug": "cat-tunnel",
+   "name": "Pet Play Tunnel",
+   "price": "599.00",
+   "desc": "A collapsible play tunnel for cats and small dogs: hide, pounce and chase.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat",
+    "dog"
+   ],
+   "category": "toys"
+  },
+  {
+   "slug": "pet-birthday-bandana",
+   "name": "Birthday Bandana",
+   "price": "95.00",
+   "desc": "A birthday-print bandana for photos on the big day. Dog and cat sizes.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "clothing"
+  }
+ ],
+ "boxes": [
+  {
+   "slug": "puppy-toy-box",
+   "name": "Puppy Toy Box",
+   "price": "1045.00",
+   "desc": "Teether, plush, rope and ball: four small, puppy-sized toys for teething, tugging, fetch and cuddling.",
+   "avail": "https://schema.org/PreOrder",
+   "items": [
+    "puppy-teether-toy",
+    "dog-plush-squeaky-toy",
+    "dog-rope-toy",
+    "dog-fetch-ball"
+   ]
+  },
+  {
+   "slug": "small-dog-toy-box",
+   "name": "Small Dog Toy Box",
+   "price": "1330.00",
+   "desc": "Plush, ball, chew toy and a puzzle feeder, all in small sizes for small dogs.",
+   "avail": "https://schema.org/PreOrder",
+   "items": [
+    "dog-plush-squeaky-toy",
+    "dog-fetch-ball",
+    "dog-chew-toy",
+    "dog-puzzle-toy"
+   ]
+  },
+  {
+   "slug": "large-dog-toy-box",
+   "name": "Large Dog Toy Box",
+   "price": "852.00",
+   "desc": "Large chew rope, tug, fetch ball and a plush for bigger dogs and bigger play.",
+   "avail": "https://schema.org/PreOrder",
+   "items": [
+    "dog-chew-toy",
+    "dog-tug-toy",
+    "dog-fetch-ball",
+    "dog-plush-squeaky-toy"
+   ]
+  },
+  {
+   "slug": "cat-play-box",
+   "name": "Cat Play Box",
+   "price": "1231.00",
+   "desc": "Wand toy, plush fish, crinkle ball set and a play tunnel: chase, bat, pounce and hide.",
+   "avail": "https://schema.org/PreOrder",
+   "items": [
+    "cat-wand-toy",
+    "cat-plush-toy",
+    "cat-crinkle-balls",
+    "cat-tunnel"
+   ]
+  },
+  {
+   "slug": "dog-birthday-box",
+   "name": "Dog Birthday Box",
+   "price": "822.00",
+   "desc": "A gift-ready birthday box: birthday bandana, toys, a printed card and your own message.",
+   "avail": "https://schema.org/PreOrder",
+   "items": [
+    "pet-birthday-bandana",
+    "dog-plush-squeaky-toy",
+    "dog-fetch-ball"
+   ]
+  },
+  {
+   "slug": "cat-birthday-box",
+   "name": "Cat Birthday Box",
+   "price": "1086.00",
+   "desc": "A gift-ready birthday box for cats: collar, wand and plush, with your message.",
+   "avail": "https://schema.org/PreOrder",
+   "items": [
+    "cat-collar",
+    "cat-wand-toy",
+    "cat-plush-toy"
+   ]
+  },
+  {
+   "slug": "puppy-starter-box",
+   "name": "Puppy Starter Box",
+   "price": "1614.00",
+   "desc": "Collar, leash, bowl, teether, waste bags and wipes: the first-week essentials.",
+   "avail": "https://schema.org/PreOrder",
+   "items": [
+    "dog-everyday-collar",
+    "dog-everyday-leash",
+    "dog-feeding-bowl",
+    "puppy-teether-toy",
+    "dog-waste-bags",
+    "dog-grooming-wipes"
+   ]
+  },
+  {
+   "slug": "first-brush-routine",
+   "name": "Grooming Starter Box",
+   "price": "1223.00",
+   "desc": "A starter set for new dog parents: slicker brush, finishing comb and wipes.",
+   "avail": "https://schema.org/PreOrder",
+   "items": [
+    "dog-slicker-brush",
+    "dog-finishing-comb",
+    "dog-grooming-wipes"
+   ]
+  },
+  {
+   "slug": "quick-clean-kit",
+   "name": "Quick-Clean Walk Box",
+   "price": "824.00",
+   "desc": "For apartment dog parents: paw towel, wipes and waste bags.",
+   "avail": "https://schema.org/PreOrder",
+   "items": [
+    "paw-towel",
+    "dog-grooming-wipes",
+    "dog-waste-bags"
+   ]
+  },
+  {
+   "slug": "cat-care-starter",
+   "name": "Cat Care Box",
+   "price": "1175.00",
+   "desc": "A cat-specific brush and wipes with a paw towel.",
+   "avail": "https://schema.org/PreOrder",
+   "items": [
+    "cat-grooming-brush",
+    "cat-grooming-wipes",
+    "paw-towel"
+   ]
+  },
+  {
+   "slug": "festive-walk-set",
+   "name": "Festive Walk Box",
+   "price": "620.00",
+   "desc": "Collar, leash and a festive bandana for the Durga Puja and Diwali walks and photos.",
+   "avail": "https://schema.org/PreOrder",
+   "items": [
+    "dog-everyday-collar",
+    "dog-everyday-leash",
+    "dog-festive-bandana"
+   ]
+  },
+  {
+   "slug": "festive-play-box",
+   "name": "Festive Play Box",
+   "price": "658.00",
+   "desc": "Three toys for a gift-ready box: rope, plush and fetch ball.",
+   "avail": "https://schema.org/PreOrder",
+   "items": [
+    "dog-rope-toy",
+    "dog-plush-squeaky-toy",
+    "dog-fetch-ball"
+   ]
+  },
+  {
+   "slug": "festive-cat-box",
+   "name": "Festive Cat Box",
+   "price": "1002.00",
+   "desc": "Wand toy, plush toy and a grooming brush for a cat-parent gift.",
+   "avail": "https://schema.org/PreOrder",
+   "items": [
+    "cat-wand-toy",
+    "cat-plush-toy",
+    "cat-grooming-brush"
+   ]
+  },
+  {
+   "slug": "dog-treat-box",
+   "name": "Dog Treat Box",
+   "price": null,
+   "desc": "A box of sealed, licensed dog treats. Join the waitlist: we will launch it only after supplier and food-safety checks.",
+   "avail": null,
+   "items": []
+  },
+  {
+   "slug": "cat-treat-box",
+   "name": "Cat Treat Box",
+   "price": null,
+   "desc": "A box of sealed, licensed cat treats. Join the waitlist: we will launch it only after supplier and food-safety checks.",
+   "avail": null,
+   "items": []
+  }
+ ]
+}

@@ -8,6 +8,13 @@
       "when": 1792588415375,
       "tag": "0000_sudden_sheva_callister",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1792664938907,
+      "tag": "0001_gorgeous_prowler",
+      "breakpoints": true
     }
   ]
 }

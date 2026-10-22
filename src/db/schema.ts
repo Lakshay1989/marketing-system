@@ -39,6 +39,7 @@ export const concepts = pgTable("concepts", {
   platform: text("platform").notNull(), // instagram | facebook
   scoreOriginality: integer("score_originality"), scoreBrandFit: integer("score_brand_fit"), scoreQuality: integer("score_quality"), scoreCommercial: integer("score_commercial"),
   status: text("status").notNull().default("proposed"), // proposed | rejected | approved_for_production | produced
+  notes: text("notes"), cta: text("cta"), caption: text("caption"), productSlugs: jsonb("product_slugs").$type<string[]>().notNull().default([]),
   createdAt: created(),
 });
 
@@ -87,3 +88,10 @@ export const reports = pgTable("reports", { id: id(), kind: text("kind").notNull
 export const auditEvents = pgTable("audit_events", { id: id(), at: timestamp("at", { withTimezone: true }).notNull().defaultNow(), actor: text("actor").notNull(), action: text("action").notNull(), target: text("target"), detail: jsonb("detail").$type<Record<string, unknown>>() }, (t) => [index("audit_at").on(t.at)]);
 
 export const settings = pgTable("settings", { key: text("key").primaryKey(), value: jsonb("value").$type<unknown>().notNull(), updatedAt: timestamp("updated_at", { withTimezone: true }).notNull().defaultNow() });
+
+/** Every language-model call: what for, tokens and (API-equivalent) cost. Used to enforce the daily call cap and monthly budget. */
+export const llmCalls = pgTable("llm_calls", {
+  id: id(), at: timestamp("at", { withTimezone: true }).notNull().defaultNow(), purpose: text("purpose").notNull(), model: text("model").notNull(), via: text("via").notNull(), // cli | api
+  inputTokens: integer("input_tokens").notNull().default(0), outputTokens: integer("output_tokens").notNull().default(0), costUsd: doublePrecision("cost_usd").notNull().default(0),
+  ok: boolean("ok").notNull(), error: text("error"),
+}, (t) => [index("llm_calls_at").on(t.at)]);

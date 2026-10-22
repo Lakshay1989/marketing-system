@@ -36,3 +36,6 @@ export async function decide(fd: FormData) {
 }
 /** Review mode: the owner presses this after approving. The job goes through the same gate and verification as any publication. */
 export async function publishNow(fd: FormData) { const d = await db(); const id = String(fd.get("id")); await enqueue(d, "publish", { contentItemId: id }, { idempotencyKey: `publish:${id}:manual:${Math.floor(Date.now() / 60000)}` }); await audit(d, "owner", "publish.requested", id); revalidatePath("/studio"); }
+
+/** "Run now" for the research + planning pipeline. The worker picks it up; one manual run per minute at most. */
+export async function runPipelineNow() { const d = await db(); await enqueue(d, "daily_pipeline", {}, { idempotencyKey: `daily_pipeline:manual:${Math.floor(Date.now() / 60000)}`, maxAttempts: 2 }); await audit(d, "owner", "pipeline.requested"); revalidatePath("/agents"); }
