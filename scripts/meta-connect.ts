@@ -16,8 +16,8 @@ function hidden(q: string): Promise<string> {
 }
 const env = Object.fromEntries(fs.readFileSync(".env", "utf8").split("\n").filter((l) => l.includes("=")).map((l) => [l.slice(0, l.indexOf("=")), l.slice(l.indexOf("=") + 1)]));
 const appId = env.META_APP_ID || process.env.META_APP_ID; if (!appId) throw new Error("META_APP_ID is missing in .env");
-const appSecret = await hidden("Paste the Meta APP SECRET (hidden, then Enter): ");
-const shortToken = await hidden("Paste the Graph API Explorer ACCESS TOKEN (hidden, then Enter): ");
+const appSecret = (await hidden("App secret (hidden). Just press Enter to skip if you used the Access Token Debugger: ")) || undefined;
+const shortToken = await hidden("Paste the ACCESS TOKEN (the extended one from the Debugger, or the Explorer token if you gave the secret) (hidden, then Enter): ");
 const r = await connectMeta({ appId, appSecret, shortToken, pageId: env.META_PAGE_ID || undefined });
 console.log(`Page: ${r.pageName} (${r.pageId}) | Instagram: ${r.igUsername ? "@" + r.igUsername : "NOT LINKED"} | token never expires: ${r.neverExpires}`);
 if (r.missingScopes.length) console.log("MISSING PERMISSIONS (re-generate the token with these ticked):", r.missingScopes.join(", "));

@@ -14,6 +14,11 @@ describe("connectMeta", () => {
     const r = await connectMeta({ appId: "A", appSecret: "S", shortToken: "T", pageId: "61595609549007", fetchImpl: fake([page], all) });
     expect(r).toMatchObject({ pageId: "61595609549007", pageToken: "PAGETOK", igUserId: "1789", igUsername: "kukur.petstoreindia", neverExpires: true, missingScopes: [] });
   });
+  it("works without the app secret when the token is already long-lived", async () => {
+    const urls: string[] = []; const f = (async (u: string | URL) => { urls.push(String(u)); return (fake([page], all) as (u: string | URL) => Promise<Response>)(u); }) as typeof fetch;
+    const r = await connectMeta({ appId: "A", shortToken: "EXTENDED", pageId: "61595609549007", fetchImpl: f });
+    expect(r.pageToken).toBe("PAGETOK"); expect(urls.some((u) => u.includes("/oauth/access_token"))).toBe(false); expect(urls.find((u) => u.includes("/me/accounts"))).toContain("access_token=EXTENDED");
+  });
   it("reports missing permissions and expiring tokens", async () => {
     const r = await connectMeta({ appId: "A", appSecret: "S", shortToken: "T", fetchImpl: fake([page], ["pages_show_list"], 1790000000) });
     expect(r.missingScopes).toContain("instagram_content_publish"); expect(r.neverExpires).toBe(false);
