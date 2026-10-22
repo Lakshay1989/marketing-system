@@ -18,7 +18,8 @@ export async function connectMeta(i: ConnectInput): Promise<ConnectResult> {
   if (!longUser) throw new Error("Meta did not return a long-lived token");
   const pages = (await get("/me/accounts", { access_token: longUser, fields: "id,name,access_token,instagram_business_account{id,username}", limit: "50" })).data as any[];
   if (!pages?.length) throw new Error("This Facebook login manages no Pages. Log in as the owner of the Kukur Page and grant it in the permission dialog.");
-  const page = i.pageId ? pages.find((p) => p.id === i.pageId) : pages.length === 1 ? pages[0] : undefined;
+  // A preset id wins; but if it is not among the Pages this login manages and there is exactly one Page, use that one (web-address ids differ from real Page ids).
+  const page = (i.pageId ? pages.find((p) => p.id === i.pageId) : undefined) ?? (pages.length === 1 ? pages[0] : undefined);
   if (!page) throw new Error(`Could not pick the Page. Found: ${pages.map((p) => `${p.name} (${p.id})`).join(", ")}. Re-run with META_PAGE_ID set.`);
   const dbg = (await get("/debug_token", { input_token: page.access_token, access_token: i.appSecret ? `${i.appId}|${i.appSecret}` : longUser })).data;
   const scopes: string[] = dbg.scopes ?? [];

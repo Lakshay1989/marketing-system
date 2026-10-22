@@ -19,13 +19,17 @@ describe("connectMeta", () => {
     const r = await connectMeta({ appId: "A", shortToken: "EXTENDED", pageId: "61595609549007", fetchImpl: f });
     expect(r.pageToken).toBe("PAGETOK"); expect(urls.some((u) => u.includes("/oauth/access_token"))).toBe(false); expect(urls.find((u) => u.includes("/me/accounts"))).toContain("access_token=EXTENDED");
   });
+  it("uses the only managed Page when the preset id is a web-address id that does not match", async () => {
+    const r = await connectMeta({ appId: "A", shortToken: "T", pageId: "61595609549007", fetchImpl: fake([{ ...page, id: "1418106831386265" }], all) });
+    expect(r.pageId).toBe("1418106831386265");
+  });
   it("reports missing permissions and expiring tokens", async () => {
     const r = await connectMeta({ appId: "A", appSecret: "S", shortToken: "T", fetchImpl: fake([page], ["pages_show_list"], 1790000000) });
     expect(r.missingScopes).toContain("instagram_content_publish"); expect(r.neverExpires).toBe(false);
   });
   it("explains when no Page is managed or the Page cannot be chosen", async () => {
     await expect(connectMeta({ appId: "A", appSecret: "S", shortToken: "T", fetchImpl: fake([], all) })).rejects.toThrow(/manages no Pages/);
-    await expect(connectMeta({ appId: "A", appSecret: "S", shortToken: "T", fetchImpl: fake([page, { ...page, id: "2", name: "Other" }], all) })).rejects.toThrow(/Could not pick the Page/);
+    await expect(connectMeta({ appId: "A", appSecret: "S", shortToken: "T", pageId: "999", fetchImpl: fake([page, { ...page, id: "2", name: "Other" }], all) })).rejects.toThrow(/Could not pick the Page/);
   });
   it("never leaks the secret or tokens in errors", async () => {
     const f = (async () => res({ error: { message: "bad access_token=SECRETTOKEN123" } }, 400)) as typeof fetch;
