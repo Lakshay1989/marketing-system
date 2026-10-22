@@ -21,7 +21,7 @@ export async function publishItem(db: Db, itemId: string, publisher: Publisher):
   if (!item.assetId) return { state: "blocked", reason: "No asset attached" };
   const [asset] = await db.select().from(schema.assets).where(eq(schema.assets.id, item.assetId));
   if (!asset || asset.qaStatus !== "passed") return { state: "blocked", reason: "Asset has not passed QA" };
-  if (!asset.publicUrl) return { state: "blocked", reason: "Asset has no public URL (upload it to media storage first)" };
+  if (!asset.storageKey && !asset.publicUrl) return { state: "blocked", reason: "Asset has no stored file" };
   await db.update(schema.contentItems).set({ status: "publishing" }).where(eq(schema.contentItems.id, itemId));
   try {
     const v = await publisher(item, asset);
