@@ -54,3 +54,11 @@ describe("creative director", () => {
     expect(rows.map((x) => x.status).sort()).toEqual(["approved_for_production", "rejected"]); expect(rows.find((x) => x.status === "rejected")!.notes).toBeTruthy();
   });
 });
+
+describe("research diversity", () => {
+  it("limits how many trends can come from one website", async () => {
+    const db = await testDb(); const mk = (i: number) => trend({ title: `Trend number ${i} from one blog`, sourceUrl: `https://blog.example.com/p${i}` });
+    const r = await researchTrends(db, { runner: reply([mk(1), mk(2), mk(3), mk(4)]), urlCheck: async () => 200 });
+    expect(r.verified).toBe(2); expect(r.dropped.map((d) => d.reason).join()).toMatch(/more than 2/);
+  });
+});

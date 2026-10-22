@@ -9,7 +9,7 @@ const Trend = z.object({
 export type TrendFinding = z.infer<typeof Trend>;
 
 export const researchPrompt = (today: string) => `You are the Social Trend Research agent for Kukur, an Indian online pet store (dogs and cats: toys, beds, feeding, grooming, walk gear, gift boxes). Today is ${today}.
-Use web search and open the pages you cite. Find 6 to 8 REAL, CURRENT (last ~45 days, or clearly upcoming seasonal) trends and creative patterns worth adapting, across: Reels/short-video formats and hooks, caption and hashtag patterns, Instagram Story sticker ideas (polls, quizzes, questions), and culturally relevant Indian seasonal moments (e.g. Diwali, winter, New Year) for pet brands. Look at pet brands in India and internationally, and adjacent consumer brands.
+Use web search and open the pages you cite. Find 6 to 8 REAL, CURRENT (last ~45 days, or clearly upcoming seasonal) trends and creative patterns worth adapting, across: Reels/short-video formats and hooks, caption and hashtag patterns, Instagram Story sticker ideas (polls, quizzes, questions), and culturally relevant Indian seasonal moments (e.g. Diwali, winter, New Year) for pet brands. Look at pet brands in India and internationally, and adjacent consumer brands. At least 3 items must come from pet-brand or pet-industry sources (brand campaigns, pet-industry news), not generic social-media tip blogs, and no more than 2 items may share the same website.
 STRICT RULES: every item needs a sourceUrl of a page you actually opened (https). Never invent a trend, a number, a view count or a competitor result. If you cannot verify a claim, leave the item out. Describe the underlying creative idea only; propose an ORIGINAL Kukur execution, never a copy of someone's video, audio or assets. No health or safety claims about pets.
 Reply with ONLY a JSON array, no prose. Each item: {"platform":"instagram|facebook|both","title":"","sourceUrl":"","evidence":"what the source shows, 1-2 sentences","relevance":0-100,"adaptation":"how Kukur could do an original version"}`;
 
@@ -23,11 +23,12 @@ const reachable = (s: number) => (s >= 200 && s < 400) || [401, 403, 429].includ
 export async function researchTrends(db: Db, deps: { runner?: Runner; urlCheck?: UrlCheck; now?: Date; runId?: string } = {}) {
   const now = deps.now ?? new Date();
   const text = await complete(db, { purpose: "trend-research", prompt: researchPrompt(now.toISOString().slice(0, 10)), web: true, timeoutMs: 900_000 }, deps.runner);
-  const raw = extractJson<unknown[]>(text); const kept: TrendFinding[] = []; const dropped: { title: string; reason: string }[] = [];
+  const raw = extractJson<unknown[]>(text); const kept: TrendFinding[] = []; const dropped: { title: string; reason: string }[] = []; const perHost: Record<string, number> = {};
   for (const item of Array.isArray(raw) ? raw : []) {
     const p = Trend.safeParse(item); if (!p.success) { dropped.push({ title: String((item as any)?.title ?? "?"), reason: "invalid shape" }); continue; }
     const status = await (deps.urlCheck ?? checkUrl)(p.data.sourceUrl);
     if (!reachable(status)) { dropped.push({ title: p.data.title, reason: `source did not verify (HTTP ${status})` }); continue; }
+    const host = new URL(p.data.sourceUrl).hostname.replace(/^www\./, ""); if ((perHost[host] = (perHost[host] ?? 0) + 1) > 2) { dropped.push({ title: p.data.title, reason: `more than 2 items from ${host}` }); continue; }
     kept.push(p.data);
   }
   let inserted = 0;

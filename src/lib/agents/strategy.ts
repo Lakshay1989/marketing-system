@@ -26,7 +26,7 @@ Produce ${n} ORIGINAL content concepts for tomorrow (mix of Instagram Reels, Ins
 Trend ideas available (adapt the idea, never copy): ${JSON.stringify(trends)}.
 Only use these real products (slug): ${products.map((p) => `${p.slug} (${p.name})`).join("; ")}.
 Rules: no health/safety/vet claims, no discounts or prices in the concept (prices are added from the catalogue later), no food or treats, no fake urgency. Hooks must be specific and punchy (max 8 words), not generic ("Check out our new..." is rejected). Each storyboard has 3-10 short scene descriptions.
-Score each concept honestly 0-100 on originality, brandFit, quality (production feasibility with motion graphics from product photos), commercial (reason to visit the store).
+Be a tough critic: weak, repetitive or generic ideas must score below 65. Score each concept honestly 0-100 on originality, brandFit, quality (production feasibility with motion graphics from product photos), commercial (reason to visit the store).
 Reply with ONLY a JSON array of: {"title","hook","format":"reel|story","platform":"instagram|facebook","trendTitle","productSlugs":[],"storyboard":[],"cta","caption","scores":{"originality","brandFit","quality","commercial"}}`;
 }
 
@@ -37,7 +37,7 @@ export function judge(c: ConceptDraft, slugs: Set<string>, existingHooks: string
   if (GENERIC.some((r) => r.test(c.hook))) return { ok: false, reason: "generic hook" };
   if (existingHooks.some((h) => h.toLowerCase() === c.hook.toLowerCase())) return { ok: false, reason: "duplicate hook" };
   const s = c.scores; const min = Math.min(s.originality, s.brandFit, s.quality, s.commercial), avg = (s.originality + s.brandFit + s.quality + s.commercial) / 4;
-  if (min < 60 || avg < 70) return { ok: false, reason: `scores too low (min ${min}, avg ${avg.toFixed(0)})` };
+  if (min < 65 || avg < 75) return { ok: false, reason: `scores too low (min ${min}, avg ${avg.toFixed(0)})` };
   return { ok: true };
 }
 
