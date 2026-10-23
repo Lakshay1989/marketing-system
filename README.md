@@ -15,6 +15,8 @@ npm test                    # 28 tests: queue, controls, publishing verification
 npm run typecheck
 ```
 
+For local inference without a Claude subscription or API key, install and start [Ollama](https://ollama.com), pull a model that fits your Mac, then set `AI_PROVIDER=ollama` and `AI_MODEL=<the pulled model name>` in `.env`. `OLLAMA_BASE_URL` defaults to `http://127.0.0.1:11434`. Trend research defaults to public Google News RSS headlines/summaries and opens the linked items. For richer direct web search, run SearXNG and set `WEB_SEARCH_PROVIDER=searxng` plus `SEARXNG_BASE_URL`; this uses no commercial search API key. Search engines and publishers can still rate-limit or block requests, which the agent records rather than inventing trends. Keep Ollama and SearXNG endpoints on localhost or a private network, never expose them publicly without authentication and network controls.
+
 ## Stack
 Next.js 16 (App Router) + TypeScript + Tailwind v4 · Drizzle ORM + PostgreSQL (Neon in production, PGlite embedded locally and in tests) · Postgres-backed job queue (idempotency keys, retry with backoff, dead-letter, stale-job recovery) · zod · vitest · Meta Graph API client.
 
