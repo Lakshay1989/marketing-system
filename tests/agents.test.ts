@@ -1,15 +1,20 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { schema } from "@/db";
 import { testDb } from "./helpers";
 import { researchTrends } from "@/lib/agents/trends";
 import { bannedClaim, judge, loadCatalog, planConcepts, type ConceptDraft } from "@/lib/agents/strategy";
-import { complete, extractJson, BudgetError, type Runner } from "@/lib/llm";
+import { complete, defaultRunner, extractJson, BudgetError, type Runner } from "@/lib/llm";
 import { setSetting } from "@/lib/settings";
+import { parseGoogleNewsResults, searxngSearch } from "@/lib/web-search";
 
 const reply = (obj: unknown): Runner => async () => ({ result: "Here you go:\n```json\n" + JSON.stringify(obj) + "\n```", via: "cli", total_cost_usd: 0.01, usage: { input_tokens: 10, output_tokens: 20 } });
 const trend = (o: object = {}) => ({ platform: "instagram", title: "Cozy winter bed reveal", sourceUrl: "https://example.com/a", evidence: "A pet brand shows a reveal of a bed with slow zoom and soft light.", relevance: 82, adaptation: "Kukur original: dusk-lit reveal of the cosy bed with a title card.", ...o });
 
 describe("llm layer", () => {
+  it("extracts secure Google News RSS results and decodes snippets", () => {
+    const xml = '<rss><channel><item><title>Pet &amp; brand campaign</title><link>https://news.google.com/rss/articles/abc?oc=5</link><description>&lt;a&gt;A recent campaign.&lt;/a&gt;</description><source url="https://example.com">Example News</source></item><item><title>Unsafe</title><link>javascript:alert(1)</link></item></channel></rss>';
+    expect(parseGoogleNewsResults(xml)).toEqual([{ title: "Pet & brand campaign", url: "https://news.google.com/rss/articles/abc?oc=5", snippet: "Example News — A recent campaign.", publisherUrl: "https://example.com/" }]);
+  });
   it("extracts JSON from fenced or chatty replies", () => { expect(extractJson('blah ```json\n[{"a":1}]\n``` bye')).toEqual([{ a: 1 }]); expect(extractJson('x {"k":"v}"} y')).toEqual({ k: "v}" }); expect(() => extractJson("nothing")).toThrow(); });
   it("logs calls and enforces the daily call cap and monthly budget", async () => {
     const db = await testDb(); await setSetting(db, "max_llm_calls_per_day", 2);
@@ -20,6 +25,43 @@ describe("llm layer", () => {
     await expect(complete(db2, { purpose: "t", prompt: "p" }, reply([]))).rejects.toThrow(/budget/i);
   });
   it("records failed calls", async () => { const db = await testDb(); await expect(complete(db, { purpose: "t", prompt: "p" }, async () => { throw new Error("cli down"); })).rejects.toThrow("cli down"); expect((await db.select().from(schema.llmCalls))[0].ok).toBe(false); });
+  it("uses the configured local Ollama chat endpoint and refuses unsupported web research", async () => {
+    const oldProvider = process.env.AI_PROVIDER; const oldBaseUrl = process.env.OLLAMA_BASE_URL;
+    process.env.AI_PROVIDER = "ollama"; process.env.OLLAMA_BASE_URL = "http://127.0.0.1:11434";
+    const request = vi.fn(async (_input: RequestInfo | URL, _init?: RequestInit) => new Response(JSON.stringify({ message: { content: "[]" }, prompt_eval_count: 12, eval_count: 3 }), { status: 200, headers: { "content-type": "application/json" } }));
+    vi.stubGlobal("fetch", request);
+    try {
+      const result = await defaultRunner({ prompt: "Return JSON", model: "test-local-model", web: false, timeoutMs: 1000, responseFormat: "json" });
+      expect(result).toMatchObject({ result: "[]", via: "ollama", total_cost_usd: 0, usage: { input_tokens: 12, output_tokens: 3 } });
+      expect(request).toHaveBeenCalledWith("http://127.0.0.1:11434/api/chat", expect.objectContaining({ method: "POST" }));
+      expect(JSON.parse(String(request.mock.calls[0][1]?.body))).toMatchObject({ stream: true, think: false, format: "json" });
+      await expect(defaultRunner({ prompt: "Search the web", model: "test-local-model", web: true, timeoutMs: 1000 })).rejects.toThrow(/web-search tool/);
+      expect(request).toHaveBeenCalledTimes(1);
+    } finally {
+      vi.unstubAllGlobals();
+      if (oldProvider === undefined) delete process.env.AI_PROVIDER; else process.env.AI_PROVIDER = oldProvider;
+      if (oldBaseUrl === undefined) delete process.env.OLLAMA_BASE_URL; else process.env.OLLAMA_BASE_URL = oldBaseUrl;
+    }
+  });
+  it("queries a private SearXNG JSON endpoint and discards non-HTTPS results", async () => {
+    const oldBase = process.env.SEARXNG_BASE_URL;
+    process.env.SEARXNG_BASE_URL = "http://127.0.0.1:8080";
+    const request = vi.fn(async (input: RequestInfo | URL) => {
+      expect(String(input)).toMatch(/^http:\/\/127\.0\.0\.1:8080\/search\?/);
+      return new Response(JSON.stringify({ results: [
+        { title: "Pet trend", url: "https://example.com/article", content: "A recent brand campaign." },
+        { title: "Unsafe link", url: "http://example.com/article", content: "Should be discarded." },
+      ] }), { status: 200, headers: { "content-type": "application/json" } });
+    });
+    vi.stubGlobal("fetch", request);
+    try {
+      await expect(searxngSearch("pet brand trend", 5)).resolves.toEqual([{ title: "Pet trend", url: "https://example.com/article", snippet: "A recent brand campaign." }]);
+      expect(request).toHaveBeenCalledTimes(1);
+    } finally {
+      vi.unstubAllGlobals();
+      if (oldBase === undefined) delete process.env.SEARXNG_BASE_URL; else process.env.SEARXNG_BASE_URL = oldBase;
+    }
+  });
 });
 
 describe("trend research agent", () => {

@@ -14,7 +14,7 @@
 
 ## Added 22 Oct 2026
 - **Infrastructure live:** Neon project `kukur-marketing-ai` (Singapore) holds all data; private S3 bucket `kukur-marketing-media-502657994824` (Sydney, versioned, encrypted, public access blocked) holds media; Meta reads videos through 24 h signed links. Round-trip upload and signed-URL download verified for real.
-- **Model layer** (`src/lib/llm.ts`): uses the `claude` CLI on this Mac (your Claude login) with web search, falling back to `ANTHROPIC_API_KEY`. Every call is logged; a daily call cap (default 30) and a monthly budget (default $20) stop runaway use.
+- **Model layer** (`src/lib/llm.ts`, `src/lib/web-search.ts`): supports the local Ollama server (`AI_PROVIDER=ollama`), Anthropic API, and Claude CLI. Auto mode prefers an API key over the CLI. Trend research defaults to Google News RSS, with an optional private SearXNG JSON endpoint for broader direct search. Search/page access can be rate-limited. Every call is logged; a daily call cap (default 30) and monthly budget (default $20) stop runaway use. Ollama inference is logged at zero provider usage cost.
 - **Trend Research agent:** asks Claude to search and open real pages, then **re-checks every source URL itself**; dead or invented links are dropped. Stores source, evidence, relevance and a Kukur adaptation.
 - **Creative Director agent:** proposes concepts from real trends and the real catalogue, then rejects ones with unknown products, banned claims (health, safe, vet approved, discounts), generic or duplicate hooks, or weak scores. Rejections keep their reason.
 - **Worker runs a daily pipeline** (trends, then concepts) once a day after 06:00 local, and the Agents page has a "Run research + planning now" button.

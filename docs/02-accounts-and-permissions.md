@@ -11,7 +11,7 @@ Only you can do these (identity, 2FA, payments, consent). Values go in `.env` lo
 6. Test with one harmless Reel first (Review mode). Verified publish = platform returns a permalink.
 
 ## 2. Language model
-On this Mac the agents call the `claude` command (your Claude login), exactly like the job-search project, so no API key is needed for the pilot. For a server later, set `ANTHROPIC_API_KEY`. Spend is capped by `max_llm_calls_per_day` and `monthly_ai_budget_usd`.
+Model access is configured in `.env` with `AI_PROVIDER`: `auto` prefers `ANTHROPIC_API_KEY`, then the local `claude` CLI; `claude-cli` selects the CLI explicitly; `anthropic` selects the API explicitly; and `ollama` uses a locally running Ollama server. Set `AI_MODEL` to the model name expected by the selected provider. For Ollama, use `OLLAMA_BASE_URL` if it is not at `http://127.0.0.1:11434`. No API key or Claude subscription is needed for local inference. Trend research defaults to public Google News RSS headlines/summaries, then opens linked HTTPS pages. For broader direct search, run SearXNG and set `WEB_SEARCH_PROVIDER=searxng` and `SEARXNG_BASE_URL`; this requires no commercial API key. Keep the SearXNG endpoint private. Both search engines and publisher pages may rate-limit or block requests. The app's daily-call and monthly AI budgets remain in force; Ollama inference is logged at zero provider cost.
 
 ## 3. Storage and database (DONE 22 Oct)
 Neon project `kukur-marketing-ai` (`DATABASE_URL`). S3 bucket `kukur-marketing-media-502657994824` in ap-southeast-2 with a bucket-only IAM user `kukur-marketing-worker` (`MEDIA_S3_*`). Note: your AWS organization policy only allowed bucket creation in some regions (Mumbai was denied).
