@@ -21,8 +21,8 @@ describe("spec builders", () => {
     expect(buildReelSpec({ id: "c2", hook: "x y z", title: "t", productSlugs: [catItem.slug, catItem2.slug, catItem3.slug] }, cat).spec.petPhotos[0]).toBe("cat.jpg");
   });
   it("rejects a concept with no catalogue products", () => { expect(() => buildReelSpec({ id: "c", hook: "h", title: "t", productSlugs: ["nope"] }, cat)).toThrow(); });
-  it("detects poll stories and flags them as needing a manual sticker", () => {
-    expect(buildStorySpec({ id: "s1", hook: "Diwali box or winter bed first?", title: "Diwali Box or Winter Bed Poll", productSlugs: [dogItems[0].slug, dogItems[1].slug] }, cat)).toMatchObject({ interactive: true, spec: { template: "poll" } });
+  it("never makes poll stories: every story is a finished image needing no manual sticker", () => {
+    expect(buildStorySpec({ id: "s1", hook: "Diwali box or winter bed first?", title: "Diwali Box or Winter Bed Poll", productSlugs: [dogItems[0].slug, dogItems[1].slug] }, cat)).toMatchObject({ interactive: false, spec: { template: "grid" } });
     expect(buildStorySpec({ id: "s2", hook: "Everyday essentials", title: "Essentials", productSlugs: dogItems.map((p) => p.slug) }, cat)).toMatchObject({ interactive: false, spec: { template: "grid" } });
   });
   it("writes platform-specific calls to action without duplicating them", () => {

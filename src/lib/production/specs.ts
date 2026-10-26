@@ -42,12 +42,13 @@ const shortName = (n: string) => n.replace(/^(Dog|Cat|Pet|Everyday)\s+/i, "").sl
 export function buildStorySpec(c: ConceptLike & { storyboard?: unknown[] }, catalog: { products: CatalogProduct[] }): { spec: StorySpec; interactive: boolean } {
   const by = new Map(catalog.products.map((p) => [p.slug, p])); const items = c.productSlugs.map((s) => by.get(s)).filter((p): p is CatalogProduct => Boolean(p)).slice(0, 6);
   if (!items.length) throw new Error("Concept has no valid catalogue products");
-  const poll = /poll|vote|which|or\b.*\?/i.test(c.title + " " + c.hook) && items.length >= 2;
+  // Instagram's API cannot add poll or link stickers, and the owner wants zero manual steps: stories are always finished image designs.
+  const poll = false as boolean;
   const lines = hookLines(c.hook, 4, 14).map((l, i, a) => [l, Math.min(a.length === 1 ? 150 : 120, Math.floor(960 / (l.length * 0.74))), i === a.length - 1 && a.length > 1 ? "orange" : "forest"] as [string, number, string]);
   const prods = items.map((p) => ({ slug: p.slug, name: p.name, short: shortName(p.name), price: "" }));
   const bgs = ["cream", "forest", "sand", "orange"]; const bg = bgs[pickIdx(c.id, bgs.length)]; const darkBg = bg === "forest" || bg === "orange";
   const fixed = lines.map(([t, px, col]) => [t, px, darkBg ? (col === "forest" ? "cream" : col === "orange" ? "gold" : col) : col] as [string, number, string]);
-  return { interactive: poll, spec: poll ? { template: "poll", bg, headline: fixed, products: prods.slice(0, 2), prompt: "Vote with the poll sticker 👇" } : { template: "grid", bg, headline: fixed, products: prods, pill: "🔗 Tap the link · kukur.shop", pillBg: darkBg ? "orange" : "forest" } };
+  return { interactive: poll, spec: poll ? { template: "poll", bg, headline: fixed, products: prods.slice(0, 2), prompt: "Vote with the poll sticker 👇" } : { template: "grid", bg, headline: fixed, products: prods, pill: "Shop at kukur.shop", pillBg: darkBg ? "orange" : "forest" } };
 }
 
 const TAGS = { dog: ["#dogsofindia", "#dogparents", "#petstoreindia", "#dogtoys"], cat: ["#catsofindia", "#catparents", "#petstoreindia", "#cattoys"], both: ["#dogsofindia", "#catsofindia", "#petparentsindia", "#petstoreindia"] } as const;
