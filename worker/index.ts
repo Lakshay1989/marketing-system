@@ -1,3 +1,8 @@
+// Unlike Next.js, this long-running worker does not load `.env` automatically.
+// Load it before opening the database or invoking model providers so local and
+// EC2 deployments use the same configured credentials and model settings.
+process.loadEnvFile();
+
 import { openDb } from "../src/db";
 import { seedAgents } from "../src/lib/agents";
 import { ensureDailyAnalytics, ensureDailyPipeline, ensureDailyReport, runOnce, scheduleDue } from "./loop";

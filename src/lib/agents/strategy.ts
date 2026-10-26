@@ -8,7 +8,7 @@ import { complete, extractJson, type Runner } from "../llm";
 export interface CatalogProduct { slug: string; name: string; price: string; species: string[]; category: string }
 export const loadCatalog = (): { products: CatalogProduct[]; boxes: { slug: string; name: string; price: string | null }[] } => JSON.parse(fs.readFileSync(path.resolve("data/kukur-catalog.json"), "utf8"));
 
-const BANNED = [/vet[- ]approved/i, /\bsafe\b/i, /\bhealth(y|ier)?\b/i, /hypoallergenic/i, /\bbest price\b/i, /\b\d+\s*%\s*off\b/i, /\bdiscount\b/i, /guarantee/i, /\bcure/i, /non-?toxic/i];
+const BANNED = [/₹/, /\brs\.?\s*\d/i, /\bprices?\b/i, /vet[- ]approved/i, /\bsafe\b/i, /\bhealth(y|ier)?\b/i, /hypoallergenic/i, /\bbest price\b/i, /\b\d+\s*%\s*off\b/i, /\bdiscount\b/i, /guarantee/i, /\bcure/i, /non-?toxic/i];
 export const bannedClaim = (s: string) => BANNED.find((r) => r.test(s))?.source ?? null;
 const GENERIC = [/^(check out|meet) (our|the) (new|latest)/i, /^new arrivals?/i, /^shop now/i, /^you won'?t believe/i];
 
@@ -25,9 +25,9 @@ export function strategyPrompt(trends: { title: string; adaptation: string; plat
 Produce ${n} ORIGINAL content concepts for tomorrow (mix of Instagram Reels, Instagram Stories and Facebook Reels). Avoid repeating these recent concepts: ${JSON.stringify(recent)}.
 Trend ideas available (adapt the idea, never copy): ${JSON.stringify(trends)}.
 Only use these real products (slug): ${products.map((p) => `${p.slug} (${p.name})`).join("; ")}.
-WHAT PRODUCTION CAN ACTUALLY MAKE (propose only these): (a) REEL = a kinetic text hook (your hook), then 3-6 products shown one by one as bouncing cards with their real names and prices, then a close-up burst of a stock dog or cat photo with a word, then the Kukur logo end card; (b) STORY grid = a headline plus a grid of 3-6 products with prices; (c) STORY poll = a headline plus 2 products to vote between (the poll sticker is added by hand). It CANNOT film, show people, unbox, build, do before/after, step-by-step or voice-over. Do not describe scenes it cannot make.
+WHAT PRODUCTION CAN ACTUALLY MAKE (propose only these): (a) REEL = a kinetic text hook (your hook), then 3-6 products shown one by one as bouncing cards with their real names (NEVER prices), then a close-up burst of a stock dog or cat photo with a word, then the Kukur logo end card; (b) STORY grid = a headline plus a grid of 3-6 products (no prices); (c) STORY poll = a headline plus 2 products to vote between (the poll sticker is added by hand). It CANNOT film, show people, unbox, build, do before/after, step-by-step or voice-over. Do not describe scenes it cannot make.
 Do NOT invent named pets, mascots, customers, testimonials, staff or events ("our resident...", "meet Biscuit"). Use only real products from the list.
-Rules: no health/safety/vet claims, no discounts or prices in the concept (prices are added from the catalogue later), no food or treats, no fake urgency. Hooks must be specific and punchy (max 8 words), not generic ("Check out our new..." is rejected). Each storyboard has 3-10 short scene descriptions.
+Rules: no health/safety/vet claims, no discounts and NO prices of any kind in hooks, captions or storyboards (policy: reels and stories never show prices), no food or treats, no fake urgency. Hooks must be specific and punchy (max 8 words), not generic ("Check out our new..." is rejected). Each storyboard has 3-10 short scene descriptions.
 Be a tough critic: weak, repetitive or generic ideas must score below 65. Score each concept honestly 0-100 on originality, brandFit, quality (production feasibility with motion graphics from product photos), commercial (reason to visit the store).
 Reply with ONLY a JSON array of: {"title","hook","format":"reel|story","platform":"instagram|facebook","trendTitle","productSlugs":[],"storyboard":[],"cta","caption","scores":{"originality","brandFit","quality","commercial"}}`;
 }

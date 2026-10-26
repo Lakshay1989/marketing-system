@@ -34,7 +34,7 @@ export function buildReelSpec(c: ConceptLike, catalog: { products: CatalogProduc
   const words = sp === "cat" ? ["PURR", "POUNCE"] : sp === "both" ? ["LOVE", "PLAY"] : ["WAG", "PLAY"];
   const keys = ["C", "D", "G", "F", "A"]; const bpms = [112, 116, 120, 124, 128];
   return { padded, spec: { template: "showcase", bpm: bpms[pickIdx(c.id, bpms.length)], key: keys[pickIdx(c.id + "k", keys.length)], seed: pickIdx(c.id + "s", 50) + 3, hookLines: hookLines(c.hook),
-    products: items.map((p) => ({ slug: p.slug, name: p.name, price: inr(p.price), word: productWord(p.name) })), petPhotos: photos, petWords: words, tag: "EVERY TAIL TELLS A STORY.", cta: "kukur.shop" } };
+    products: items.map((p) => ({ slug: p.slug, name: p.name, price: "", word: productWord(p.name) })), petPhotos: photos, petWords: words, tag: "EVERY TAIL TELLS A STORY.", cta: "kukur.shop" } };
 }
 
 export interface StorySpec { template: "grid" | "poll" | "hero"; bg: string; headline: [string, number, string][]; products: { slug: string; name: string; short: string; price: string }[]; pill?: string; pillBg?: string; prompt?: string; photos?: string[]; photo?: string }
@@ -44,7 +44,7 @@ export function buildStorySpec(c: ConceptLike & { storyboard?: unknown[] }, cata
   if (!items.length) throw new Error("Concept has no valid catalogue products");
   const poll = /poll|vote|which|or\b.*\?/i.test(c.title + " " + c.hook) && items.length >= 2;
   const lines = hookLines(c.hook, 4, 14).map((l, i, a) => [l, Math.min(a.length === 1 ? 150 : 120, Math.floor(960 / (l.length * 0.74))), i === a.length - 1 && a.length > 1 ? "orange" : "forest"] as [string, number, string]);
-  const prods = items.map((p) => ({ slug: p.slug, name: p.name, short: shortName(p.name), price: inr(p.price) }));
+  const prods = items.map((p) => ({ slug: p.slug, name: p.name, short: shortName(p.name), price: "" }));
   const bgs = ["cream", "forest", "sand", "orange"]; const bg = bgs[pickIdx(c.id, bgs.length)]; const darkBg = bg === "forest" || bg === "orange";
   const fixed = lines.map(([t, px, col]) => [t, px, darkBg ? (col === "forest" ? "cream" : col === "orange" ? "gold" : col) : col] as [string, number, string]);
   return { interactive: poll, spec: poll ? { template: "poll", bg, headline: fixed, products: prods.slice(0, 2), prompt: "Vote with the poll sticker 👇" } : { template: "grid", bg, headline: fixed, products: prods, pill: "🔗 Tap the link · kukur.shop", pillBg: darkBg ? "orange" : "forest" } };

@@ -15,9 +15,9 @@ const cat = loadCatalog(); const dogItems = cat.products.filter((p) => p.species
 describe("spec builders", () => {
   it("formats real prices and picks a product word", () => { expect(inr("1559.00")).toBe("₹1,559"); expect(productWord("Dog Rope Toy")).toBe("ROPE"); expect(productWord("Everyday Collar")).toBe("COLLAR"); });
   it("splits hooks into short lines", () => { expect(hookLines("Sleep looks like this")).toEqual(["SLEEP LOOKS", "LIKE THIS"]); expect(hookLines("Soft landings only.").join(" ")).toBe("SOFT LANDINGS ONLY."); expect(hookLines("Hi")).toEqual(["HI"]); });
-  it("builds a reel spec from the catalogue and uses real prices", () => {
+  it("builds a reel spec from the catalogue and never includes prices", () => {
     const { spec } = buildReelSpec({ id: "c1", hook: "Sleep looks like this", title: "t", productSlugs: [dogItems[0].slug, dogItems[1].slug, dogItems[2].slug] }, cat);
-    expect(spec.products).toHaveLength(3); expect(spec.products[0].price).toBe(inr(dogItems[0].price)); expect(spec.petPhotos[0]).toBe("golden.jpg");
+    expect(spec.products).toHaveLength(3); expect(spec.products.every((x) => x.price === "")).toBe(true); expect(spec.petPhotos[0]).toBe("golden.jpg");
     expect(buildReelSpec({ id: "c2", hook: "x y z", title: "t", productSlugs: [catItem.slug, catItem2.slug, catItem3.slug] }, cat).spec.petPhotos[0]).toBe("cat.jpg");
   });
   it("rejects a concept with no catalogue products", () => { expect(() => buildReelSpec({ id: "c", hook: "h", title: "t", productSlugs: ["nope"] }, cat)).toThrow(); });

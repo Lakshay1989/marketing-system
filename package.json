@@ -15,7 +15,8 @@
     "worker": "tsx worker/index.ts",
     "report:daily": "tsx scripts/daily-report.ts",
     "meta:connect": "tsx scripts/meta-connect.ts",
-    "accounts:check": "tsx scripts/accounts-check.ts"
+    "accounts:check": "tsx scripts/accounts-check.ts",
+    "report:summary": "tsx --env-file=.env scripts/daily-summary.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1155.0",

@@ -34,11 +34,9 @@ describe("QA rules", () => {
     expect(verdict(checkText({ ...ok, caption: "Soft soft bed here. Link in bio #oops" }, [])).passed).toBe(false);
     expect(verdict(checkText({ ...ok, platform: "facebook", caption: "Four things for every evening walk. Shop at kukur.shop" }, [])).passed).toBe(true);
   });
-  it("fails on a price mismatch, warns when the store is unreachable", () => {
-    const spec = [{ slug: "a", price: "₹1,559" }, { slug: "b", price: "₹219" }];
-    expect(checkPrices(spec, { a: 1559, b: 219 })[0].status).toBe("pass");
-    expect(checkPrices(spec, { a: 1559, b: 249 })[0]).toMatchObject({ status: "fail" });
-    expect(checkPrices(spec, { a: null, b: null })[0].status).toBe("warn");
+  it("fails if any price is shown in the video (policy: no prices in reels or stories)", () => {
+    expect(checkPrices([{ slug: "a", price: "" }, { slug: "b", price: "" }])[0].status).toBe("pass");
+    expect(checkPrices([{ slug: "a", price: "" }, { slug: "b", price: "₹219" }])[0]).toMatchObject({ status: "fail" });
   });
   it("flags duplicates", () => { expect(verdict(checkDuplicates(1, 0, 0)).passed).toBe(false); expect(verdict(checkDuplicates(0, 1, 0)).passed).toBe(false); expect(verdict(checkDuplicates(0, 0, 2)).passed).toBe(true); });
   it("spell-checks with the system dictionary and tolerates brand words", () => { const u = unknownWords("Soft landings for your cats and kukur wandd toy #dogsofindia"); expect(u).toContain("wandd"); expect(u).not.toContain("kukur"); expect(u).not.toContain("landings"); });
@@ -46,7 +44,7 @@ describe("QA rules", () => {
 
 async function item(db: Awaited<ReturnType<typeof testDb>>, o: { caption?: string; hook?: string; spec?: object } = {}) {
   const [c] = await db.insert(schema.concepts).values({ title: "t", hook: o.hook ?? "Pack the evening walk bag", format: "reel", platform: "instagram", status: "produced", productSlugs: ["a", "b", "c"] }).returning();
-  const [a] = await db.insert(schema.assets).values({ conceptId: c.id, kind: "reel", storageKey: "k" + Math.random(), mimeType: "video/mp4", qaReport: { spec: o.spec ?? { products: [{ slug: "a", price: "₹219" }] }, audio: "original-generated" } }).returning();
+  const [a] = await db.insert(schema.assets).values({ conceptId: c.id, kind: "reel", storageKey: "k" + Math.random(), mimeType: "video/mp4", qaReport: { spec: o.spec ?? { products: [{ slug: "a", price: "" }] }, audio: "original-generated" } }).returning();
   const [i] = await db.insert(schema.contentItems).values({ conceptId: c.id, assetId: a.id, platform: "instagram", format: "reel", caption: o.caption ?? "Four things for every evening walk. Link in bio.", hashtags: ["#a", "#b", "#c"], status: "draft", contentHash: "h" + Math.random() }).returning(); return { c, a, i };
 }
 const deps = (facts: MediaFacts, live = { a: 219 } as Record<string, number | null>) => ({ inspector: async () => facts, fetchMedia: async () => "/tmp/kmai-none.mp4", livePrices: async () => live });
@@ -74,13 +72,13 @@ describe("QA agent", () => {
     await db.insert(schema.assets).values({ conceptId: c.id, kind: "reel", storageKey: "older", mimeType: "video/mp4" });
     await qaContentItem(db, i.id, deps({ ...good, hasAudio: false })); expect((await db.select().from(schema.concepts).where(eq(schema.concepts.id, c.id)))[0].status).toBe("rejected");
   });
-  it("fails when the price in the video differs from the live store", async () => {
-    const db = await testDb(); const { i } = await item(db); const r = await qaContentItem(db, i.id, deps(good, { a: 249 }));
-    expect(r.passed).toBe(false); expect(!r.skipped && r.failed.map((f) => f.name)).toContain("prices match the live store");
+  it("fails when a price is shown in the video", async () => {
+    const db = await testDb(); const { i } = await item(db, { spec: { products: [{ slug: "a", price: "₹219" }] } }); const r = await qaContentItem(db, i.id, deps(good));
+    expect(r.passed).toBe(false); expect(!r.skipped && r.failed.map((f) => f.name)).toContain("no prices shown in the video");
   });
-  it("warns (never silently passes) when the prices shown were not recorded", async () => {
-    const db = await testDb(); const { i, a } = await item(db); await db.update(schema.assets).set({ qaReport: { audio: "original-generated" } }).where(eq(schema.assets.id, a.id));
-    const r = await qaContentItem(db, i.id, deps(good)); expect(!r.skipped && r.warnings.map((w) => w.name)).toContain("prices match the live store");
+  it("fails when the caption mentions a price", async () => {
+    const db = await testDb(); const { i } = await item(db, { caption: "Toys from ₹199 at Kukur. Link in bio." }); const r = await qaContentItem(db, i.id, deps(good));
+    expect(r.passed).toBe(false); expect(!r.skipped && r.failed.map((f) => f.name)).toContain("no prices in the text");
   });
   it("detects a duplicate caption", async () => {
     const db = await testDb(); await item(db, { caption: "Same caption text here. Link in bio." }); const { i } = await item(db, { caption: "Same caption text here. Link in bio.", hook: "Another hook entirely" });

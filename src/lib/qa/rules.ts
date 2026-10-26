@@ -42,18 +42,17 @@ export function checkText(item: Item, unknownWords: string[]): Check[] {
   const cta = item.platform === "instagram" ? /link in bio/i.test(item.caption) : /kukur\.shop/i.test(item.caption);
   out.push(c(item.platform === "instagram" ? "call to action: link in bio" : "call to action: kukur.shop", cta, cta ? "present" : "missing"));
   out.push(c("no repeated words or stray punctuation", !/\b(\w{3,})\s+\1\b/i.test(item.caption) && !/[!?.]{3,}/.test(item.caption), "ok", true));
+  out.push(c("no prices in the text", !PRICE_TEXT.test(item.caption), "ok"));
   out.push(c("spelling", unknownWords.length === 0, unknownWords.length ? `unrecognised: ${unknownWords.slice(0, 6).join(", ")}` : "no unknown words", true));
   return out;
 }
 
-/** The prices shown in the video must equal what the live store charges. A mismatch fails; an unreachable store is only a warning. */
-export function checkPrices(spec: SpecPrice[], live: Record<string, number | null>): Check[] {
-  const bad: string[] = []; let unknown = 0;
-  for (const p of spec) { const shown = Number(p.price.replace(/[^\d]/g, "")); const l = live[p.slug]; if (l === null || l === undefined) { unknown++; continue; } if (Math.round(l) !== shown) bad.push(`${p.slug}: video ${shown} vs store ${Math.round(l)}`); }
-  if (bad.length) return [{ name: "prices match the live store", status: "fail", detail: bad.join("; ") }];
-  if (unknown === spec.length && spec.length) return [{ name: "prices match the live store", status: "warn", detail: "could not reach the store to verify" }];
-  return [{ name: "prices match the live store", status: unknown ? "warn" : "pass", detail: unknown ? `${unknown} product(s) not verified` : `${spec.length} product(s) verified against kukur.shop` }];
+/** Policy (26 Oct 2026): no prices anywhere in reels or stories. Any price text in the render spec fails QA. */
+export function checkPrices(spec: SpecPrice[], _live: Record<string, number | null> = {}): Check[] {
+  const shown = spec.filter((p) => p.price && p.price.trim());
+  return [{ name: "no prices shown in the video", status: shown.length ? "fail" : "pass", detail: shown.length ? `prices found for: ${shown.map((p) => p.slug).join(", ")}` : "none shown" }];
 }
+export const PRICE_TEXT = /₹|\brs\.?\s*\d|\binr\b|\bprices?\b|\bunder\s+\d/i;
 
 export function checkDuplicates(sameHash: number, sameCaption: number, sameHook: number): Check[] {
   return [c("not a duplicate file", sameHash === 0, sameHash ? `${sameHash} identical file(s) already exist` : "unique"), c("caption not used before", sameCaption === 0, sameCaption ? `${sameCaption} earlier item(s) with the same caption` : "unique"), c("hook not used before", sameHook === 0, sameHook ? `${sameHook} earlier concept(s) with the same hook` : "unique", true)];

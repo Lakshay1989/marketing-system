@@ -20,9 +20,9 @@
     S.products.forEach((p, i) => {
       const t0 = t1 + i * 2 * B, [bgc, fg] = PALETTE[i % PALETTE.length], word = p.word;
       const el = mk(bg(bgc) + T('arch', word, `left:0;right:0;top:260px;text-align:center;font-size:${Math.min(300, Math.round(960 / (word.length * 0.78)))}px;color:${fg};opacity:.95`) + pcard(p.slug, 190, 600, 700)
-        + T('serif', p.name, `left:70px;top:1330px;font-size:${fitSize(p.name, 70, 'serif')}px;color:${fg}`) + pill(p.price, 70, 1440, bgc === C.cream ? C.orange : C.cream, bgc === C.cream ? '#fff' : C.deep, 58) + T('arch', `0${i + 1}`, `right:60px;top:1450px;font-size:100px;color:${fg};opacity:.4`));
+        + T('serif', p.name, `left:70px;top:1330px;font-size:${fitSize(p.name, 70, 'serif')}px;color:${fg}`) + (p.price ? pill(p.price, 70, 1440, bgc === C.cream ? C.orange : C.cream, bgc === C.cream ? '#fff' : C.deep, 58) : '') + T('arch', `0${i + 1}`, `right:60px;top:1450px;font-size:100px;color:${fg};opacity:.4`));
       const c = el.querySelector('.pc'), w = el.children[1], pl = el.querySelector('.pl');
-      add(t0, t0 + 2 * B, el, (lt) => { const e = E.bounce(clamp(lt / 0.5)); c.style.transform = `translateY(${(1 - e) * -900}px) scale(${1 + Math.max(0, 0.18 * Math.sin(clamp((lt - 0.45) / 0.25) * Math.PI))},${1 - Math.max(0, 0.14 * Math.sin(clamp((lt - 0.45) / 0.25) * Math.PI))}) rotate(${(i % 2 ? -1 : 1) * 4}deg)`; w.style.transform = `scale(${lerp(1.15, 1, E.out3(clamp(lt / 0.3)))})`; pop(pl, lt, 0.45, 0.25); }, REVEALS[i % REVEALS.length], 0.2);
+      add(t0, t0 + 2 * B, el, (lt) => { const e = E.bounce(clamp(lt / 0.5)); c.style.transform = `translateY(${(1 - e) * -900}px) scale(${1 + Math.max(0, 0.18 * Math.sin(clamp((lt - 0.45) / 0.25) * Math.PI))},${1 - Math.max(0, 0.14 * Math.sin(clamp((lt - 0.45) / 0.25) * Math.PI))}) rotate(${(i % 2 ? -1 : 1) * 4}deg)`; w.style.transform = `scale(${lerp(1.15, 1, E.out3(clamp(lt / 0.3)))})`; if (pl) pop(pl, lt, 0.45, 0.25); }, REVEALS[i % REVEALS.length], 0.2);
     });
     // 3) pet burst
     S.petPhotos.forEach((ph, i) => petShot(t2 + i * B, t2 + (i + 1) * B, A + ph, Object.assign({ word: S.petWords[i] || '', size: 280, font: 'arch', col: i % 2 ? C.gold : C.cream }, FOCAL[ph] || {})));

@@ -3,6 +3,7 @@ import os from "node:os";
 import path from "node:path";
 import { and, eq, ne, sql } from "drizzle-orm";
 import { schema, type Db } from "@/db";
+import { autoApproveIfAutonomous } from "../controls";
 import { audit } from "../audit";
 import { signedMediaUrl, s3Configured } from "../storage";
 import { checkDuplicates, checkPrices, checkReelMedia, checkStoryMedia, checkText, verdict, type Check, type MediaFacts } from "./rules";
@@ -57,7 +58,7 @@ export async function qaContentItem(db: Db, itemId: string, deps: QaDeps = {}) {
   const checks: Check[] = [...(isVideo ? checkReelMedia(facts, item.platform) : checkStoryMedia(facts)), ...checkText({ platform: item.platform, format: item.format, caption: item.caption, hashtags: item.hashtags, cta: item.cta }, (deps.unknownWords ?? unknownWords)(item.caption))];
   const report = (asset.qaReport ?? {}) as { spec?: { products?: { slug: string; price: string }[] }; audio?: string };
   const specProducts = report.spec?.products ?? [];
-  if (specProducts.length) checks.push(...checkPrices(specProducts, await (deps.livePrices ?? livePrices)(specProducts.map((p) => p.slug))));
+  if (specProducts.length) checks.push(...checkPrices(specProducts, {}));
   else if (isVideo || item.format === "story") checks.push({ name: "prices match the live store", status: "warn", detail: "not checked: no record of the prices shown in this asset" });
   if (isVideo) checks.push({ name: "audio is original (no licensed music)", status: report.audio === "original-generated" ? "pass" : "warn", detail: report.audio ?? "provenance not recorded" });
   const count = async (q: ReturnType<typeof sql>) => ((await db.execute(q)) as unknown as { rows: { n: number }[] }).rows[0].n;
@@ -79,6 +80,7 @@ export async function qaContentItem(db: Db, itemId: string, deps: QaDeps = {}) {
       else await db.update(schema.concepts).set({ status: "rejected", notes: `QA failed after ${n} attempts: ${reason}`.slice(0, 500) }).where(eq(schema.concepts.id, concept.id));
     }
   }
+  if (v.passed) await autoApproveIfAutonomous(db, item.id);
   await audit(db, "qa", v.passed ? "qa.passed" : "qa.failed", item.id, { failed: v.failed.map((f) => f.name), warnings: v.warnings.length });
   return { skipped: false as const, passed: v.passed, failed: v.failed, warnings: v.warnings, checks };
 }
