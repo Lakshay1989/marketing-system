@@ -52,9 +52,9 @@ describe("production agent", () => {
     expect(await produceConcept(db, c.id, stub)).toEqual({ skipped: true }); expect((await db.select().from(schema.contentItems)).length).toBe(1);
     await expect(produceConcept(db, (await concept(db, { status: "rejected" })).id, stub)).rejects.toThrow(/not approved/);
   });
-  it("produces a story and notes interactive stickers", async () => {
+  it("produces a story with no manual sticker step", async () => {
     const db = await testDb(); const c = await concept(db, { format: "story", hook: "Box or bed first?", title: "Box or Bed Poll", productSlugs: [dogItems[0].slug, dogItems[1].slug] });
-    const r = await produceConcept(db, c.id, stub); expect(r).toMatchObject({ interactive: true }); expect((await db.select().from(schema.assets))[0].kind).toBe("story_image");
+    const r = await produceConcept(db, c.id, stub); expect(r).toMatchObject({ interactive: false }); expect((await db.select().from(schema.assets))[0].kind).toBe("story_image");
   });
   it("runs through the worker queue and records a production agent run", async () => {
     const db = await testDb(); const c = await concept(db); await enqueue(db, "produce", { conceptId: c.id });
