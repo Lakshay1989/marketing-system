@@ -7,6 +7,7 @@ import { schema, type Db } from "@/db";
 import { loadCatalog } from "../agents/strategy";
 import { putMedia } from "../storage";
 import { audit } from "../audit";
+import { enqueue } from "../queue";
 import { buildReelSpec, buildStorySpec, captionFor } from "./specs";
 
 export interface Rendered { files: { path: string; kind: "reel" | "cover" | "story_image" | "story_video"; mime: string; width: number; height: number; durationSec?: number }[] }
@@ -58,8 +59,25 @@ export async function produceConcept(db: Db, conceptId: string, renderer: Render
   const products = c.productSlugs.map((s) => by.get(s)).filter((p): p is NonNullable<typeof p> => Boolean(p));
   const { caption, hashtags } = captionFor(c.platform as "instagram" | "facebook", c.caption ?? c.title, products);
   const [item] = await db.insert(schema.contentItems).values({ conceptId: c.id, assetId: main.id, platform: c.platform, format: c.format, caption, hashtags, cta: c.cta, status: "draft", contentHash: (await db.select().from(schema.assets).where(eq(schema.assets.id, main.id)))[0].qaReport?.sha256 as string }).returning();
+  // Every Instagram reel is also offered to Facebook (same video, Facebook caption), so the Page gets steady reels too.
+  let siblingId: string | undefined;
+  if (c.format === "reel" && c.platform === "instagram") siblingId = (await createFacebookSibling(db, item.id))?.id;
   await db.update(schema.concepts).set({ status: "produced", notes: note.join("; ") || c.notes }).where(eq(schema.concepts.id, c.id));
   fs.rmSync(workDir, { recursive: true, force: true });
   await audit(db, "production", "concept.produced", c.id, { assets: stored.length, interactive });
-  return { skipped: false as const, contentItemId: item.id, assets: stored.length, interactive, notes: note };
+  return { skipped: false as const, contentItemId: item.id, siblingId, assets: stored.length, interactive, notes: note };
+}
+
+/** Creates a Facebook content item that reuses the Instagram reel's video. QA still runs on it (text checks) before it is scheduled. */
+export async function createFacebookSibling(db: Db, igItemId: string) {
+  const [ig] = await db.select().from(schema.contentItems).where(eq(schema.contentItems.id, igItemId));
+  if (!ig || ig.platform !== "instagram" || ig.format !== "reel" || !ig.assetId || !ig.conceptId) return null;
+  const dup = await db.select().from(schema.contentItems).where(and(eq(schema.contentItems.assetId, ig.assetId), eq(schema.contentItems.platform, "facebook")));
+  if (dup.length) return null;
+  const [concept] = await db.select().from(schema.concepts).where(eq(schema.concepts.id, ig.conceptId));
+  const by = new Map(loadCatalog().products.map((p) => [p.slug, p])); const products = (concept?.productSlugs ?? []).map((x) => by.get(x)).filter((p): p is NonNullable<typeof p> => Boolean(p));
+  const { caption, hashtags } = captionFor("facebook", ig.caption.replace(/\s*link in bio\.?/gi, ""), products);
+  const [fb] = await db.insert(schema.contentItems).values({ conceptId: ig.conceptId, assetId: ig.assetId, platform: "facebook", format: "reel", caption, hashtags: hashtags.length ? hashtags : ig.hashtags, cta: "Shop at kukur.shop", status: "draft", contentHash: ig.contentHash }).returning();
+  await enqueue(db, "qa", { contentItemId: fb.id }, { idempotencyKey: `qa:${fb.id}`, maxAttempts: 2 });
+  return fb;
 }

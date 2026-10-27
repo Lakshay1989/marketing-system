@@ -50,7 +50,15 @@ export async function qaContentItem(db: Db, itemId: string, deps: QaDeps = {}) {
   const [item] = await db.select().from(schema.contentItems).where(eq(schema.contentItems.id, itemId)); if (!item) throw new Error("Content item not found");
   if (!item.assetId) throw new Error("Content item has no asset");
   const [asset] = await db.select().from(schema.assets).where(eq(schema.assets.id, item.assetId));
-  if (asset.qaStatus === "passed") return { skipped: true as const, passed: true };
+  if (asset.qaStatus === "passed") {
+    // The video already passed (e.g. an Instagram reel reused for Facebook): only this item's own text is checked.
+    if (item.status === "draft") {
+      const tv = verdict(checkText({ platform: item.platform, format: item.format, caption: item.caption, hashtags: item.hashtags, cta: item.cta }, (deps.unknownWords ?? unknownWords)(item.caption)));
+      await db.update(schema.contentItems).set({ status: tv.passed ? "awaiting_approval" : "qa_failed" }).where(eq(schema.contentItems.id, item.id));
+      if (tv.passed) await autoApproveIfAutonomous(db, item.id);
+    }
+    return { skipped: true as const, passed: true };
+  }
   const [concept] = item.conceptId ? await db.select().from(schema.concepts).where(eq(schema.concepts.id, item.conceptId)) : [];
   const isVideo = asset.mimeType.startsWith("video"); const ext = isVideo ? "mp4" : "png";
   const file = await (deps.fetchMedia ?? fetchMedia)(asset.storageKey, ext);
