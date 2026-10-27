@@ -9,7 +9,7 @@ import { putMedia } from "../storage";
 import { audit } from "../audit";
 import { buildReelSpec, buildStorySpec, captionFor } from "./specs";
 
-export interface Rendered { files: { path: string; kind: "reel" | "cover" | "story_image"; mime: string; width: number; height: number; durationSec?: number }[] }
+export interface Rendered { files: { path: string; kind: "reel" | "cover" | "story_image" | "story_video"; mime: string; width: number; height: number; durationSec?: number }[] }
 export type Renderer = (kind: "reel" | "story", spec: unknown, workDir: string) => Promise<Rendered>;
 
 function exec(args: string[], timeoutMs = 20 * 60_000): Promise<string> {
@@ -28,7 +28,9 @@ export const realRenderer: Renderer = async (kind, spec, workDir) => {
     return { files: [{ path: path.join(workDir, "reel.mp4"), kind: "reel", mime: "video/mp4", width: 1080, height: 1920, durationSec: meta.durationSec }, { path: path.join(workDir, "cover.png"), kind: "cover", mime: "image/png", width: 1080, height: 1920 }] };
   }
   const png = path.join(workDir, "story.png"); await exec(["production/render-story.mjs", sp, png]);
-  return { files: [{ path: png, kind: "story_image", mime: "image/png", width: 1080, height: 1920 }] };
+  // Stories carry the same original soundtrack as reels: the finished image becomes an 8 s video (Instagram's API cannot attach library music).
+  const mp4 = path.join(workDir, "story.mp4"); const meta = JSON.parse((await exec(["production/story-video.mjs", png, sp, mp4])).trim().split("\n").pop()!);
+  return { files: [{ path: mp4, kind: "story_video", mime: "video/mp4", width: 1080, height: 1920, durationSec: meta.durationSec }, { path: png, kind: "cover", mime: "image/png", width: 1080, height: 1920 }] };
 };
 
 /** Turns one approved concept into stored media assets and a draft content item (QA still pending). Idempotent per concept. */
@@ -49,7 +51,7 @@ export async function produceConcept(db: Db, conceptId: string, renderer: Render
   for (const f of out.files) {
     const buf = fs.readFileSync(f.path); const key = `${c.format}s/${c.id}/v${version}/${path.basename(f.path)}`;
     await putMedia(key, buf, f.mime);
-    const [a] = await db.insert(schema.assets).values({ conceptId: c.id, kind: f.kind, storageKey: key, mimeType: f.mime, width: f.width, height: f.height, durationSec: f.durationSec, bytes: buf.length, qaStatus: "pending", version, qaReport: { notes: note, spec, audio: f.kind === "reel" ? "original-generated" : undefined, sha256: createHash("sha256").update(buf).digest("hex") } }).onConflictDoNothing().returning();
+    const [a] = await db.insert(schema.assets).values({ conceptId: c.id, kind: f.kind, storageKey: key, mimeType: f.mime, width: f.width, height: f.height, durationSec: f.durationSec, bytes: buf.length, qaStatus: "pending", version, qaReport: { notes: note, spec, audio: f.kind === "reel" || f.kind === "story_video" ? "original-generated" : undefined, sha256: createHash("sha256").update(buf).digest("hex") } }).onConflictDoNothing().returning();
     if (a) stored.push({ id: a.id, kind: f.kind });
   }
   const main = stored.find((s) => s.kind !== "cover"); if (!main) throw new Error("Render produced no main asset");

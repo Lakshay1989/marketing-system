@@ -20,8 +20,8 @@ const card = (p, x, y, w, rot) => { const label = p.short ?? p.name; const fs_ =
 let body = "";
 const ink = dark ? "cream" : "forest";
 if (S.template === "grid") {
-  const ps = S.products.slice(0, 6); const cols = ps.length === 4 ? 2 : ps.length === 2 ? 2 : 3; const w = cols === 3 ? 295 : 400; const gx = cols === 3 ? [55, 395, 735] : [110, 570];
-  body = logo + hl(S.headTop ?? 430, S.headline) + ps.map((p, i) => card(p, gx[i % cols], 800 + Math.floor(i / cols) * (w + 85), w, [-3, 2, -2, 3, -2, 2][i])).join("");
+  const ps = S.products.slice(0, 6); const cols = ps.length === 4 ? 2 : ps.length === 2 ? 2 : 3; const four = ps.length === 4; const w = cols === 3 ? 295 : four ? 350 : 400; const gx = cols === 3 ? [55, 395, 735] : four ? [120, 610] : [110, 570]; const y0 = four ? 740 : 800, step = four ? w + 75 : w + 85;
+  body = logo + hl(S.headTop ?? 430, S.headline) + ps.map((p, i) => card(p, gx[i % cols], y0 + Math.floor(i / cols) * step, w, [-3, 2, -2, 3, -2, 2][i])).join("");
 } else if (S.template === "hero") {
   body = `<div class="abs" style="left:0;right:0;top:0;height:1150px;overflow:hidden"><img src="${U("production/assets/" + S.photo)}" style="width:100%;height:100%;object-fit:cover;object-position:${S.focus ?? "50% 25%"}"></div><div class="abs" style="left:0;right:0;top:600px;height:560px;background:linear-gradient(180deg,rgba(12,47,42,0),${COL.deep})"></div>` + logo + hl(S.headTop ?? 850, S.headline) + (S.products ?? []).slice(0, 3).map((p, i) => card(p, [60, 390, 720][i], 1280, 300, [-4, 3, -3][i])).join("");
 } else if (S.template === "poll") {
