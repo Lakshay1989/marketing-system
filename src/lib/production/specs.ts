@@ -58,11 +58,13 @@ const BY_CATEGORY: Record<string, string[]> = {
   collars: ["#petcollar", "#gemstonecollar", "#petaccessories", "#petfashion"], toys: ["#dogtoys", "#cattoys", "#playtime"], beds: ["#petbed", "#cosyhome"], bowls: ["#petbowl", "#mealtime"],
   brushes: ["#petgrooming", "#groomingtime"], wipes: ["#petgrooming", "#petcare"], clothing: ["#dogclothes", "#petfashion"], travel: ["#dogwalk", "#traveldog"], cleanup: ["#petcare", "#cleanhome"], scratchers: ["#catscratcher", "#catlife"],
 };
-const LOCAL = ["#delhipets", "#delhidogs", "#delhicats", "#janakpuri"];
+// Reach is national, metros first. Trade tags speak to pet shops, groomers and other bulk buyers.
+const LOCAL = ["#mumbaipets", "#delhipets", "#bangalorepets", "#hyderabadpets", "#chennaipets", "#kolkatapets", "#punepets", "#gurgaonpets", "#indiapets"];
+const TRADE = ["#petshopindia", "#petshopowner", "#petbusinessindia", "#wholesalepetsupplies", "#petretail", "#petsuppliesindia"];
 export function hashtagsFor(products: CatalogProduct[], seed: string): string[] {
   const sp = speciesOf(products); const cats = [...new Set(products.map((p) => p.category))];
   const cat = cats.flatMap((c) => BY_CATEGORY[c] ?? []); const pick = (arr: string[], n: number, off: number) => arr.length ? Array.from({ length: Math.min(n, arr.length) }, (_, i) => arr[(pickIdx(seed, arr.length) + off + i) % arr.length]) : [];
-  return [...new Set([...CORE, ...BY_SPECIES[sp].slice(0, 2), ...pick(cat, 2, 0), ...pick(LOCAL, 2, 1)])].slice(0, 8);
+  return [...new Set([...CORE, ...BY_SPECIES[sp].slice(0, 2), ...pick(cat, 2, 0), ...pick(LOCAL, 3, 1), ...pick(TRADE, 2, 2)])].slice(0, 11);
 }
 export function captionFor(platform: "instagram" | "facebook", draft: string, products: CatalogProduct[], seed = draft): { caption: string; hashtags: string[] } {
   const base = draft.replace(/#\w+/g, "").replace(/\s*(link in bio|shop (now )?at kukur\.shop)\.?/gi, "").replace(/\s+/g, " ").trim();
