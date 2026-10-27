@@ -555,6 +555,331 @@
     "cat"
    ],
    "category": "clothing"
+  },
+  {
+   "slug": "gem-collar-shian",
+   "name": "Shian Gemstone Collar",
+   "price": "3299.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-peach-chronicle",
+   "name": "Peach Chronicle Gemstone Collar",
+   "price": "2899.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-turquoise-isle",
+   "name": "Turquoise Isle Gemstone Collar",
+   "price": "3499.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-starfield-journey",
+   "name": "Starfield Journey Gemstone Collar",
+   "price": "4199.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-anxu",
+   "name": "ANXU Gemstone Collar",
+   "price": "4499.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-fubo-blue",
+   "name": "FUBO Blue Gemstone Collar",
+   "price": "3899.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-twilight-vibe",
+   "name": "Twilight Vibe Gemstone Collar",
+   "price": "4499.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-luning",
+   "name": "Luning Gemstone Collar",
+   "price": "3899.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-fenshao",
+   "name": "Fenshao Gemstone Collar",
+   "price": "3899.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-qingyao",
+   "name": "Qingyao Gemstone Collar",
+   "price": "4299.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-zixi",
+   "name": "Zixi Gemstone Collar",
+   "price": "3599.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-tianxi",
+   "name": "Tianxi Gemstone Collar",
+   "price": "3899.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-zhuyao",
+   "name": "Zhuyao Gemstone Collar",
+   "price": "3599.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-chasing-dusk-diary",
+   "name": "Chasing Dusk Diary Gemstone Collar",
+   "price": "3999.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-real-life-wear",
+   "name": "Real-Life Wear Gemstone Collar",
+   "price": "4999.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-zhian-a",
+   "name": "Zhian A Gemstone Collar",
+   "price": "3899.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-zhian-b",
+   "name": "Zhian B Gemstone Collar",
+   "price": "3699.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-sweet-bond",
+   "name": "Sweet Bond Gemstone Collar",
+   "price": "3899.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-chase-the-wild",
+   "name": "Chase the Wild Gemstone Collar",
+   "price": "4299.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-autumn-whisper",
+   "name": "Autumn Whisper Gemstone Collar",
+   "price": "3299.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-sea-mist",
+   "name": "Sea Mist Gemstone Collar",
+   "price": "4199.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-tideview",
+   "name": "Tideview Gemstone Collar",
+   "price": "4599.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-lumen-isle",
+   "name": "Lumen Isle Gemstone Collar",
+   "price": "4299.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-star-path",
+   "name": "Star Path Gemstone Collar",
+   "price": "4199.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
+  },
+  {
+   "slug": "gem-collar-pure-realm",
+   "name": "Pure Realm Gemstone Collar",
+   "price": "4799.00",
+   "desc": "A gemstone-beaded adjustable collar for small and medium dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "hero": true
   }
  ],
  "boxes": [
