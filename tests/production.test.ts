@@ -49,7 +49,7 @@ describe("production agent", () => {
   });
   it("never produces the same concept twice and refuses unapproved concepts", async () => {
     const db = await testDb(); const c = await concept(db); await produceConcept(db, c.id, stub);
-    expect(await produceConcept(db, c.id, stub)).toEqual({ skipped: true }); expect((await db.select().from(schema.contentItems)).length).toBe(1);
+    expect(await produceConcept(db, c.id, stub)).toEqual({ skipped: true }); expect((await db.select().from(schema.contentItems)).length).toBe(2); // the Instagram reel plus its Facebook copy
     await expect(produceConcept(db, (await concept(db, { status: "rejected" })).id, stub)).rejects.toThrow(/not approved/);
   });
   it("produces a story with no manual sticker step", async () => {
