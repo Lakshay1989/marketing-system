@@ -51,9 +51,21 @@ export function buildStorySpec(c: ConceptLike & { storyboard?: unknown[] }, cata
   return { interactive: poll, spec: poll ? { template: "poll", bg, headline: fixed, products: prods.slice(0, 2), prompt: "Vote with the poll sticker 👇" } : { template: "grid", bg, headline: fixed, products: prods, pill: "Shop at kukur.shop", pillBg: darkBg ? "orange" : "forest" } };
 }
 
-const TAGS = { dog: ["#dogsofindia", "#dogparents", "#petstoreindia", "#dogtoys"], cat: ["#catsofindia", "#catparents", "#petstoreindia", "#cattoys"], both: ["#dogsofindia", "#catsofindia", "#petparentsindia", "#petstoreindia"] } as const;
-export function captionFor(platform: "instagram" | "facebook", draft: string, products: CatalogProduct[]): { caption: string; hashtags: string[] } {
+// Hashtags: a fixed core, plus species, product-type and local (Delhi) tags. A few tags rotate per post so the account does not look repetitive.
+const CORE = ["#petstoreindia", "#petparentsindia"];
+const BY_SPECIES = { dog: ["#dogsofindia", "#dogparents", "#indiandogs"], cat: ["#catsofindia", "#catparents", "#indiancats"], both: ["#dogsofindia", "#catsofindia", "#petlovers"] } as const;
+const BY_CATEGORY: Record<string, string[]> = {
+  collars: ["#petcollar", "#gemstonecollar", "#petaccessories", "#petfashion"], toys: ["#dogtoys", "#cattoys", "#playtime"], beds: ["#petbed", "#cosyhome"], bowls: ["#petbowl", "#mealtime"],
+  brushes: ["#petgrooming", "#groomingtime"], wipes: ["#petgrooming", "#petcare"], clothing: ["#dogclothes", "#petfashion"], travel: ["#dogwalk", "#traveldog"], cleanup: ["#petcare", "#cleanhome"], scratchers: ["#catscratcher", "#catlife"],
+};
+const LOCAL = ["#delhipets", "#delhidogs", "#delhicats", "#janakpuri"];
+export function hashtagsFor(products: CatalogProduct[], seed: string): string[] {
+  const sp = speciesOf(products); const cats = [...new Set(products.map((p) => p.category))];
+  const cat = cats.flatMap((c) => BY_CATEGORY[c] ?? []); const pick = (arr: string[], n: number, off: number) => arr.length ? Array.from({ length: Math.min(n, arr.length) }, (_, i) => arr[(pickIdx(seed, arr.length) + off + i) % arr.length]) : [];
+  return [...new Set([...CORE, ...BY_SPECIES[sp].slice(0, 2), ...pick(cat, 2, 0), ...pick(LOCAL, 2, 1)])].slice(0, 8);
+}
+export function captionFor(platform: "instagram" | "facebook", draft: string, products: CatalogProduct[], seed = draft): { caption: string; hashtags: string[] } {
   const base = draft.replace(/#\w+/g, "").replace(/\s*(link in bio|shop (now )?at kukur\.shop)\.?/gi, "").replace(/\s+/g, " ").trim();
   const cta = platform === "instagram" ? "Link in bio." : "Shop at kukur.shop";
-  return { caption: `${base} ${cta}`.replace(/\s+/g, " ").trim(), hashtags: [...TAGS[speciesOf(products)]] };
+  return { caption: `${base} ${cta}`.replace(/\s+/g, " ").trim(), hashtags: hashtagsFor(products, seed) };
 }
