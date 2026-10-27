@@ -71,7 +71,7 @@ export async function qaContentItem(db: Db, itemId: string, deps: QaDeps = {}) {
   if (isVideo) checks.push({ name: "audio is original (no licensed music)", status: report.audio === "original-generated" ? "pass" : "warn", detail: report.audio ?? "provenance not recorded" });
   const count = async (q: ReturnType<typeof sql>) => ((await db.execute(q)) as unknown as { rows: { n: number }[] }).rows[0].n;
   const sha = (asset.qaReport as { sha256?: string } | null)?.sha256;
-  const sameHash = item.contentHash ? await count(sql`select count(*)::int n from content_items where content_hash=${item.contentHash} and id<>${item.id} and status<>'rejected'`) : 0;
+  const sameHash = item.contentHash ? await count(sql`select count(*)::int n from content_items where content_hash=${item.contentHash} and id<>${item.id} and asset_id is distinct from ${item.assetId} and status<>'rejected'`) : 0;
   const sameCaption = await count(sql`select count(*)::int n from content_items where caption=${item.caption} and id<>${item.id} and status not in ('rejected','qa_failed')`);
   const sameHook = concept ? await count(sql`select count(*)::int n from concepts where lower(hook)=lower(${concept.hook}) and id<>${concept.id} and status in ('produced')`) : 0;
   void sha; checks.push(...checkDuplicates(sameHash, sameCaption, sameHook));
