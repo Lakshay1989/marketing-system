@@ -49,7 +49,7 @@ export async function researchTrends(db: Db, deps: { runner?: Runner; search?: S
     purpose: "trend-research",
     prompt: researchPrompt(now.toISOString().slice(0, 10), retrieved?.sources ?? []),
     web: retrieved === null,
-    timeoutMs: 900_000,
+    timeoutMs: 240_000,
     responseFormat: TrendResponseFormat,
   }, deps.runner);
   const raw = extractJson<unknown[]>(text); const kept: TrendFinding[] = []; const dropped: { title: string; reason: string }[] = []; const perHost: Record<string, number> = {};
