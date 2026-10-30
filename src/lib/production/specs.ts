@@ -1,3 +1,5 @@
+import fs from "node:fs";
+import path from "node:path";
 import { createHash } from "node:crypto";
 import type { CatalogProduct } from "../agents/strategy";
 
@@ -21,8 +23,19 @@ export function hookLines(hook: string, maxLines = 5, lineChars = 11): string[] 
 const pickIdx = (seed: string, n: number) => parseInt(createHash("sha1").update(seed).digest("hex").slice(0, 6), 16) % n;
 const speciesOf = (ps: CatalogProduct[]) => { const dog = ps.some((p) => p.species.includes("dog")), cat = ps.some((p) => p.species.includes("cat")); return dog && cat ? "both" : cat ? "cat" : "dog"; };
 
-export interface ReelSpec { template: "showcase"; bpm: number; key: string; seed: number; hookLines: string[]; products: { slug: string; name: string; price: string; word: string }[]; petPhotos: string[]; petWords: string[]; tag: string; cta: string }
+export interface ReelSpec { template: "showcase"; bpm: number; key: string; seed: number; hookLines: string[]; products: { slug: string; name: string; price: string; word: string }[]; petPhotos: string[]; petWords: string[]; clip?: { file: string; start: number; dur: number; word: string }; tag: string; cta: string }
 export interface ConceptLike { id: string; hook: string; title: string; productSlugs: string[] }
+
+/** A real stock pet clip (production/assets/clips, licences in index.json) to play after the product cards. Absent when no matching clip is on disk. */
+function pickClip(id: string, species: string, words: string[]): ReelSpec["clip"] {
+  try {
+    const dir = path.resolve("production/assets/clips");
+    const all: { file: string; species: string }[] = JSON.parse(fs.readFileSync(path.join(dir, "index.json"), "utf8"));
+    const pool = all.filter((c) => (species === "both" ? true : c.species === species) && fs.existsSync(path.join(dir, c.file)));
+    if (!pool.length) return undefined;
+    return { file: path.join(dir, pool[pickIdx(id + "c", pool.length)].file), start: 0.5, dur: 3, word: words[0] };
+  } catch { return undefined; }
+}
 
 export function buildReelSpec(c: ConceptLike, catalog: { products: CatalogProduct[] }): { spec: ReelSpec; padded: string[] } {
   const by = new Map(catalog.products.map((p) => [p.slug, p])); const items = c.productSlugs.map((s) => by.get(s)).filter((p): p is CatalogProduct => Boolean(p)).slice(0, 6);
@@ -34,7 +47,7 @@ export function buildReelSpec(c: ConceptLike, catalog: { products: CatalogProduc
   const words = sp === "cat" ? ["PURR", "POUNCE"] : sp === "both" ? ["LOVE", "PLAY"] : ["WAG", "PLAY"];
   const keys = ["C", "D", "G", "F", "A"]; const bpms = [112, 116, 120, 124, 128];
   return { padded, spec: { template: "showcase", bpm: bpms[pickIdx(c.id, bpms.length)], key: keys[pickIdx(c.id + "k", keys.length)], seed: pickIdx(c.id + "s", 50) + 3, hookLines: hookLines(c.hook),
-    products: items.map((p) => ({ slug: p.slug, name: p.name, price: "", word: productWord(p.name) })), petPhotos: photos, petWords: words, tag: "EVERY TAIL TELLS A STORY.", cta: "kukur.shop" } };
+    products: items.map((p) => ({ slug: p.slug, name: p.name, price: "", word: productWord(p.name) })), petPhotos: photos, petWords: words, clip: pickClip(c.id, sp, words), tag: "EVERY TAIL TELLS A STORY.", cta: "kukur.shop" } };
 }
 
 export interface StorySpec { template: "grid" | "poll" | "hero"; bg: string; headline: [string, number, string][]; products: { slug: string; name: string; short: string; price: string }[]; pill?: string; pillBg?: string; prompt?: string; photos?: string[]; photo?: string }

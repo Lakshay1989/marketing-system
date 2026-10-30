@@ -8,17 +8,24 @@ import fs from "node:fs";
 const [specPath, outDir] = process.argv.slice(2);
 const spec = JSON.parse(fs.readFileSync(specPath, "utf8"));
 fs.mkdirSync(outDir, { recursive: true });
-const frames = path.join(outDir, "frames"); fs.rmSync(frames, { recursive: true, force: true }); fs.mkdirSync(frames);
+const frames = path.join(outDir, "frames"); fs.rmSync(frames, { recursive: true, force: true }); fs.rmSync(path.join(outDir, "clipframes"), { recursive: true, force: true }); fs.mkdirSync(frames);
 const FPS = 30;
 const run = (cmd, args) => { const r = spawnSync(cmd, args, { encoding: "utf8" }); if (r.status !== 0) throw new Error(`${cmd} failed: ${(r.stderr || r.stdout).slice(0, 400)}`); return r.stdout; };
 
+// Optional real pet clip: extract it to 30 fps vertical frames so the Chrome player can show it deterministically, frame by frame.
+if (spec.clip) {
+  const dir = path.join(outDir, "clipframes"); fs.rmSync(dir, { recursive: true, force: true }); fs.mkdirSync(dir);
+  run("ffmpeg", ["-y", "-loglevel", "error", "-ss", String(spec.clip.start ?? 0), "-t", String(spec.clip.dur), "-i", spec.clip.file, "-vf", "fps=30,scale=1080:1920:force_original_aspect_ratio=increase,crop=1080:1920", "-q:v", "4", path.join(dir, "c%03d.jpg")]);
+  spec.clip.n = fs.readdirSync(dir).length; spec.clip.base = "file://" + dir + "/";
+  if (!spec.clip.n) delete spec.clip;
+}
 const b = await chromium.launch({ channel: "chrome" });
 const pg = await b.newPage({ viewport: { width: 1080, height: 1920 } });
 const problems = []; pg.on("pageerror", (e) => problems.push(e.message));
 await pg.addInitScript((s) => { window.SPEC = s; }, spec);
 await pg.goto("file://" + path.resolve("production/engine/player.html") + "?t=" + (spec.template || "showcase"), { waitUntil: "networkidle" });
 await pg.waitForFunction("window.__ready===true", null, { timeout: 20000 });
-await pg.evaluate(() => document.fonts.ready); await pg.waitForTimeout(900);
+await pg.evaluate(() => document.fonts.ready); await pg.waitForFunction("[...document.images].every((i) => i.complete)", null, { timeout: 30000 }); await pg.waitForTimeout(900);
 const info = await pg.evaluate(() => ({ dur: window.REEL.dur, sections: window.REEL.sections, coverAt: window.REEL.coverAt }));
 const total = Math.round(info.dur * FPS);
 for (let f = 0; f < total; f++) { await pg.evaluate(([t, i]) => window.renderFrame(t, i), [f / FPS, f]); await pg.screenshot({ path: `${frames}/f${String(f).padStart(4, "0")}.jpg`, type: "jpeg", quality: 93 }); }

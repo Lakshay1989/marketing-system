@@ -9,3 +9,6 @@ media/
 .DS_Store
 logs/
 production/out/
+
+# stock pet clips (licences in production/assets/clips/index.json); kept on the worker machine only
+production/assets/clips/*.mp4

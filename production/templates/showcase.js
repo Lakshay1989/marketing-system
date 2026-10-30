@@ -2,7 +2,7 @@
 // Built from the proven Kukur motion engine (lib.js): kinetic hook, bouncing product cards with real names and prices, pet burst, logo end card.
 (function () {
   const S = window.SPEC, B = 60 / S.bpm, n = S.products.length, np = S.petPhotos.length;
-  const t1 = 2 * B, t2 = t1 + n * 2 * B, t3 = t2 + np * B, dur = Math.round((t3 + 4 * B) * 100) / 100;
+  const t1 = 2 * B, t2 = t1 + n * 2 * B, clipLen = S.clip ? Math.ceil(S.clip.dur / B) * B : 0, t3 = t2 + (S.clip ? clipLen : np * B), dur = Math.round((t3 + 4 * B) * 100) / 100;
   const hits = [0, t1]; for (let i = 0; i < n; i++) hits.push(+(t1 + i * 2 * B).toFixed(3)); hits.push(+t2.toFixed(3), +t3.toFixed(3));
   const FOCAL = { 'golden.jpg': { fy: 10, za: 2.3, zb: 1.95 }, 'beagle.jpg': { fx: 42, fy: 20, za: 1.9, zb: 1.4 }, 'corgi.jpg': { fx: 62, fy: 58, za: 1.9, zb: 1.4 }, 'doodle.jpg': { fx: 60, fy: 35, za: 1.9, zb: 1.5 }, 'cat.jpg': { fx: 50, fy: 38, za: 1.8, zb: 1.5 }, 'dogcat.jpg': { fx: 25, fy: 40, za: 1.5, zb: 1.25 } };
   const PALETTE = [[C.forest, C.cream], [C.cream, C.terra], [C.gold, C.deep], [C.terra, C.cream], [C.teal, C.cream], [C.cream, C.forest], [C.deep, C.gold], [C.orange, C.cream]];
@@ -25,7 +25,14 @@
       add(t0, t0 + 2 * B, el, (lt) => { const e = E.bounce(clamp(lt / 0.5)); c.style.transform = `translateY(${(1 - e) * -900}px) scale(${1 + Math.max(0, 0.18 * Math.sin(clamp((lt - 0.45) / 0.25) * Math.PI))},${1 - Math.max(0, 0.14 * Math.sin(clamp((lt - 0.45) / 0.25) * Math.PI))}) rotate(${(i % 2 ? -1 : 1) * 4}deg)`; w.style.transform = `scale(${lerp(1.15, 1, E.out3(clamp(lt / 0.3)))})`; if (pl) pop(pl, lt, 0.45, 0.25); }, REVEALS[i % REVEALS.length], 0.2);
     });
     // 3) pet burst
-    S.petPhotos.forEach((ph, i) => petShot(t2 + i * B, t2 + (i + 1) * B, A + ph, Object.assign({ word: S.petWords[i] || '', size: 280, font: 'arch', col: i % 2 ? C.gold : C.cream }, FOCAL[ph] || {})));
+    if (S.clip) (function () {
+      // a real pet clip, played frame by frame under one big word, in place of the two still photos
+      const imgs = Array.from({ length: S.clip.n }, (_, i) => `<img class="cf" src="${S.clip.base}c${String(i + 1).padStart(3, '0')}.jpg" style="position:absolute;left:0;top:0;width:1080px;height:1920px;object-fit:cover;display:none">`).join('');
+      const word = S.clip.word || S.petWords[0] || '', size = fitSize(word, 280, 'arch');
+      const el = mk(bg(C.deep) + imgs + `<div class="abs" style="left:0;right:0;top:1000px;height:920px;background:linear-gradient(180deg,rgba(12,47,42,0),rgba(12,47,42,.78))"></div>` + T('arch', word, `left:0;right:0;top:1330px;text-align:center;font-size:${size}px;color:${C.cream}`));
+      const fr = [...el.querySelectorAll('.cf')];
+      add(t2, t3, el, (lt) => { const k = Math.min(fr.length - 1, Math.floor(lt * 30)); fr.forEach((f, i) => { f.style.display = i === k ? 'block' : 'none'; }); });
+    })(); else S.petPhotos.forEach((ph, i) => petShot(t2 + i * B, t2 + (i + 1) * B, A + ph, Object.assign({ word: S.petWords[i] || '', size: 280, font: 'arch', col: i % 2 ? C.gold : C.cream }, FOCAL[ph] || {})));
     // 4) end card
     endCard(t3, dur, { bg: C.cream, tag: S.tag, tgSize: 44, cta: S.cta, logoTop: 560 });
   } };
