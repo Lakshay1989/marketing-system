@@ -1,34 +1,42 @@
 {
   "updatedAt": "2026-10-30",
-  "method": "Browsed the top posts under #indianpetparents and #petshopindia, plus one pet-business announcement post, in a logged-in browser. No view or like counts were captured, so these are patterns that recur among top-ranked posts, not measured winners.",
+  "method": "Browsed the top-posts grids of #indianpetparents, #dogsofindia, #petsofindia, #catsofindia, #petshopindia, #dogfashion, #petgifting and #diwali in a logged-in Chrome, read-only. Opened 17 posts in total (about 2 per tag, 4 for #indianpetparents) and read caption, on-screen text where readable, and the like count shown on the post page. Business accounts were judged from their posts only; profile pages were not opened. Counts are quoted only where visible and are the first number shown on the post. No Diwali pet-specific post appeared in the top grid, so the seasonal signal is weak.",
   "observations": [
-    { "pattern": "relatable-identity", "seen": "Text-on-video hooks about Indian pet-parent life: 'Indian mother BEFORE getting a dog', 'Some pet parent MENTALITY be like', 'Average Indian parents and their furry child', 'Pet parents before leaving home'.", "source": "#indianpetparents top reels" },
-    { "pattern": "mistake-list", "seen": "Educational 'mistakes' and 'Don't skip' hooks: 'Mistakes Indian cat parents always make', 'Biggest mistake', 'Don't skip'. Bold coloured text, one person talking to the camera.", "source": "#indianpetparents top reels" },
-    { "pattern": "hinglish-voice", "seen": "Hinglish titles such as 'Mera wala bhi alag hai' (mine is different too): conversational, proud-owner tone.", "source": "#indianpetparents top reels" },
-    { "pattern": "numbered-list", "seen": "List formats such as '50 shades of looking good' across several pets.", "source": "#indianpetparents top reels" },
-    { "pattern": "pov-announcement", "seen": "'POV: your favourite furry supervisor has a little announcement' followed by one plain offer ('Bookings are OPEN!') and city hashtags. 7 likes, so a small account.", "source": "cuddlenpawsparadise post shared by the founder" },
-    { "pattern": "shop-owner-to-camera", "seen": "Trade tag is dominated by shop owners talking to camera or walking through the shop, plus flyers with contact numbers.", "source": "#petshopindia top posts" }
+    { "pattern": "relatable-identity", "seen": "Hooks about Indian family life with a pet: 'Indian mother BEFORE getting a dog', 'Average Indian parents and their furry child', and a Gujarati-mom 'everybody says he is just a dog' message post that showed about 7.6K likes. Caption is a short story, tone is proud and funny.", "source": "#indianpetparents, #dogsofindia" },
+    { "pattern": "vet-voice-mistakes-and-rants", "seen": "Educational 'Common mistakes Indian cat parents make' bullet captions and a vet 'accountability' rant ending with 'Agree or too harsh? Tell me in the comments.' The rant showed about 556 likes and a long comment thread.", "source": "#indianpetparents" },
+    { "pattern": "hinglish-series-with-dm-cta", "seen": "'Mera Wala Bhi Alag Hai' used as a repeating series name, Hinglish caption, and a call to DM your pet's story to be featured.", "source": "#indianpetparents" },
+    { "pattern": "restock-demand-hook", "seen": "Fashion brand reel 'YOU ASKED... WE RESTOCKED' with 'back in stock, shop your favourites before they are gone'. About 8.9K likes, the strongest brand post seen.", "source": "#dogfashion" },
+    { "pattern": "single-product-editorial", "seen": "One garment per reel, one line on fabric and fit ('editorial design, cozy warmth, fits every breed'), 4 to 5 hashtags. About 949 likes.", "source": "#dogfashion" },
+    { "pattern": "wait-for-it-emotional-gift", "seen": "Gift brands use an emotional reveal: 'Wait for it' hook plus a one-line gift idea. A personalised gift box reel showed about 47.6K likes; a 'Wait for it' gift-ideas reel about 560.", "source": "#petgifting" },
+    { "pattern": "pet-only-one-line-humour", "seen": "Pet-only clip, one funny line, a few hashtags, no offer: a cat-humour reel showed about 150.9K likes, a golden retriever 'even a dog knows what NO means' reel about 3.7K.", "source": "#catsofindia, #petsofindia" },
+    { "pattern": "plain-local-shop-offer-underperforms", "seen": "Local shop posts that are just an offer, location and phone number showed small numbers (about 24 and 255 likes). Grooming 'new look' transformations were similar (about 493, and 78).", "source": "#petshopindia, #dogsofindia, #petsofindia" }
   ],
   "hookTemplates": [
     "POV: you finally pick the collar for the wedding",
+    "Indian mother before vs after the dog gets a new collar",
     "Pet parents before leaving home: collar check",
-    "Mistakes pet parents make buying a collar",
-    "Don't skip this before you order a collar",
-    "Average pet parent at a Diwali shopping list",
+    "Mistakes pet parents make when picking a collar",
+    "YOU ASKED... the Diwali picks are back",
+    "Wait for it: the gift every dog parent needs",
+    "Mera wala bhi alag hai: his collar is too",
+    "Average pet parent with a Diwali shopping list",
     "Pet parent mentality: matching kurta, matching collar",
-    "5 shades of gem collar, which one is yours?",
-    "Shop owners: the shelf corner that sells itself"
+    "5 shades of gem collar, which one is yours?"
   ],
   "topicAngles": [
-    "Relatable pet-parent moments (Diwali guests, wedding outfits, evening walks) tied to a product",
+    "Relatable Indian-family moments (Diwali guests, wedding outfits, evening walks) tied to one product",
     "Mistake or checklist posts: measuring neck size, adjustable strap fit, what to pack for a walk (no safety or health claims)",
-    "Numbered 'shades' or 'styles' lists of hero products",
-    "Shop-owner posts: display ideas and why a gift range sells (bulk CTA, no prices)"
+    "Restock and 'you asked' posts for hero products, with the story of why it is back",
+    "Wait-for-it gift reveals for pet parents (Diwali and wedding-season gifting)",
+    "A recurring named series with a share or DM prompt in the caption",
+    "One product per post, one line on look and feel, no offer-only flyers"
   ],
   "captionRules": [
-    "Hook line first, plain offer second, question or share prompt last",
+    "Hook line first, one short story or product line second, question or share prompt last",
     "Mix English with a little Hinglish where it sounds natural",
-    "City hashtags plus 2 to 3 niche tags, never more than 11 in total"
+    "End with a prompt to comment, share or DM, not just contact details",
+    "City hashtags plus 2 to 3 niche tags, never more than 11 in total",
+    "Never put prices, offers with numbers, or phone numbers in the caption or on screen"
   ],
   "limits": "Production can only render text hooks, product cards, stock-photo bursts and story grids. Anything needing a person on camera is a manual shoot, so the tool writes only the version it can render and lists any on-camera idea separately in notes."
 }
