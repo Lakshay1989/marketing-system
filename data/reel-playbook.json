@@ -1,0 +1,34 @@
+{
+  "updatedAt": "2026-10-30",
+  "method": "Browsed the top posts under #indianpetparents and #petshopindia, plus one pet-business announcement post, in a logged-in browser. No view or like counts were captured, so these are patterns that recur among top-ranked posts, not measured winners.",
+  "observations": [
+    { "pattern": "relatable-identity", "seen": "Text-on-video hooks about Indian pet-parent life: 'Indian mother BEFORE getting a dog', 'Some pet parent MENTALITY be like', 'Average Indian parents and their furry child', 'Pet parents before leaving home'.", "source": "#indianpetparents top reels" },
+    { "pattern": "mistake-list", "seen": "Educational 'mistakes' and 'Don't skip' hooks: 'Mistakes Indian cat parents always make', 'Biggest mistake', 'Don't skip'. Bold coloured text, one person talking to the camera.", "source": "#indianpetparents top reels" },
+    { "pattern": "hinglish-voice", "seen": "Hinglish titles such as 'Mera wala bhi alag hai' (mine is different too): conversational, proud-owner tone.", "source": "#indianpetparents top reels" },
+    { "pattern": "numbered-list", "seen": "List formats such as '50 shades of looking good' across several pets.", "source": "#indianpetparents top reels" },
+    { "pattern": "pov-announcement", "seen": "'POV: your favourite furry supervisor has a little announcement' followed by one plain offer ('Bookings are OPEN!') and city hashtags. 7 likes, so a small account.", "source": "cuddlenpawsparadise post shared by the founder" },
+    { "pattern": "shop-owner-to-camera", "seen": "Trade tag is dominated by shop owners talking to camera or walking through the shop, plus flyers with contact numbers.", "source": "#petshopindia top posts" }
+  ],
+  "hookTemplates": [
+    "POV: you finally pick the collar for the wedding",
+    "Pet parents before leaving home: collar check",
+    "Mistakes pet parents make buying a collar",
+    "Don't skip this before you order a collar",
+    "Average pet parent at a Diwali shopping list",
+    "Pet parent mentality: matching kurta, matching collar",
+    "5 shades of gem collar, which one is yours?",
+    "Shop owners: the shelf corner that sells itself"
+  ],
+  "topicAngles": [
+    "Relatable pet-parent moments (Diwali guests, wedding outfits, evening walks) tied to a product",
+    "Mistake or checklist posts: measuring neck size, adjustable strap fit, what to pack for a walk (no safety or health claims)",
+    "Numbered 'shades' or 'styles' lists of hero products",
+    "Shop-owner posts: display ideas and why a gift range sells (bulk CTA, no prices)"
+  ],
+  "captionRules": [
+    "Hook line first, plain offer second, question or share prompt last",
+    "Mix English with a little Hinglish where it sounds natural",
+    "City hashtags plus 2 to 3 niche tags, never more than 11 in total"
+  ],
+  "limits": "Production can only render text hooks, product cards, stock-photo bursts and story grids. Anything needing a person on camera is a manual shoot, so the tool writes only the version it can render and lists any on-camera idea separately in notes."
+}

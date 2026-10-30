@@ -4,6 +4,7 @@ import { desc, eq, gte, and } from "drizzle-orm";
 import { z } from "zod";
 import { schema, type Db } from "@/db";
 import { complete, extractJson, type Runner } from "../llm";
+import { loadPlaybook, playbookPrompt } from "./playbook";
 
 export interface CatalogProduct { slug: string; name: string; price: string; species: string[]; category: string; hero?: boolean }
 export const loadCatalog = (): { products: CatalogProduct[]; boxes: { slug: string; name: string; price: string | null }[] } => JSON.parse(fs.readFileSync(path.resolve("data/kukur-catalog.json"), "utf8"));
@@ -20,10 +21,11 @@ const Concept = z.object({
 });
 export type ConceptDraft = z.infer<typeof Concept>;
 
-export function strategyPrompt(trends: { title: string; adaptation: string; platform: string }[], products: CatalogProduct[], recent: string[], n: number) {
+export function strategyPrompt(trends: { title: string; adaptation: string; platform: string }[], products: CatalogProduct[], recent: string[], n: number, playbook = playbookPrompt(loadPlaybook())) {
   return `You are the Creative Director for Kukur, an Indian pet store (dogs and cats). Brand: premium, warm, practical; colours forest green, cream, orange, gold; tagline "Every Tail Tells a Story."
 Produce ${n} ORIGINAL content concepts for tomorrow (mix of Instagram Reels, Instagram Stories and Facebook Reels). Avoid repeating these recent concepts: ${JSON.stringify(recent)}.
 Trend ideas available (adapt the idea, never copy): ${JSON.stringify(trends)}.
+${playbook}
 HERO RANGE: products whose slug starts with gem-collar- are our new hero range of gemstone-beaded collars. At least HALF of your concepts (and at least one reel and one story) must feature 3 or more different gem-collar-* products, shown by their style names. Describe them only as decorative gemstone-beaded collars with an adjustable strap, for small and medium dogs and cats: never claim energy, healing, protection, luck, calming, safety or authenticity of stones; the product is a pre-order.
 Only use these real products (slug): ${products.map((p) => `${p.slug} (${p.name})`).join("; ")}.
 WHAT PRODUCTION CAN ACTUALLY MAKE (propose only these): (a) REEL = a kinetic text hook (your hook), then 3-6 products shown one by one as bouncing cards with their real names (NEVER prices), then a close-up burst of a stock dog or cat photo with a word, then the Kukur logo end card; (b) STORY grid = a headline plus a grid of 3-6 products (no prices); NEVER propose polls, quizzes, questions or any Story that needs a sticker (stickers cannot be added automatically). It CANNOT film, show people, unbox, build, do before/after, step-by-step or voice-over. Do not describe scenes it cannot make.
