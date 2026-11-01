@@ -1111,19 +1111,6 @@
    "new": true
   },
   {
-   "slug": "retractable-leash-pastel",
-   "name": "Pastel Retractable Leash 5 m",
-   "price": "299.00",
-   "desc": "A 5 m retractable leash with a soft-grip handle and a one-touch lock, in pastel colours.",
-   "avail": "https://schema.org/PreOrder",
-   "species": [
-    "dog",
-    "cat"
-   ],
-   "category": "leashes",
-   "new": true
-  },
-  {
    "slug": "retractable-leash-bold",
    "name": "Bold Ring Retractable Leash 5 m",
    "price": "399.00",
@@ -1148,19 +1135,6 @@
    "new": true
   },
   {
-   "slug": "retractable-leash-everyday",
-   "name": "Everyday Retractable Leash",
-   "price": "299.00",
-   "desc": "A simple retractable leash in 3 m and 5 m lengths and a wide choice of colours.",
-   "avail": "https://schema.org/PreOrder",
-   "species": [
-    "dog",
-    "cat"
-   ],
-   "category": "leashes",
-   "new": true
-  },
-  {
    "slug": "smart-litter-box-enclosed",
    "name": "Smart Self-Cleaning Litter Box (Enclosed)",
    "price": "8799.00",
@@ -1174,21 +1148,9 @@
   },
   {
    "slug": "smart-litter-box-open",
-   "name": "Smart Self-Cleaning Litter Box (Open Mini)",
+   "name": "Smart Self-Cleaning Litter Box (Open Top)",
    "price": "7399.00",
-   "desc": "An open automatic litter box with a 10.5 L waste bin and raised legs, for cats.",
-   "avail": "https://schema.org/PreOrder",
-   "species": [
-    "cat"
-   ],
-   "category": "litter",
-   "new": true
-  },
-  {
-   "slug": "smart-litter-box-compact",
-   "name": "Smart Self-Cleaning Litter Box (Compact)",
-   "price": "6899.00",
-   "desc": "A smaller open automatic litter box with an 8 L waste bin, for flats and small spaces.",
+   "desc": "An open automatic litter box with a waste bin and raised legs, in a mini 10.5 L and a compact 8 L size, for cats.",
    "avail": "https://schema.org/PreOrder",
    "species": [
     "cat"
@@ -1296,6 +1258,19 @@
     "cat"
    ],
    "category": "bowls",
+   "new": true
+  },
+  {
+   "slug": "retractable-leash-classic",
+   "name": "Classic Retractable Leash",
+   "price": "299.00",
+   "desc": "A simple retractable leash with a soft handle and a one-touch lock, in 3 m and 5 m lengths and bright colours.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "leashes",
    "new": true
   }
  ],
