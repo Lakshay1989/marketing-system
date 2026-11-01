@@ -2,14 +2,51 @@
   "updatedAt": "2026-10-30",
   "method": "Browsed the top-posts grids of #indianpetparents, #dogsofindia, #petsofindia, #catsofindia, #petshopindia, #dogfashion, #petgifting and #diwali in a logged-in Chrome, read-only. Opened 17 posts in total (about 2 per tag, 4 for #indianpetparents) and read caption, on-screen text where readable, and the like count shown on the post page. Business accounts were judged from their posts only; profile pages were not opened. Counts are quoted only where visible and are the first number shown on the post. No Diwali pet-specific post appeared in the top grid, so the seasonal signal is weak.",
   "observations": [
-    { "pattern": "relatable-identity", "seen": "Hooks about Indian family life with a pet: 'Indian mother BEFORE getting a dog', 'Average Indian parents and their furry child', and a Gujarati-mom 'everybody says he is just a dog' message post that showed about 7.6K likes. Caption is a short story, tone is proud and funny.", "source": "#indianpetparents, #dogsofindia" },
-    { "pattern": "vet-voice-mistakes-and-rants", "seen": "Educational 'Common mistakes Indian cat parents make' bullet captions and a vet 'accountability' rant ending with 'Agree or too harsh? Tell me in the comments.' The rant showed about 556 likes and a long comment thread.", "source": "#indianpetparents" },
-    { "pattern": "hinglish-series-with-dm-cta", "seen": "'Mera Wala Bhi Alag Hai' used as a repeating series name, Hinglish caption, and a call to DM your pet's story to be featured.", "source": "#indianpetparents" },
-    { "pattern": "restock-demand-hook", "seen": "Fashion brand reel 'YOU ASKED... WE RESTOCKED' with 'back in stock, shop your favourites before they are gone'. About 8.9K likes, the strongest brand post seen.", "source": "#dogfashion" },
-    { "pattern": "single-product-editorial", "seen": "One garment per reel, one line on fabric and fit ('editorial design, cozy warmth, fits every breed'), 4 to 5 hashtags. About 949 likes.", "source": "#dogfashion" },
-    { "pattern": "wait-for-it-emotional-gift", "seen": "Gift brands use an emotional reveal: 'Wait for it' hook plus a one-line gift idea. A personalised gift box reel showed about 47.6K likes; a 'Wait for it' gift-ideas reel about 560.", "source": "#petgifting" },
-    { "pattern": "pet-only-one-line-humour", "seen": "Pet-only clip, one funny line, a few hashtags, no offer: a cat-humour reel showed about 150.9K likes, a golden retriever 'even a dog knows what NO means' reel about 3.7K.", "source": "#catsofindia, #petsofindia" },
-    { "pattern": "plain-local-shop-offer-underperforms", "seen": "Local shop posts that are just an offer, location and phone number showed small numbers (about 24 and 255 likes). Grooming 'new look' transformations were similar (about 493, and 78).", "source": "#petshopindia, #dogsofindia, #petsofindia" }
+    {
+      "pattern": "relatable-identity",
+      "seen": "Hooks about Indian family life with a pet: 'Indian mother BEFORE getting a dog', 'Average Indian parents and their furry child', and a Gujarati-mom 'everybody says he is just a dog' message post that showed about 7.6K likes. Caption is a short story, tone is proud and funny.",
+      "source": "#indianpetparents, #dogsofindia"
+    },
+    {
+      "pattern": "vet-voice-mistakes-and-rants",
+      "seen": "Educational 'Common mistakes Indian cat parents make' bullet captions and a vet 'accountability' rant ending with 'Agree or too harsh? Tell me in the comments.' The rant showed about 556 likes and a long comment thread.",
+      "source": "#indianpetparents"
+    },
+    {
+      "pattern": "hinglish-series-with-dm-cta",
+      "seen": "'Mera Wala Bhi Alag Hai' used as a repeating series name, Hinglish caption, and a call to DM your pet's story to be featured.",
+      "source": "#indianpetparents"
+    },
+    {
+      "pattern": "restock-demand-hook",
+      "seen": "Fashion brand reel 'YOU ASKED... WE RESTOCKED' with 'back in stock, shop your favourites before they are gone'. About 8.9K likes, the strongest brand post seen.",
+      "source": "#dogfashion"
+    },
+    {
+      "pattern": "single-product-editorial",
+      "seen": "One garment per reel, one line on fabric and fit ('editorial design, cozy warmth, fits every breed'), 4 to 5 hashtags. About 949 likes.",
+      "source": "#dogfashion"
+    },
+    {
+      "pattern": "wait-for-it-emotional-gift",
+      "seen": "Gift brands use an emotional reveal: 'Wait for it' hook plus a one-line gift idea. A personalised gift box reel showed about 47.6K likes; a 'Wait for it' gift-ideas reel about 560.",
+      "source": "#petgifting"
+    },
+    {
+      "pattern": "pet-only-one-line-humour",
+      "seen": "Pet-only clip, one funny line, a few hashtags, no offer: a cat-humour reel showed about 150.9K likes, a golden retriever 'even a dog knows what NO means' reel about 3.7K.",
+      "source": "#catsofindia, #petsofindia"
+    },
+    {
+      "pattern": "plain-local-shop-offer-underperforms",
+      "seen": "Local shop posts that are just an offer, location and phone number showed small numbers (about 24 and 255 likes). Grooming 'new look' transformations were similar (about 493, and 78).",
+      "source": "#petshopindia, #dogsofindia, #petsofindia"
+    },
+    {
+      "pattern": "pov-announcement",
+      "seen": "'POV: your favourite furry supervisor has a little announcement' followed by one plain offer ('Bookings are OPEN!'), a closing line ('Come for the stay, stay for the cuddles') and city hashtags. A small account (about 7 likes), but the structure is clean: POV hook, one announcement, one invitation.",
+      "source": "cuddlenpawsparadise post shared by the founder as a reference (kept on purpose)"
+    }
   ],
   "hookTemplates": [
     "POV: you finally pick the collar for the wedding",
