@@ -923,7 +923,7 @@
   {
    "slug": "pastel-double-bowl",
    "name": "Pastel Double Bowl Feeder",
-   "price": "199.00",
+   "price": "299.00",
    "desc": "A two-compartment food and water bowl in soft pastel colours, 22.5 x 39 x 7.5 cm.",
    "avail": "https://schema.org/PreOrder",
    "species": [
@@ -949,7 +949,7 @@
   {
    "slug": "pastel-slow-feeder",
    "name": "Pastel Slow Feeder Bowl",
-   "price": "99.00",
+   "price": "299.00",
    "desc": "A raised-pattern bowl that slows down fast eaters, in flower and rectangular shapes.",
    "avail": "https://schema.org/PreOrder",
    "species": [
@@ -962,7 +962,7 @@
   {
    "slug": "pastel-pet-bowl",
    "name": "Pastel Pet Bowl",
-   "price": "99.00",
+   "price": "299.00",
    "desc": "A simple single bowl for food or water, in square and flower shapes and three pastel colours.",
    "avail": "https://schema.org/PreOrder",
    "species": [
@@ -988,7 +988,7 @@
   {
    "slug": "pastel-scoops",
    "name": "Pastel Scoop Set",
-   "price": "99.00",
+   "price": "299.00",
    "desc": "A litter scoop and a measuring scoop in matching pastel colours.",
    "avail": "https://schema.org/PreOrder",
    "species": [
@@ -1001,7 +1001,7 @@
   {
    "slug": "dog-potty-tray",
    "name": "Dog Potty Tray",
-   "price": "199.00",
+   "price": "299.00",
    "desc": "A low indoor potty tray with a raised grid, 46.5 x 36 x 10 cm.",
    "avail": "https://schema.org/PreOrder",
    "species": [
@@ -1061,7 +1061,7 @@
   {
    "slug": "pearl-heart-necklace",
    "name": "Pearl Heart Pendant Necklace",
-   "price": "99.00",
+   "price": "399.00",
    "desc": "A beaded pearl pet necklace with a coloured heart or crystal pendant, for small dogs and cats.",
    "avail": "https://schema.org/PreOrder",
    "species": [
@@ -1074,7 +1074,7 @@
   {
    "slug": "pearl-bow-necklace",
    "name": "Bow and Pearl Necklace",
-   "price": "99.00",
+   "price": "399.00",
    "desc": "A pearl pet necklace with a bow, in gingham, houndstooth and soft organza styles.",
    "avail": "https://schema.org/PreOrder",
    "species": [
@@ -1087,7 +1087,7 @@
   {
    "slug": "gem-drop-pearl-necklace",
    "name": "Teardrop Gem Pearl Necklace",
-   "price": "99.00",
+   "price": "399.00",
    "desc": "A layered pearl pet necklace with a teardrop or square gem pendant, in several colours.",
    "avail": "https://schema.org/PreOrder",
    "species": [
@@ -1100,7 +1100,7 @@
   {
    "slug": "tassel-pearl-necklace",
    "name": "Gold Chain Tassel Pearl Necklace",
-   "price": "99.00",
+   "price": "399.00",
    "desc": "A pearl pet necklace with a gold-tone chain and tassel or fan drops, for small and medium pets.",
    "avail": "https://schema.org/PreOrder",
    "species": [
@@ -1108,6 +1108,194 @@
     "cat"
    ],
    "category": "collars",
+   "new": true
+  },
+  {
+   "slug": "retractable-leash-pastel",
+   "name": "Pastel Retractable Leash 5 m",
+   "price": "299.00",
+   "desc": "A 5 m retractable leash with a soft-grip handle and a one-touch lock, in pastel colours.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "leashes",
+   "new": true
+  },
+  {
+   "slug": "retractable-leash-bold",
+   "name": "Bold Ring Retractable Leash 5 m",
+   "price": "399.00",
+   "desc": "A 5 m retractable leash with a rubber-grip ring handle, in bold colours and printed styles.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "leashes",
+   "new": true
+  },
+  {
+   "slug": "retractable-leash-light",
+   "name": "Retractable Leash with Light 5 m",
+   "price": "399.00",
+   "desc": "A 5 m retractable leash with a built-in light for evening walks. Batteries are not included.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "leashes",
+   "new": true
+  },
+  {
+   "slug": "retractable-leash-everyday",
+   "name": "Everyday Retractable Leash",
+   "price": "299.00",
+   "desc": "A simple retractable leash in 3 m and 5 m lengths and a wide choice of colours.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "leashes",
+   "new": true
+  },
+  {
+   "slug": "smart-litter-box-enclosed",
+   "name": "Smart Self-Cleaning Litter Box (Enclosed)",
+   "price": "8799.00",
+   "desc": "An enclosed automatic litter box with a round entrance and a removable waste drawer, for cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "litter",
+   "new": true
+  },
+  {
+   "slug": "smart-litter-box-open",
+   "name": "Smart Self-Cleaning Litter Box (Open Mini)",
+   "price": "7399.00",
+   "desc": "An open automatic litter box with a 10.5 L waste bin and raised legs, for cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "litter",
+   "new": true
+  },
+  {
+   "slug": "smart-litter-box-compact",
+   "name": "Smart Self-Cleaning Litter Box (Compact)",
+   "price": "6899.00",
+   "desc": "A smaller open automatic litter box with an 8 L waste bin, for flats and small spaces.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "litter",
+   "new": true
+  },
+  {
+   "slug": "smart-water-fountain",
+   "name": "Smart Pet Water Fountain 2.2 L",
+   "price": "1399.00",
+   "desc": "A 2.2 L plug-in water fountain with a water-level window and a quiet pump.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "bowls",
+   "new": true
+  },
+  {
+   "slug": "grooming-vacuum-kit",
+   "name": "Pet Grooming Vacuum Kit",
+   "price": "3399.00",
+   "desc": "A suction and blowing machine with grooming attachments for home coat care.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "brushes",
+   "new": true
+  },
+  {
+   "slug": "bamboo-raised-bowls",
+   "name": "Bamboo Raised Double Bowl Stand",
+   "price": "299.00",
+   "desc": "A bamboo stand holding two bowls at a raised height, with steel or ceramic bowls.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "bowls",
+   "new": true
+  },
+  {
+   "slug": "fountain-filter-cartridge",
+   "name": "Replacement Filter Cartridge for Water Fountains",
+   "price": "299.00",
+   "desc": "A replacement activated-carbon filter cartridge for compatible plug-in pet water fountains. Check the shape against your fountain before ordering.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "bowls",
+   "new": true
+  },
+  {
+   "slug": "bamboo-cotton-swabs",
+   "name": "Bamboo Cotton Swabs for Pets",
+   "price": "299.00",
+   "desc": "Bamboo-stick cotton swabs in tidy boxes and tubs, for pet-grooming touch-ups on the coat and paws.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "wipes",
+   "new": true
+  },
+  {
+   "slug": "pet-backpack-harness",
+   "name": "Pet Backpack Harness",
+   "price": "399.00",
+   "desc": "A chest harness with a back pouch section and reflective strips, in five sizes.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "harnesses",
+   "new": true
+  },
+  {
+   "slug": "heavy-duty-large-dog-harness",
+   "name": "Heavy-Duty Harness for Large Dogs",
+   "price": "699.00",
+   "desc": "A strong adjustable harness for large dogs, in three sizes and three colours.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "harnesses",
+   "new": true
+  },
+  {
+   "slug": "pastel-water-dispenser-bowl",
+   "name": "Pastel Water Dispenser Bowl",
+   "price": "299.00",
+   "desc": "A bowl with a gravity water dispenser bottle and a steel bowl, 32 x 19.5 x 10.5 cm.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "bowls",
    "new": true
   }
  ],
