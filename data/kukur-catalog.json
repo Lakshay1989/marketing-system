@@ -880,6 +880,235 @@
    ],
    "category": "collars",
    "hero": true
+  },
+  {
+   "slug": "led-water-fountain",
+   "name": "LED Pet Water Fountain",
+   "price": "699.00",
+   "desc": "A flowing-water fountain with a soft LED light, in 2 L and 2.3 L sizes, for cats and small dogs.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "bowls",
+   "new": true
+  },
+  {
+   "slug": "steel-water-fountain",
+   "name": "Stainless Steel Pet Water Fountain 3 L",
+   "price": "799.00",
+   "desc": "A 3 L stainless steel water fountain with a light and a flowing spout.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "bowls",
+   "new": true
+  },
+  {
+   "slug": "smart-automatic-feeder",
+   "name": "Smart Automatic Pet Feeder",
+   "price": "1899.00",
+   "desc": "A timed automatic feeder with a 5.5 L hopper and WiFi control, with a single or double stainless steel bowl.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "bowls",
+   "new": true
+  },
+  {
+   "slug": "pastel-double-bowl",
+   "name": "Pastel Double Bowl Feeder",
+   "price": "199.00",
+   "desc": "A two-compartment food and water bowl in soft pastel colours, 22.5 x 39 x 7.5 cm.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "bowls",
+   "new": true
+  },
+  {
+   "slug": "steel-double-bowl",
+   "name": "Stainless Steel Double Bowl Feeder",
+   "price": "299.00",
+   "desc": "A two-compartment feeder with removable stainless steel bowls (304 grade), 22.5 x 39 x 7.5 cm.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "bowls",
+   "new": true
+  },
+  {
+   "slug": "pastel-slow-feeder",
+   "name": "Pastel Slow Feeder Bowl",
+   "price": "99.00",
+   "desc": "A raised-pattern bowl that slows down fast eaters, in flower and rectangular shapes.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "bowls",
+   "new": true
+  },
+  {
+   "slug": "pastel-pet-bowl",
+   "name": "Pastel Pet Bowl",
+   "price": "99.00",
+   "desc": "A simple single bowl for food or water, in square and flower shapes and three pastel colours.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "bowls",
+   "new": true
+  },
+  {
+   "slug": "food-storage-bucket",
+   "name": "Airtight Pet Storage Bucket",
+   "price": "299.00",
+   "desc": "A clear storage bucket with a sealing lid to keep dry kibble and supplies tidy, in 4 L, 5 L and 6 L.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "bowls",
+   "new": true
+  },
+  {
+   "slug": "pastel-scoops",
+   "name": "Pastel Scoop Set",
+   "price": "99.00",
+   "desc": "A litter scoop and a measuring scoop in matching pastel colours.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "litter",
+   "new": true
+  },
+  {
+   "slug": "dog-potty-tray",
+   "name": "Dog Potty Tray",
+   "price": "199.00",
+   "desc": "A low indoor potty tray with a raised grid, 46.5 x 36 x 10 cm.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "cleanup",
+   "new": true
+  },
+  {
+   "slug": "comfort-mesh-harness",
+   "name": "Comfort Mesh Harness",
+   "price": "299.00",
+   "desc": "A padded mesh harness with reflective strips and a top handle, in four sizes and four colours.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "harnesses",
+   "new": true
+  },
+  {
+   "slug": "tactical-service-harness",
+   "name": "Tactical Service Harness",
+   "price": "399.00",
+   "desc": "A sturdy chest harness with a control handle and reflective edging, in five sizes.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "harnesses",
+   "new": true
+  },
+  {
+   "slug": "molle-vest-harness",
+   "name": "Vest Harness with Pouch Straps",
+   "price": "399.00",
+   "desc": "A vest-style harness with attachment straps on the back and a reflective trim, in five sizes.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "harnesses",
+   "new": true
+  },
+  {
+   "slug": "padded-adventure-harness",
+   "name": "Padded Adventure Harness",
+   "price": "399.00",
+   "desc": "A padded chest-and-back harness with a three-position buckle and nylon edging.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "harnesses",
+   "new": true
+  },
+  {
+   "slug": "pearl-heart-necklace",
+   "name": "Pearl Heart Pendant Necklace",
+   "price": "99.00",
+   "desc": "A beaded pearl pet necklace with a coloured heart or crystal pendant, for small dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "new": true
+  },
+  {
+   "slug": "pearl-bow-necklace",
+   "name": "Bow and Pearl Necklace",
+   "price": "99.00",
+   "desc": "A pearl pet necklace with a bow, in gingham, houndstooth and soft organza styles.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "new": true
+  },
+  {
+   "slug": "gem-drop-pearl-necklace",
+   "name": "Teardrop Gem Pearl Necklace",
+   "price": "99.00",
+   "desc": "A layered pearl pet necklace with a teardrop or square gem pendant, in several colours.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "new": true
+  },
+  {
+   "slug": "tassel-pearl-necklace",
+   "name": "Gold Chain Tassel Pearl Necklace",
+   "price": "99.00",
+   "desc": "A pearl pet necklace with a gold-tone chain and tassel or fan drops, for small and medium pets.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "collars",
+   "new": true
   }
  ],
  "boxes": [
