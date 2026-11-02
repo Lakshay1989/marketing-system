@@ -1,6 +1,6 @@
 {
-  "updatedAt": "2026-10-30",
-  "method": "Browsed the top-posts grids of #indianpetparents, #dogsofindia, #petsofindia, #catsofindia, #petshopindia, #dogfashion, #petgifting and #diwali in a logged-in Chrome, read-only. Opened 17 posts in total (about 2 per tag, 4 for #indianpetparents) and read caption, on-screen text where readable, and the like count shown on the post page. Business accounts were judged from their posts only; profile pages were not opened. Counts are quoted only where visible and are the first number shown on the post. No Diwali pet-specific post appeared in the top grid, so the seasonal signal is weak.",
+  "updatedAt": "2026-11-02",
+  "method": "Browsed the top-posts grids of #indianpetparents, #dogsofindia, #petsofindia, #catsofindia, #petshopindia, #dogfashion, #petgifting, #diwali and #diwaliforpets in a logged-in Chrome, read-only (no likes, follows, comments or saves). For each tag the first 5 to 6 grid posts were read through their post pages: caption, hashtags and the like count in the page description (53 posts in total; only one post was also viewed visually, video content itself was not watched, so on-screen text was not read). Three business profiles (bondir_official, paawshindia, nootie_india) were judged from their public follower line and posts seen, profile grids were not opened. Counts are quoted only where shown and are likes. #diwali itself returned generic festival posts with no pets, so #diwaliforpets was used as the seasonal tag; several grid posts are old (2021 to 2025) viral posts.",
   "observations": [
     {
       "pattern": "relatable-identity",
@@ -23,24 +23,44 @@
       "source": "#dogfashion"
     },
     {
-      "pattern": "single-product-editorial",
-      "seen": "One garment per reel, one line on fabric and fit ('editorial design, cozy warmth, fits every breed'), 4 to 5 hashtags. About 949 likes.",
-      "source": "#dogfashion"
-    },
-    {
       "pattern": "wait-for-it-emotional-gift",
       "seen": "Gift brands use an emotional reveal: 'Wait for it' hook plus a one-line gift idea. A personalised gift box reel showed about 47.6K likes; a 'Wait for it' gift-ideas reel about 560.",
       "source": "#petgifting"
     },
     {
-      "pattern": "pet-only-one-line-humour",
-      "seen": "Pet-only clip, one funny line, a few hashtags, no offer: a cat-humour reel showed about 150.9K likes, a golden retriever 'even a dog knows what NO means' reel about 3.7K.",
-      "source": "#catsofindia, #petsofindia"
+      "pattern": "indian-parent-dialogue-hinglish",
+      "seen": "A hook built on a line every Indian parent says, written in Hinglish, then a numbered series ('Episode 3 of Operation Cat'). About 316 likes and 24 comments; the same tag's pet-owner-feelings posts ('judgemental looks from my OWN cat', about 48K likes) use the same idea of an everyday family moment.",
+      "source": "#catsofindia"
+    },
+    {
+      "pattern": "jealous-of-my-own-dog",
+      "seen": "'Lowkey jealous of my own dog' / 'My dog has better looks and knows it' appeared on two different accounts in two tags, short one-line caption plus a question or joke. About 154 and 315 likes.",
+      "source": "#petsofindia, #indianpetparents"
+    },
+    {
+      "pattern": "named-pet-celebrity-treatment",
+      "seen": "A pet milestone told as a joke ('demanded celebrity treatment, still not getting two dinners'), and a pet-birthday post with a single heartfelt line. Milestone-plus-joke got about 231 likes and 86 comments, the birthday about 152.",
+      "source": "#indianpetparents, #dogsofindia"
+    },
+    {
+      "pattern": "festival-wait-for-gift-guess-prompt",
+      "seen": "Festive gifting brands ask followers to guess or choose: 'Diwali pe aap apni billi ke liye kya FREE gift expect kar rahe ho? Comments mein batao' drew 25 comments on about 45 likes, more comment-heavy than most posts of its size. Another used 'Same Diwali, same boring rubber bone. Not this year' as a before-after hook (about 11 likes).",
+      "source": "#petgifting, #diwaliforpets"
+    },
+    {
+      "pattern": "diwali-pet-calm-tips-lists",
+      "seen": "The biggest seasonal pet posts were numbered tip lists and fireworks-worry reels from large brands and vets (about 12K and 38K likes in 2025, 238K in 2023). In that style the hook is a numbered list; note this niche is health and safety, which our rules do not allow us to claim.",
+      "source": "#diwaliforpets"
+    },
+    {
+      "pattern": "single-product-editorial",
+      "seen": "One garment per reel, one line on fabric and fit ('editorial design, cozy warmth, fits every breed'), 4 to 5 hashtags. About 949 likes from an account with about 168K followers; sherwani, kurta and bandana posts from smaller shops showed 25 to 80 likes.",
+      "source": "#dogfashion, bondir_official profile"
     },
     {
       "pattern": "plain-local-shop-offer-underperforms",
-      "seen": "Local shop posts that are just an offer, location and phone number showed small numbers (about 24 and 255 likes). Grooming 'new look' transformations were similar (about 493, and 78).",
-      "source": "#petshopindia, #dogsofindia, #petsofindia"
+      "seen": "Local shop posts that are just an offer, location and phone number mostly showed small numbers (about 4, 5 and 22 likes). One sale post reached about 426 likes, but the sale-and-phone format cannot be used by us. Small grooming-day posts (about 79 and 87 likes) were similar. Post with a 'what goes through a dog's mind at the spa' story hook did a little better than the plain before-and-after.",
+      "source": "#petshopindia, #dogsofindia"
     },
     {
       "pattern": "pov-announcement",
@@ -57,30 +77,30 @@
     "Wait for it: the gift every dog parent needs",
     "Mera wala bhi alag hai: his collar is too",
     "Average pet parent with a Diwali shopping list",
-    "Pet parent mentality: matching kurta, matching collar",
-    "5 shades of gem collar, which one is yours?",
-    "Pink, blue or yellow? Pick your pet's bowl",
-    "3 things to check before you buy a harness",
-    "The new puppy shelf, sorted",
-    "New in: the bowl that slows down fast eaters",
-    "Cat corner, but make it pretty"
+    "Lowkey jealous of my own dog's outfit",
+    "Diwali pe apne pet ke liye kya gift chahiye? Comments mein batao",
+    "Same boring bowl? Not this year",
+    "Episode 1: the walk bag, what goes inside"
   ],
   "topicAngles": [
     "Relatable Indian-family moments (Diwali guests, wedding outfits, evening walks) tied to one product",
     "Mistake or checklist posts: measuring neck size, adjustable strap fit, what to pack for a walk (no safety or health claims)",
     "Restock and 'you asked' posts for hero products, with the story of why it is back",
     "Wait-for-it gift reveals for pet parents (Diwali and wedding-season gifting)",
-    "A recurring named series with a share or DM prompt in the caption",
+    "A recurring named series or numbered episodes with a share or DM prompt in the caption",
     "One product per post, one line on look and feel, no offer-only flyers",
     "New-arrival spotlight: one new family per post (harnesses, fountains, bowls, necklaces), the colour choice is the hook",
     "Checklist posts that earn saves: 3 things to check before buying a harness, bowl or fountain (fit, material, size) with no health or safety claims",
     "Setup lists: 'new puppy shelf', 'cat corner', 'walk bag' built from 3 to 4 different families, so each post shows a different set",
-    "Colour-picker posts: 'pink, blue or yellow?' for the pastel bowls, 'which shade?' for necklaces, inviting a vote in the comments"
+    "Colour-picker posts: 'pink, blue or yellow?' for the pastel bowls, 'which shade?' for necklaces, inviting a vote in the comments",
+    "Guess-the-gift or pick-one posts for Diwali and wedding season that invite a comment, not a purchase",
+    "Jealous-of-my-pet's-look posts: the outfit or collar that outshines the owner, one-line caption"
   ],
   "captionRules": [
     "Hook line first, one short story or product line second, question or share prompt last",
     "Mix English with a little Hinglish where it sounds natural",
     "End with a prompt to comment, share or DM, not just contact details",
+    "Ask a question people can answer in one word (pick a colour, guess the gift) to earn comments",
     "City hashtags plus 2 to 3 niche tags, never more than 11 in total",
     "Never put prices, offers with numbers, or phone numbers in the caption or on screen"
   ],
