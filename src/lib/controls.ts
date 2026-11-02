@@ -27,7 +27,7 @@ export async function mayPublish(db: Db, itemId: string, now = new Date()): Prom
 export async function schedulerMayAutoPublish(db: Db): Promise<boolean> { return (await getSetting(db, "mode")) !== "review"; }
 
 /** Posting slots in IST (minutes after midnight). Items of the same platform are spread at least 90 minutes apart. */
-const SLOTS_MIN = [12 * 60 + 30, 17 * 60 + 30, 19 * 60 + 30, 21 * 60];
+const SLOTS_MIN = [12 * 60 + 30, 18 * 60, 21 * 60]; // 19:30 averaged the fewest views, so it is dropped
 const IST_MS = 330 * 60_000;
 export async function nextSlot(db: Db, platform: string, now = new Date()): Promise<Date> {
   const taken = (await db.select({ at: schema.contentItems.scheduledFor }).from(schema.contentItems).where(and(eq(schema.contentItems.platform, platform as "instagram" | "facebook"), inArray(schema.contentItems.status, ["approved", "scheduled"])))).map((r) => r.at?.getTime()).filter((x): x is number => Boolean(x));
