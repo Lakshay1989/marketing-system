@@ -24,7 +24,7 @@ const pickIdx = (seed: string, n: number) => parseInt(createHash("sha1").update(
 const speciesOf = (ps: CatalogProduct[]) => { const dog = ps.some((p) => p.species.includes("dog")), cat = ps.some((p) => p.species.includes("cat")); return dog && cat ? "both" : cat ? "cat" : "dog"; };
 
 export interface ReelSpec { template: "showcase"; bpm: number; key: string; seed: number; hookLines: string[]; products: { slug: string; name: string; price: string; word: string }[]; petPhotos: string[]; petWords: string[]; clip?: { file: string; start: number; dur: number; word: string }; tag: string; cta: string }
-export interface ConceptLike { id: string; hook: string; title: string; productSlugs: string[] }
+export interface ConceptLike { id: string; hook: string; title: string; productSlugs: string[]; storyboard?: unknown[] }
 
 /** A real stock pet clip (production/assets/clips, licences in index.json) to play after the product cards. Absent when no matching clip is on disk. */
 function pickClip(id: string, species: string, words: string[]): ReelSpec["clip"] {
@@ -48,6 +48,19 @@ export function buildReelSpec(c: ConceptLike, catalog: { products: CatalogProduc
   const keys = ["C", "D", "G", "F", "A"]; const bpms = [112, 116, 120, 124, 128];
   return { padded, spec: { template: "showcase", bpm: bpms[pickIdx(c.id, bpms.length)], key: keys[pickIdx(c.id + "k", keys.length)], seed: pickIdx(c.id + "s", 50) + 3, hookLines: hookLines(c.hook),
     products: items.map((p) => ({ slug: p.slug, name: p.name, price: "", word: productWord(p.name) })), petPhotos: photos, petWords: words, clip: pickClip(c.id, sp, words), tag: "EVERY TAIL TELLS A STORY.", cta: "kukur.shop" } };
+}
+
+/** A "moment" reel is a real pet clip with 2-3 big text beats and ONE product at the end. The concept marks the beats as "BEAT: text" storyboard lines. */
+export const momentBeats = (storyboard: unknown[] | undefined): string[] => (storyboard ?? []).map(String).filter((x) => /^BEAT:/i.test(x)).map((x) => x.replace(/^BEAT:\s*/i, "").trim()).filter(Boolean).slice(0, 3);
+export interface MomentSpec { template: "moment"; bpm: number; key: string; seed: number; beats: { lines: string[] }[]; product: { slug: string; name: string; word: string }; products: { slug: string; price: string }[]; clip: { file: string; start: number; dur: number; word: string }; tag: string; cta: string }
+export function buildMomentSpec(c: ConceptLike, catalog: { products: CatalogProduct[] }): { spec: MomentSpec; products: { slug: string; price: string }[] } {
+  const by = new Map(catalog.products.map((p) => [p.slug, p])); const lastSlug = [...c.productSlugs].reverse().find((s) => by.has(s)); const p = lastSlug ? by.get(lastSlug)! : undefined;
+  if (!p) throw new Error("Concept has no valid catalogue products");
+  const beats = momentBeats(c.storyboard); if (beats.length < 2) throw new Error("A moment reel needs at least 2 BEAT lines");
+  const sp = speciesOf([p]); const bpms = [100, 104, 108, 112]; const bpm = bpms[pickIdx(c.id, bpms.length)];
+  const clip = pickClip(c.id, sp, []); if (!clip) throw new Error("No stock clip on disk for this pet");
+  clip.dur = Math.round(beats.length * 4 * (60 / bpm) * 100) / 100; clip.word = "";
+  return { products: [{ slug: p.slug, price: "" }], spec: { template: "moment", bpm, key: ["C", "G", "F", "D"][pickIdx(c.id + "k", 4)], seed: pickIdx(c.id + "s", 50) + 3, beats: beats.map((b) => ({ lines: hookLines(b, 4, 12) })), product: { slug: p.slug, name: p.name, word: productWord(p.name) }, products: [{ slug: p.slug, price: "" }], clip: clip as MomentSpec["clip"], tag: "EVERY TAIL TELLS A STORY.", cta: "kukur.shop" } };
 }
 
 export interface StorySpec { template: "grid" | "poll" | "hero"; bg: string; headline: [string, number, string][]; products: { slug: string; name: string; short: string; price: string }[]; pill?: string; pillBg?: string; prompt?: string; photos?: string[]; photo?: string }

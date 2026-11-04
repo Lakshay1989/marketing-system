@@ -8,7 +8,7 @@ import { loadCatalog } from "../agents/strategy";
 import { putMedia } from "../storage";
 import { audit } from "../audit";
 import { enqueue } from "../queue";
-import { buildReelSpec, buildStorySpec, captionFor } from "./specs";
+import { buildReelSpec, buildMomentSpec, buildStorySpec, captionFor, momentBeats } from "./specs";
 
 export interface Rendered { files: { path: string; kind: "reel" | "cover" | "story_image" | "story_video"; mime: string; width: number; height: number; durationSec?: number }[] }
 export type Renderer = (kind: "reel" | "story", spec: unknown, workDir: string) => Promise<Rendered>;
@@ -42,7 +42,8 @@ export async function produceConcept(db: Db, conceptId: string, renderer: Render
   if (c.status !== "approved_for_production") throw new Error(`Concept is ${c.status}, not approved for production`);
   const catalog = loadCatalog(); const by = new Map(catalog.products.map((p) => [p.slug, p]));
   const note: string[] = []; let spec: unknown; let interactive = false;
-  if (c.format === "reel") { const r = buildReelSpec({ id: c.id, hook: c.hook, title: c.title, productSlugs: c.productSlugs }, catalog); spec = r.spec; if (r.padded.length) note.push(`padded with ${r.padded.join(", ")} to reach a full-length reel`); }
+  if (c.format === "reel" && momentBeats(c.storyboard).length >= 2) { spec = buildMomentSpec({ id: c.id, hook: c.hook, title: c.title, productSlugs: c.productSlugs, storyboard: c.storyboard }, catalog).spec; }
+  else if (c.format === "reel") { const r = buildReelSpec({ id: c.id, hook: c.hook, title: c.title, productSlugs: c.productSlugs }, catalog); spec = r.spec; if (r.padded.length) note.push(`padded with ${r.padded.join(", ")} to reach a full-length reel`); }
   else { const r = buildStorySpec({ id: c.id, hook: c.hook, title: c.title, productSlugs: c.productSlugs }, catalog); spec = r.spec; interactive = r.interactive; if (interactive) note.push("needs the poll sticker added manually in Instagram"); }
   const workDir = path.resolve(".data/production", c.id);
   const [{ prior }] = await db.select({ prior: sql<number>`count(*)::int` }).from(schema.assets).where(and(eq(schema.assets.conceptId, c.id), ne(schema.assets.kind, "cover")));
