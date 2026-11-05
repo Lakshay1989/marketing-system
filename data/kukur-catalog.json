@@ -891,8 +891,7 @@
     "dog",
     "cat"
    ],
-   "category": "bowls",
-   "new": true
+   "category": "bowls"
   },
   {
    "slug": "steel-water-fountain",
@@ -904,8 +903,7 @@
     "dog",
     "cat"
    ],
-   "category": "bowls",
-   "new": true
+   "category": "bowls"
   },
   {
    "slug": "smart-automatic-feeder",
@@ -917,8 +915,7 @@
     "dog",
     "cat"
    ],
-   "category": "bowls",
-   "new": true
+   "category": "bowls"
   },
   {
    "slug": "pastel-double-bowl",
@@ -930,8 +927,7 @@
     "dog",
     "cat"
    ],
-   "category": "bowls",
-   "new": true
+   "category": "bowls"
   },
   {
    "slug": "steel-double-bowl",
@@ -943,8 +939,7 @@
     "dog",
     "cat"
    ],
-   "category": "bowls",
-   "new": true
+   "category": "bowls"
   },
   {
    "slug": "pastel-slow-feeder",
@@ -956,8 +951,7 @@
     "dog",
     "cat"
    ],
-   "category": "bowls",
-   "new": true
+   "category": "bowls"
   },
   {
    "slug": "pastel-pet-bowl",
@@ -969,8 +963,7 @@
     "dog",
     "cat"
    ],
-   "category": "bowls",
-   "new": true
+   "category": "bowls"
   },
   {
    "slug": "food-storage-bucket",
@@ -982,8 +975,7 @@
     "dog",
     "cat"
    ],
-   "category": "bowls",
-   "new": true
+   "category": "bowls"
   },
   {
    "slug": "pastel-scoops",
@@ -995,8 +987,7 @@
     "dog",
     "cat"
    ],
-   "category": "litter",
-   "new": true
+   "category": "litter"
   },
   {
    "slug": "dog-potty-tray",
@@ -1007,8 +998,7 @@
    "species": [
     "dog"
    ],
-   "category": "cleanup",
-   "new": true
+   "category": "cleanup"
   },
   {
    "slug": "comfort-mesh-harness",
@@ -1019,8 +1009,7 @@
    "species": [
     "dog"
    ],
-   "category": "harnesses",
-   "new": true
+   "category": "harnesses"
   },
   {
    "slug": "tactical-service-harness",
@@ -1031,8 +1020,7 @@
    "species": [
     "dog"
    ],
-   "category": "harnesses",
-   "new": true
+   "category": "harnesses"
   },
   {
    "slug": "molle-vest-harness",
@@ -1043,8 +1031,7 @@
    "species": [
     "dog"
    ],
-   "category": "harnesses",
-   "new": true
+   "category": "harnesses"
   },
   {
    "slug": "padded-adventure-harness",
@@ -1055,8 +1042,7 @@
    "species": [
     "dog"
    ],
-   "category": "harnesses",
-   "new": true
+   "category": "harnesses"
   },
   {
    "slug": "pearl-heart-necklace",
@@ -1068,8 +1054,7 @@
     "dog",
     "cat"
    ],
-   "category": "collars",
-   "new": true
+   "category": "collars"
   },
   {
    "slug": "pearl-bow-necklace",
@@ -1081,8 +1066,7 @@
     "dog",
     "cat"
    ],
-   "category": "collars",
-   "new": true
+   "category": "collars"
   },
   {
    "slug": "gem-drop-pearl-necklace",
@@ -1094,8 +1078,7 @@
     "dog",
     "cat"
    ],
-   "category": "collars",
-   "new": true
+   "category": "collars"
   },
   {
    "slug": "tassel-pearl-necklace",
@@ -1107,8 +1090,7 @@
     "dog",
     "cat"
    ],
-   "category": "collars",
-   "new": true
+   "category": "collars"
   },
   {
    "slug": "retractable-leash-bold",
@@ -1119,8 +1101,7 @@
    "species": [
     "dog"
    ],
-   "category": "leashes",
-   "new": true
+   "category": "leashes"
   },
   {
    "slug": "retractable-leash-light",
@@ -1131,8 +1112,7 @@
    "species": [
     "dog"
    ],
-   "category": "leashes",
-   "new": true
+   "category": "leashes"
   },
   {
    "slug": "smart-litter-box-enclosed",
@@ -1143,8 +1123,7 @@
    "species": [
     "cat"
    ],
-   "category": "litter",
-   "new": true
+   "category": "litter"
   },
   {
    "slug": "smart-litter-box-open",
@@ -1155,8 +1134,7 @@
    "species": [
     "cat"
    ],
-   "category": "litter",
-   "new": true
+   "category": "litter"
   },
   {
    "slug": "smart-water-fountain",
@@ -1168,8 +1146,7 @@
     "dog",
     "cat"
    ],
-   "category": "bowls",
-   "new": true
+   "category": "bowls"
   },
   {
    "slug": "grooming-vacuum-kit",
@@ -1181,8 +1158,7 @@
     "dog",
     "cat"
    ],
-   "category": "brushes",
-   "new": true
+   "category": "brushes"
   },
   {
    "slug": "bamboo-raised-bowls",
@@ -1194,8 +1170,7 @@
     "dog",
     "cat"
    ],
-   "category": "bowls",
-   "new": true
+   "category": "bowls"
   },
   {
    "slug": "fountain-filter-cartridge",
@@ -1207,8 +1182,7 @@
     "dog",
     "cat"
    ],
-   "category": "bowls",
-   "new": true
+   "category": "bowls"
   },
   {
    "slug": "bamboo-cotton-swabs",
@@ -1220,8 +1194,7 @@
     "dog",
     "cat"
    ],
-   "category": "wipes",
-   "new": true
+   "category": "wipes"
   },
   {
    "slug": "pet-backpack-harness",
@@ -1232,8 +1205,7 @@
    "species": [
     "dog"
    ],
-   "category": "harnesses",
-   "new": true
+   "category": "harnesses"
   },
   {
    "slug": "heavy-duty-large-dog-harness",
@@ -1244,8 +1216,7 @@
    "species": [
     "dog"
    ],
-   "category": "harnesses",
-   "new": true
+   "category": "harnesses"
   },
   {
    "slug": "pastel-water-dispenser-bowl",
@@ -1257,8 +1228,7 @@
     "dog",
     "cat"
    ],
-   "category": "bowls",
-   "new": true
+   "category": "bowls"
   },
   {
    "slug": "retractable-leash-classic",
@@ -1270,7 +1240,204 @@
     "dog",
     "cat"
    ],
-   "category": "leashes",
+   "category": "leashes"
+  },
+  {
+   "slug": "steel-litter-tray",
+   "name": "Stainless Steel Litter Tray with Scoop",
+   "price": "999.00",
+   "desc": "A high-sided litter tray with a stainless steel base and a matching scoop that clips to the side, in several wall shapes.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "litter",
+   "new": true
+  },
+  {
+   "slug": "steel-litter-sifter-set",
+   "name": "Stainless Steel Litter Sifter Tray Set",
+   "price": "1299.00",
+   "desc": "A two-layer stainless steel tray: lift the top sifting tray to separate clean litter from waste in one go.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "litter",
+   "new": true
+  },
+  {
+   "slug": "hooded-litter-house",
+   "name": "Hooded Litter House with Steel Base",
+   "price": "1699.00",
+   "desc": "A covered litter house with a stainless steel base, a front flap, a top opening, a scoop holder and a step mat, in grey, black and yellow.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "litter",
+   "new": true
+  },
+  {
+   "slug": "dome-litter-house",
+   "name": "Dome Litter House",
+   "price": "1899.00",
+   "desc": "A rounded dome litter house with a stainless steel base and a matching scoop, for cats who like a private corner.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "litter",
+   "new": true
+  },
+  {
+   "slug": "cat-charm-collar",
+   "name": "Cat Collar with Bell and Charm",
+   "price": "299.00",
+   "desc": "A light adjustable cat collar with a quick-release clip, a small bell and a cute charm, in many printed designs.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "collars",
+   "new": true
+  },
+  {
+   "slug": "cat-bow-flower-collar",
+   "name": "Cat Bow and Flower Collar",
+   "price": "299.00",
+   "desc": "A lightweight cat collar with a bow or a soft flower, a small bell and an adjustable quick-release clip.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "collars",
+   "new": true
+  },
+  {
+   "slug": "cat-tracker-holder-collar",
+   "name": "Cat Collar with Tracker Holder",
+   "price": "299.00",
+   "desc": "A slim adjustable collar with a soft silicone ring that holds a small round tracker (tracker not included).",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "collars",
+   "new": true
+  },
+  {
+   "slug": "small-dog-vest-harness-set",
+   "name": "Small Dog Vest Harness and Leash Set",
+   "price": "399.00",
+   "desc": "A soft step-in vest harness with a matching leash for small dogs, in plain, bow and lace styles and many colours.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "harnesses",
+   "new": true
+  },
+  {
+   "slug": "plush-fish-cat-toy",
+   "name": "Plush Fish Cat Toy",
+   "price": "299.00",
+   "desc": "A soft printed fish toy for kicking and carrying, in bright patterns.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "toys",
+   "new": true
+  },
+  {
+   "slug": "donut-round-pet-bed",
+   "name": "Plush Round Donut Pet Bed",
+   "price": "699.00",
+   "desc": "A soft raised-rim round bed in plush and textured fabrics, in many colours and three sizes, for dogs and cats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "beds",
+   "new": true
+  },
+  {
+   "slug": "pet-steps",
+   "name": "Soft Pet Steps",
+   "price": "799.00",
+   "desc": "Foam steps that help small dogs and cats climb on to a sofa or bed, with a washable cover.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "beds",
+   "new": true
+  },
+  {
+   "slug": "cooling-pet-mat",
+   "name": "Cooling Pet Mat",
+   "price": "499.00",
+   "desc": "A thin cool-feel mat for warm days, in plain and cute animal shapes, in a few sizes.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "beds",
+   "new": true
+  },
+  {
+   "slug": "pet-tent-bed",
+   "name": "Pet Tent Bed",
+   "price": "699.00",
+   "desc": "A cosy tent with a soft base cushion that gives your small dog or cat a private corner, in solid and printed designs.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "beds",
+   "new": true
+  },
+  {
+   "slug": "steel-pet-bowl",
+   "name": "Stainless Steel Pet Bowl",
+   "price": "299.00",
+   "desc": "A sturdy stainless steel bowl in plain, paw-print and coloured finishes, in sizes from kitten to large dog.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "bowls",
+   "new": true
+  },
+  {
+   "slug": "undercoat-rake-comb",
+   "name": "Undercoat Rake Comb",
+   "price": "299.00",
+   "desc": "A dual-row rake comb with a non-slip handle for working through thick coats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "brushes",
+   "new": true
+  },
+  {
+   "slug": "rubber-flying-ring-toy",
+   "name": "Rubber Flying Ring Toy",
+   "price": "299.00",
+   "desc": "A bendy rubber ring and disc for fetch and tug games, in bright colours.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "toys",
    "new": true
   }
  ],
