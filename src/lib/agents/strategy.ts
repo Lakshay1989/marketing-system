@@ -48,7 +48,7 @@ export function judge(c: ConceptDraft, slugs: Set<string>, existingHooks: string
   if (c.format === "reel" && isMoment(c) && c.storyboard.filter((x) => /^BEAT:/i.test(x)).some((b) => b.length > 70)) return { ok: false, reason: "a BEAT line is too long to read in 2 seconds" };
   if (families && c.format === "reel") { const fam = families.of(c.productSlugs[c.productSlugs.length - 1]); if (families.cooling.has(fam)) return { ok: false, reason: `family ${fam} was featured in the last ${COOLDOWN_DAYS} days` }; if ((families.batch.get(fam) ?? 0) >= 1) return { ok: false, reason: `family ${fam} already used in this batch` }; }
   if (/\b(our|the) (resident|office|shop|store) (dog|cat|pet)\b|\b[Mm]eet (?!Kukur)[A-Z][a-z]+|\b[Cc]all me [A-Z][a-z]+/.test([c.hook, c.title, c.caption].join(" | "))) return { ok: false, reason: "invents a named pet or mascot" };
-  const claim = bannedClaim([c.title, c.hook, c.caption, c.cta, ...c.storyboard].join(" | ")); if (claim) return { ok: false, reason: `banned claim pattern ${claim}` };
+  const claim = bannedClaim([c.title, c.hook, c.caption, c.cta, ...c.storyboard].join(" | ").replace(/\b(no|without|never show|never) prices?\b/gi, "")); // a note such as "no price" is a reminder, not a price if (claim) return { ok: false, reason: `banned claim pattern ${claim}` };
   if (GENERIC.some((r) => r.test(c.hook))) return { ok: false, reason: "generic hook" };
   if (existingHooks.some((h) => h.toLowerCase() === c.hook.toLowerCase())) return { ok: false, reason: "duplicate hook" };
   const s = c.scores; const min = Math.min(s.originality, s.brandFit, s.quality, s.commercial), avg = (s.originality + s.brandFit + s.quality + s.commercial) / 4;
