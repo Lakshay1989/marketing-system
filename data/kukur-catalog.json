@@ -1724,6 +1724,42 @@
    ],
    "category": "food",
    "new": true
+  },
+  {
+   "slug": "plush-donut-toys",
+   "name": "Plush Donut Squeaker Toys",
+   "price": "299.00",
+   "desc": "Soft round plush donuts with a squeaker, in chocolate, pink, strawberry and blue frosting.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "toys",
+   "new": true
+  },
+  {
+   "slug": "plush-goose-toys",
+   "name": "Squeaky Plush Goose and Duck Toys",
+   "price": "299.00",
+   "desc": "Long-neck plush geese and ducks with crinkly wings and a squeaker, in green, yellow and white.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "toys",
+   "new": true
+  },
+  {
+   "slug": "plush-monster-toys",
+   "name": "Plush Monster Toys",
+   "price": "299.00",
+   "desc": "Cheerful plush monsters with a squeaker, in lime, orange, black and bright prints.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "toys",
+   "new": true
   }
  ],
  "boxes": [
