@@ -35,7 +35,11 @@ if (problems.length) throw new Error("page errors: " + problems.slice(0, 3).join
 const scoreSpec = path.join(outDir, "score.json"), wav = path.join(outDir, "score.wav"), norm = path.join(outDir, "score-norm.wav");
 fs.writeFileSync(scoreSpec, JSON.stringify({ dur: info.dur, bpm: spec.bpm, key: spec.key ?? "C", sections: info.sections, seed: spec.seed ?? 7 }));
 run("python3", ["production/score.py", "--spec", scoreSpec, wav]);
-run("ffmpeg", ["-y", "-loglevel", "error", "-i", wav, "-af", "loudnorm=I=-15:TP=-3:LRA=9,alimiter=limit=0.71:level=false:attack=2:release=40", "-ar", "44100", "-c:a", "pcm_s24le", norm]);
+// Two-pass loudness: measure first, then apply linear gain so sparse scores (few hits) still land near -15 LUFS.
+const meas = spawnSync("ffmpeg", ["-nostats", "-i", wav, "-af", "loudnorm=I=-15:TP=-3:LRA=9:print_format=json", "-f", "null", "-"], { encoding: "utf8" });
+const mj = (() => { try { return JSON.parse(meas.stderr.slice(meas.stderr.lastIndexOf("{"), meas.stderr.lastIndexOf("}") + 1)); } catch { return null; } })();
+const ln = mj && Number.isFinite(Number(mj.input_i)) ? `loudnorm=I=-15:TP=-3:LRA=9:measured_I=${mj.input_i}:measured_TP=${mj.input_tp}:measured_LRA=${mj.input_lra}:measured_thresh=${mj.input_thresh}:offset=${mj.target_offset}:linear=true` : "loudnorm=I=-15:TP=-3:LRA=9";
+run("ffmpeg", ["-y", "-loglevel", "error", "-i", wav, "-af", ln + ",alimiter=limit=0.71:level=false:attack=2:release=40", "-ar", "44100", "-c:a", "pcm_s24le", norm]);
 const master = path.join(outDir, "master.mp4"), up = path.join(outDir, "reel.mp4");
 run("ffmpeg", ["-y", "-loglevel", "error", "-framerate", String(FPS), "-i", `${frames}/f%04d.jpg`, "-i", norm, "-map", "0:v", "-map", "1:a", "-c:v", "libx264", "-preset", "slow", "-crf", "17",
   "-vf", "scale=in_range=full:out_range=limited,unsharp=3:3:0.35:3:3:0.0,format=yuv420p", "-colorspace", "bt709", "-color_primaries", "bt709", "-color_trc", "bt709", "-c:a", "aac", "-b:a", "160k", "-shortest", "-movflags", "+faststart", master]);
