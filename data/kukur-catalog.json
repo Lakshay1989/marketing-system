@@ -1251,8 +1251,7 @@
    "species": [
     "cat"
    ],
-   "category": "litter",
-   "new": true
+   "category": "litter"
   },
   {
    "slug": "steel-litter-sifter-set",
@@ -1263,8 +1262,7 @@
    "species": [
     "cat"
    ],
-   "category": "litter",
-   "new": true
+   "category": "litter"
   },
   {
    "slug": "hooded-litter-house",
@@ -1275,8 +1273,7 @@
    "species": [
     "cat"
    ],
-   "category": "litter",
-   "new": true
+   "category": "litter"
   },
   {
    "slug": "dome-litter-house",
@@ -1287,8 +1284,7 @@
    "species": [
     "cat"
    ],
-   "category": "litter",
-   "new": true
+   "category": "litter"
   },
   {
    "slug": "cat-charm-collar",
@@ -1299,8 +1295,7 @@
    "species": [
     "cat"
    ],
-   "category": "collars",
-   "new": true
+   "category": "collars"
   },
   {
    "slug": "cat-bow-flower-collar",
@@ -1311,8 +1306,7 @@
    "species": [
     "cat"
    ],
-   "category": "collars",
-   "new": true
+   "category": "collars"
   },
   {
    "slug": "cat-tracker-holder-collar",
@@ -1323,8 +1317,7 @@
    "species": [
     "cat"
    ],
-   "category": "collars",
-   "new": true
+   "category": "collars"
   },
   {
    "slug": "small-dog-vest-harness-set",
@@ -1335,8 +1328,7 @@
    "species": [
     "dog"
    ],
-   "category": "harnesses",
-   "new": true
+   "category": "harnesses"
   },
   {
    "slug": "plush-fish-cat-toy",
@@ -1347,8 +1339,7 @@
    "species": [
     "cat"
    ],
-   "category": "toys",
-   "new": true
+   "category": "toys"
   },
   {
    "slug": "donut-round-pet-bed",
@@ -1360,8 +1351,7 @@
     "dog",
     "cat"
    ],
-   "category": "beds",
-   "new": true
+   "category": "beds"
   },
   {
    "slug": "pet-steps",
@@ -1373,8 +1363,7 @@
     "dog",
     "cat"
    ],
-   "category": "beds",
-   "new": true
+   "category": "beds"
   },
   {
    "slug": "cooling-pet-mat",
@@ -1386,8 +1375,7 @@
     "dog",
     "cat"
    ],
-   "category": "beds",
-   "new": true
+   "category": "beds"
   },
   {
    "slug": "pet-tent-bed",
@@ -1399,8 +1387,7 @@
     "dog",
     "cat"
    ],
-   "category": "beds",
-   "new": true
+   "category": "beds"
   },
   {
    "slug": "steel-pet-bowl",
@@ -1412,8 +1399,7 @@
     "dog",
     "cat"
    ],
-   "category": "bowls",
-   "new": true
+   "category": "bowls"
   },
   {
    "slug": "undercoat-rake-comb",
@@ -1425,8 +1411,7 @@
     "dog",
     "cat"
    ],
-   "category": "brushes",
-   "new": true
+   "category": "brushes"
   },
   {
    "slug": "rubber-flying-ring-toy",
@@ -1437,7 +1422,307 @@
    "species": [
     "dog"
    ],
+   "category": "toys"
+  },
+  {
+   "slug": "soft-pet-sling-carrier",
+   "name": "Soft Pet Sling Carrier",
+   "price": "499.00",
+   "desc": "A padded shoulder carrier with a cosy opening for small dogs and cats on short trips, in solid and printed fabrics.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "travel",
+   "new": true
+  },
+  {
+   "slug": "foldable-pet-house-bed",
+   "name": "Foldable Pet House Bed",
+   "price": "699.00",
+   "desc": "A soft house-shaped bed with a roof and a washable cushion that folds flat when not in use, in printed and solid designs.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "beds",
+   "new": true
+  },
+  {
+   "slug": "cube-pet-cave-bed",
+   "name": "Cube Cave Pet Bed",
+   "price": "599.00",
+   "desc": "A square cave bed with a round entrance and a plush cushion inside, for cats and small dogs who like a private corner.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "beds",
+   "new": true
+  },
+  {
+   "slug": "cozy-hut-pet-bed",
+   "name": "Cosy Hut Pet Bed",
+   "price": "599.00",
+   "desc": "A soft tent-style hut with a plush cushion, in checks, florals, solid colours and a strawberry shape, for cats and small dogs.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "beds",
+   "new": true
+  },
+  {
+   "slug": "plush-rectangle-pet-bed",
+   "name": "Plush Rectangle Pet Bed with Raised Sides",
+   "price": "699.00",
+   "desc": "A rectangular bed with a soft cushion and raised sides to lean on, in sizes from small to large.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "beds",
+   "new": true
+  },
+  {
+   "slug": "folding-wire-dog-crate",
+   "name": "Folding Wire Dog Crate",
+   "price": "1499.00",
+   "desc": "A foldable metal crate with a door and a removable tray, in several sizes, for use at home.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "travel",
+   "new": true
+  },
+  {
+   "slug": "raised-cot-pet-bed",
+   "name": "Raised Cot Pet Bed",
+   "price": "799.00",
+   "desc": "A foldable raised bed with a breathable cover on a steel frame, for balconies, gardens and living rooms.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "beds",
+   "new": true
+  },
+  {
+   "slug": "double-bowl-with-water-bottle",
+   "name": "Double Bowl with Water Bottle",
+   "price": "399.00",
+   "desc": "A stand with a stainless steel food bowl and a refilling water bottle that tops up a second bowl, in pastel colours.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "bowls",
+   "new": true
+  },
+  {
+   "slug": "hanging-steel-cage-bowl",
+   "name": "Hanging Steel Cage Bowl",
+   "price": "299.00",
+   "desc": "A stainless steel bowl with a clip-on holder that hangs on a crate or cage door.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "bowls",
+   "new": true
+  },
+  {
+   "slug": "gravity-feeder-waterer",
+   "name": "Gravity Feeder and Waterer",
+   "price": "499.00",
+   "desc": "A refillable gravity feeder or water dispenser with a clear tank, in single and double styles.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "bowls",
+   "new": true
+  },
+  {
+   "slug": "raised-double-bowl",
+   "name": "Raised Double Bowl on Stand",
+   "price": "499.00",
+   "desc": "Two bowls on a low raised stand, with plastic or removable stainless steel bowls.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "bowls",
+   "new": true
+  },
+  {
+   "slug": "pet-massage-glove",
+   "name": "Pet Grooming Massage Glove and Brush",
+   "price": "299.00",
+   "desc": "A soft rubber glove and a hand brush that lift loose hair during stroking and bath time.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "brushes",
+   "new": true
+  },
+  {
+   "slug": "fleece-pet-blanket",
+   "name": "Soft Fleece Pet Blanket",
+   "price": "299.00",
+   "desc": "A soft fleece blanket in plain and printed designs, for beds, sofas and car seats.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "beds",
+   "new": true
+  },
+  {
+   "slug": "nylon-chew-bone",
+   "name": "Chew Bone",
+   "price": "299.00",
+   "desc": "A hard-wearing chew bone in bone, wishbone and T shapes, for supervised chewing.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
    "category": "toys",
+   "new": true
+  },
+  {
+   "slug": "spiky-rubber-chew-toys",
+   "name": "Spiky Rubber Chew Toys",
+   "price": "299.00",
+   "desc": "Bendy spiky rubber bones, rings and rollers in bright colours, for chewing and play.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "toys",
+   "new": true
+  },
+  {
+   "slug": "rope-handle-rubber-toy",
+   "name": "Rubber Fetch Toy with Rope Handle",
+   "price": "299.00",
+   "desc": "A rubber ball, stick or bone with a rope loop for throwing and tug games, in bright colours.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "toys",
+   "new": true
+  },
+  {
+   "slug": "rope-leash-soft-grip",
+   "name": "Rope Leash with Soft Grip",
+   "price": "299.00",
+   "desc": "A round rope leash with a soft padded handle and a metal clip, in bright and pastel colours.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "leashes",
+   "new": true
+  },
+  {
+   "slug": "freeze-dried-treats-200g",
+   "name": "Freeze-Dried Treats 200 g",
+   "price": "399.00",
+   "desc": "Crunchy freeze-dried meat treats in shaped bites, 200 g per pack, in three flavours. A treat, not a complete meal.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog",
+    "cat"
+   ],
+   "category": "food",
+   "new": true
+  },
+  {
+   "slug": "wet-cat-food-cups-6x50g",
+   "name": "Wet Cat Food Cups, 6 x 50 g",
+   "price": "399.00",
+   "desc": "Soft wet food in easy-open 50 g cups, six per pack, in beef, chicken and salmon flavours.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "food",
+   "new": true
+  },
+  {
+   "slug": "creamy-lickable-treats",
+   "name": "Creamy Lickable Treats, 6 Sticks",
+   "price": "399.00",
+   "desc": "Smooth meat-and-krill purée in squeeze sticks that cats lick straight from the pack. A treat, not a complete meal.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "food",
+   "new": true
+  },
+  {
+   "slug": "cat-kibble-1-5kg",
+   "name": "Cat Dry Food 1.5 kg",
+   "price": "699.00",
+   "desc": "A chicken-flavour dry food for kittens and adult cats, in a 1.5 kg bag.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "food",
+   "new": true
+  },
+  {
+   "slug": "dog-kibble-1-5kg",
+   "name": "Adult Dog Dry Food 1.5 kg",
+   "price": "599.00",
+   "desc": "A beef-flavour dry food for adult dogs, in a 1.5 kg bag.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "food",
+   "new": true
+  },
+  {
+   "slug": "complete-cat-food-2kg",
+   "name": "Complete Cat Food 2 kg, Salmon and Chicken",
+   "price": "899.00",
+   "desc": "A salmon-and-chicken dry food for cats, in a 2 kg bag that includes 200 g of freeze-dried chicken.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "cat"
+   ],
+   "category": "food",
+   "new": true
+  },
+  {
+   "slug": "complete-dog-food-2kg",
+   "name": "Complete Dog Food 2 kg, Quail and Beef",
+   "price": "899.00",
+   "desc": "A quail-and-beef dry food for dogs, in a 2 kg bag that includes 100 g of chicken pieces.",
+   "avail": "https://schema.org/PreOrder",
+   "species": [
+    "dog"
+   ],
+   "category": "food",
    "new": true
   }
  ],
